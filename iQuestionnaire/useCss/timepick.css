@@ -1,0 +1,240 @@
+﻿/*本體區塊*/
+.TimePick {
+    position: relative;
+    display: inline-block;
+    line-height: 30px;
+}
+
+    /* 將默認的 select 樣式清除，可以利用背景圖片賦予下拉箭頭的樣子 */
+    .TimePick select {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
+
+        /* 清除 ie 的默認選擇框樣式清除，隱藏下拉箭頭*/
+        .TimePick select::-ms-expand {
+            display: none;
+        }
+
+    /*時間選擇器樣式*/
+    .TimePick .TimePickSelect {
+        zoom: 1;
+        text-align: left;
+        width: 300px;
+        z-index: 4950;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #d3d3d3;
+        /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);*/
+        box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+        border-radius: 0 5px 5px 5px;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+    }
+
+    .TimePick .TimePickHeader {
+        color: #fff;
+        text-align: center;
+        background-color: #0098a1;
+        font-weight: bold;
+        padding: 0 2px 2px 2px;
+    }
+
+    .TimePick .TimePickTitle {
+        cursor: default;
+        padding: 5px;
+        position: relative;
+    }
+
+        .TimePick .TimePickTitle select {
+            cursor: pointer;
+            font-family: '微軟正黑體';
+            border: 0;
+            outline: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: rgba(0, 0, 0, 0);
+            opacity: 1;
+        }
+
+@media screen and (min-width: 1025px) {
+    .TimePick .TimePickTitle select:hover {
+        opacity: 0.8;
+    }
+}
+
+.TimePick .TimePickPrevArrow {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #fff;
+    padding: 0 5px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.TimePick .TimePickNextArrow {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #fff;
+    padding: 0 5px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+@media screen and (min-width: 1025px) {
+    .TimePick .TimePickPrevArrow:hover,
+    .TimePick .TimePickNextArrow:hover {
+        opacity: 1;
+    }
+}
+
+.TimePick .TimePickPrevArrow:active,
+.TimePick .TimePickNextArrow:active {
+    opacity: 0.5;
+}
+
+.TimePick .TimePickSelect .TimePickTable {
+    font-weight: normal;
+    font-size: 12px;
+    box-shadow: none;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    .TimePick .TimePickSelect .TimePickTable tr:first-child {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .TimePick .TimePickSelect .TimePickTable tr td {
+        background-color: rgba(0, 0, 0, 0);
+        border: 0;
+        padding: 0;
+        text-align: center;
+        word-break: break-all;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+    }
+
+        .TimePick .TimePickSelect .TimePickTable tr td .TimePickTableTitle {
+            color: #fff;
+            cursor: default;
+            display: inline-block;
+            opacity: 0.8;
+            line-height: 20px;
+        }
+
+        .TimePick .TimePickSelect .TimePickTable tr td .TimePickTableSpan {
+            display: inline-block;
+            cursor: pointer;
+            width: 36px;
+            line-height: 24px;
+            margin: 0 0 5px 0;
+            border-radius: 3px;
+        }
+
+@media screen and (min-width: 1025px) {
+    .TimePick .TimePickSelect .TimePickTable tr td .TimePickTableSpan:hover {
+        background-color: #f1f1f1;
+    }
+}
+
+.TimePick .TimePickSelect .TimePickTable tr td .TimePickTableFalse {
+    color: #bbb;
+}
+
+.TimePick .TimePickSelect .TimePickTable tr td .TimePickTableSelect {
+    cursor: default;
+    color: #fff;
+    background-color: #0098a1;
+}
+
+@media screen and (min-width: 1025px) {
+    .TimePick .TimePickSelect .TimePickTable tr td .TimePickTableSelect:hover {
+        cursor: default;
+        color: #fff;
+        background-color: #0098a1;
+    }
+}
+
+.TimePick .TimePickSelect .TimePickTable tr td .TimePickTableToday {
+    box-shadow: 0 0 0 1px #d3d3d3 inset;
+}
+
+.TimePick .TimePickSelect .TimePickTable tr td .TimePickTableDisabled {
+    cursor: default;
+    color: #808080;
+    background-color: #ccc;
+}
+
+    .TimePick .TimePickSelect .TimePickTable tr td .TimePickTableDisabled:hover {
+        cursor: default;
+        color: #808080;
+        background-color: #ccc;
+    }
+
+.TimePick .TimePickDateBox {
+    font-size: 0;
+    text-align: center;
+    padding: 5px 2px 0 2px;
+    /*background-color: #f00;*/
+}
+
+.TimePick .TimePickTimeBox {
+    text-align: center;
+    font-size: 14px;
+    padding: 5px 0;
+    border-top: 1px dashed #d3d3d3;
+}
+
+    .TimePick .TimePickTimeBox select {
+        cursor: pointer;
+        font-family: '微軟正黑體';
+        border: 0;
+        padding: 2px 4px;
+        outline: none;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+@media screen and (min-width: 1025px) {
+    .TimePick .TimePickTimeBox select:hover {
+        color: #ff6a00;
+    }
+}
+
+.TimePick option {
+    font-family: '微軟正黑體';
+    color: #000;
+}
+
+.TimePick .TimePickWork {
+    text-align: right;
+    padding: 5px;
+    border-top: 1px dashed #d3d3d3;
+}
+
+    .TimePick .TimePickWork .button {
+        color: #505050;
+        background-color: #f5f5f5;
+    }
+
+        .TimePick .TimePickWork .button:last-child {
+            color: #fff;
+            background-color: #0098a1;
+        }
+
+/*手機板專用*/
+.TimePick .TimePickSelect_Phone {
+    zoom: 1;
+    width: 300px;
+    position: fixed;
+    border-radius: 5px;
+    top: 10px;
+    left: 50%;
+    margin: 0 0 0 -150px;
+    z-index: 9000;
+    line-height: initial;
+}

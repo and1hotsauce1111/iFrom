@@ -1,0 +1,498 @@
+﻿/*
+    可與舊版本並存
+
+    基本用法
+    <table class="table">
+        <tr>
+            <th>標題</th>
+        </tr>
+        <tr class="trHover">
+            <td>內容</td>
+        </tr>
+    </table>
+
+    使用擴充樣式 (外層增加 div 覆蓋)
+    <div class="table_shadow table_shadowNoLine">
+        <table class="table">
+            <tr>
+                <th>標題</th>
+            </tr>
+            <tr class="trHover">
+                <td>內容</td>
+            </tr>
+        </table>
+    </div>
+
+
+
+    ※ Table擴充樣式 (外層div的class)
+
+    .table_shadow  陰影線風格(優點不會跑格式、不會缺線 / 缺點只能為方形表格、若不為方形會缺線)
+
+        ◎延伸樣式：.table_shadowVerticalLine    僅顯示垂直框線
+                    .table_shadowHorizontalLine  僅顯示水平框線
+                    .table_shadowNoLine          去除框線
+                    .table_zebra                 斑馬線樣式
+                    .table_shadowBlue            改變風格 藍色
+                    .table_shadowRed             改變風格 紅色
+                    .table_shadowYellow          改變風格 黃色
+                    .table_shadowGreen           改變風格 綠色
+                    .table_shadowMiku            改變風格 初音綠
+                    .table_shadowSky             改變風格 天空藍
+                    .table_shadowPeach           改變風格 桃紫色
+                    .table_shadowIron            改變風格 鐵灰色
+    
+
+    
+    ※ 水平對齊
+
+    .textL  靠左
+    .textC  置中
+    .textR  靠右
+
+
+
+    ※ 垂直對齊
+
+    .vertT  靠上
+    .vertM  置中
+    .vertB  靠下
+
+
+
+    ※ 其他設定項目
+
+    .font0        文字大小歸零
+    .table_child  子層樣式(table 的 class，在 table 中要放置子層 table 使用)
+    .table_clear  清除樣式(僅保留外框線及寬100%)
+
+
+*/
+
+
+
+/*全域配置*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    table tr th,
+    table tr td {
+        padding: 0;
+        word-break: break-all;
+    }
+
+/*表格宣告*/
+.table {
+    width: 100%;
+}
+
+    .table tr th,
+    .table tr td {
+        padding: 5px;
+        height: 30px;
+        border: 1px solid #d3d3d3;
+    }
+
+    .table tr th {
+        background-color: #f5f5f5;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*陰影線風格*/
+.table_shadow {
+    /*overflow: hidden;*/
+    /*border-radius: 0 0 3px 3px;*/
+    box-shadow: 0 0 0 1px #d3d3d3;
+}
+
+    .table_shadow tr th,
+    .table_shadow tr td {
+        border: 0;
+        box-shadow: 0 -1px 0 0 #d3d3d3 inset,-1px 0 0 0 #d3d3d3 inset;
+    }
+
+        .table_shadow tr th:last-child,
+        .table_shadow tr td:last-child {
+            box-shadow: 0 -1px 0 0 #d3d3d3 inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+        }
+
+    .table_shadow tr:last-child th,
+    .table_shadow tr:last-child td {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,-1px 0 0 0 #d3d3d3 inset;
+    }
+
+        .table_shadow tr:last-child th:last-child,
+        .table_shadow tr:last-child td:last-child {
+            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+        }
+
+.table_zebra tr th {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.table_zebra tr:first-child th {
+    background-color: #f5f5f5;
+}
+
+.table_zebra tr:nth-child(odd) th,
+.table_zebra tr:nth-child(odd) td {
+    background-color: #fafafa;
+}
+
+/*陰影線風格(僅顯示垂直框線)*/
+.table_shadowVerticalLine tr th,
+.table_shadowVerticalLine tr td {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,-1px 0 0 0 #d3d3d3 inset;
+}
+
+    .table_shadowVerticalLine tr th:last-child,
+    .table_shadowVerticalLine tr td:last-child {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+    }
+
+/*陰影線風格(僅顯示水平框線)*/
+.table_shadowHorizontalLine tr th,
+.table_shadowHorizontalLine tr td {
+    box-shadow: 0 -1px 0 0 #d3d3d3 inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+}
+
+.table_shadowHorizontalLine tr:last-child th,
+.table_shadowHorizontalLine tr:last-child td {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+}
+
+/*陰影線風格(去除框線)*/
+.table_shadowNoLine tr th,
+.table_shadowNoLine tr td,
+.table_shadowNoLine tr th:last-child,
+.table_shadowNoLine tr td:last-child,
+.table_shadowNoLine tr:last-child th,
+.table_shadowNoLine tr:last-child td {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+}
+
+/*陰影線風格(改變風格 藍色)*/
+.table_shadowBlue {
+    border-top: 2px solid #2185cf;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowBlue tr th {
+        color: #2185cf;
+    }
+
+/*陰影線風格(改變風格 初音綠)*/
+.table_shadowMiku {
+    border-top: 2px solid #0098a1;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowMiku tr th {
+        color: #0098a1;
+    }
+
+/*陰影線風格(改變風格 黃色)*/
+.table_shadowYellow {
+    border-top: 2px solid #f6a800;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowYellow tr th {
+        color: #f6a800;
+    }
+
+/*陰影線風格(改變風格 紅色)*/
+.table_shadowRed {
+    border-top: 2px solid #e53534;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowRed tr th {
+        color: #e53534;
+    }
+
+/*陰影線風格(改變風格 綠色)*/
+.table_shadowGreen {
+    border-top: 2px solid #009149;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowGreen tr th {
+        color: #009149;
+    }
+
+/*陰影線風格(改變風格 天空藍)*/
+.table_shadowSky {
+    border-top: 2px solid #0094ff;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowSky tr th {
+        color: #0094ff;
+    }
+
+/*陰影線風格(改變風格 桃紫色)*/
+.table_shadowPeach {
+    border-top: 2px solid #a5027c;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowPeach tr th {
+        color: #a5027c;
+    }
+
+/*陰影線風格(改變風格 鐵灰色)*/
+.table_shadowIron {
+    border-top: 2px solid #3e3e3e;
+    border-radius: 0 0 5px 5px;
+}
+
+    .table_shadowIron tr th {
+        color: #3e3e3e;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*水平對齊指令*/
+.table .textL {
+    text-align: left;
+}
+
+.table .textC {
+    text-align: center;
+}
+
+.table .textR {
+    text-align: right;
+}
+
+/*垂直對齊指令*/
+.table .vertT {
+    vertical-align: top;
+}
+
+.table .vertM {
+    vertical-align: middle;
+}
+
+.table .vertB {
+    vertical-align: bottom;
+}
+
+/*註銷表格內文字大小*/
+.table .font0 {
+    font-size: 0;
+}
+
+/*表格中的表格 子層樣式*/
+.table .table_child {
+    width: 100%;
+}
+
+    .table .table_child tr th,
+    .table .table_child tr td {
+        border: 1px solid #d3d3d3;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+    }
+
+/*清除樣式*/
+.table .table_clear tr th {
+    text-align: center;
+}
+
+.table .table_clear tr th,
+.table .table_clear tr td {
+    padding: 0;
+    height: initial;
+    background-color: rgba(0, 0, 0, 0);
+    color: #505050;
+    border: 0;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*在 table 裡面的 輸入欄位隱藏底線*/
+.table input[type=text],
+.table input[type=password] {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    transition: linear 0.2s;
+}
+
+.table textarea {
+    border: 0;
+    position: relative;
+    left: -1px;
+}
+
+/*在 table 裡面的 textarea 關注時 要顯示外框線 */
+.table textarea {
+    border: 1px solid rgba(0, 0, 0, 0);
+}
+
+/*懸停樣式*/
+@media screen and (min-width: 1025px) {
+    /*.table .trHover:hover th,*/
+    .table .trHover:hover td {
+        background-color: #fffce7;
+    }
+
+    .table input[type=text]:hover,
+    .table input[type=password]:hover {
+        border-bottom: 1px solid #d3d3d3;
+    }
+
+    .table textarea:hover {
+        border: 1px solid #d3d3d3;
+    }
+}
+
+.table input[type=text]:focus,
+.table input[type=password]:focus {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.table textarea:focus {
+    border: 1px solid #0094ff;
+}
+
+
+
+
+
+
+
+/*線性表格*/
+.table-line {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+    .table-line tr th,
+    .table-line tr td {
+        height: 1px;
+        border-bottom: 1px solid #d3d3d3;
+    }
+
+    .table-line tr th {
+        padding: 0 10px 0 0;
+        text-align: left;
+        color: #0072c4;
+        vertical-align: bottom;
+    }
+
+    .table-line tr td {
+        padding: 10px 10px 10px 0;
+        vertical-align: middle;
+    }
+
+        .table-line tr th:last-child,
+        .table-line tr td:last-child {
+            padding-right: 0;
+        }
+
+    .table-line tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .table-line tr th .table2title {
+        color: #0072c4;
+        border-bottom: 2px solid #0072c4;
+        padding: 5px 0;
+        display: inline-block;
+        position: relative;
+        top: 1px;
+    }
+
+    /*水平對齊指令*/
+    .table-line .textL {
+        text-align: left;
+    }
+
+    .table-line .textC {
+        text-align: center;
+    }
+
+    .table-line .textR {
+        text-align: right;
+    }
+
+    /*垂直對齊指令*/
+    .table-line .vertT {
+        vertical-align: top;
+    }
+
+    .table-line .vertM {
+        vertical-align: middle;
+    }
+
+    .table-line .vertB {
+        vertical-align: bottom;
+    }
+
+    /*註銷表格內文字大小*/
+    .table-line .font0 {
+        font-size: 0;
+    }
+
+    /*內距調整 10px*/
+    .table-line .padding-10 {
+        padding: 10px;
+    }
+
+    /*指示連結手勢*/
+    .table-line .trPointer td {
+        cursor: pointer;
+    }
+
+/*懸停樣式*/
+@media screen and (min-width: 1025px) {
+}
+
+.table-line .trHover:hover td {
+    background-color: #fffce7;
+}
+
+/*點擊樣式*/
+.table-line .trHover:active td {
+    background-color: rgba(0, 0, 0, 0);
+}

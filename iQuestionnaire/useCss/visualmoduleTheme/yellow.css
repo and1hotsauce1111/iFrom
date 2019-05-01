@@ -1,0 +1,26 @@
+﻿#HeaderBoxInset {
+    background-color: #e59202;
+}
+
+#DeputyBoxInset .DeputyBoxBtnSelect {
+    border-bottom: 4px solid #e59202;
+}
+
+@media screen and (min-width: 1025px) {
+    #DeputyBoxInset .DeputyBoxBtnSelect:hover {
+        border-bottom: 4px solid #e59202;
+    }
+}
+
+#LeftMenuInset .LeftMenuBtnSelect {
+    border-left: 3px solid #e59202;
+}
+
+#LeftMenuInset .LeftMenuGroupTitle {
+    color: #e59202;
+}
+
+#ContentBoxInset .ContentBoxHeaderText {
+    color: #e59202;
+    border-bottom: 1px solid #e59202;
+}

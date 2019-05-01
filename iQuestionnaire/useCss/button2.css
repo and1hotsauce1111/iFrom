@@ -1,0 +1,762 @@
+﻿/*
+    會衝突舊版本
+
+    宣告按鈕   button         (button_o)           [button_l]
+               傳統           (框線)               [底線]
+                                                   
+    透明                                           [btn_space_l]
+    白色       btn_white      (btn_white_o)        
+    藍色       btn_blue       (btn_blue_o)         
+    天空藍     btn_sky        (btn_sky_o)          [btn_sky_l]
+    綠色       btn_green      (btn_green_o)
+    初音綠     btn_miku       (btn_miku_o)
+    墨綠       btn_darkgreen  (btn_darkgreen_o)
+    黃色       btn_yellow     (btn_yellow_o)
+    紅色       btn_red        (btn_red_o)
+    紫色       btn_purple     (btn_purple_o)
+    鐵灰色     btn_iron       (btn_iron_o)
+    桃紫色     btn_peach      (btn_peach_o)
+    橘色       btn_orange     (btn_orange_o)
+    粉紅色     btn_pink       (btn_pink_o)
+
+    尺寸縮小   btn_s
+    尺寸放大   btn_lg
+
+    範例： <button type="button" class="button btn_blue">按鈕</button>
+           <button type="button" class="button_o btn_blue_o btn_s">按鈕</button>
+           <a href="" class="button btn_miku btn_lg">連結按鈕</a>
+
+*/
+
+button {
+    font-family: '微軟正黑體修正','微軟正黑體';
+    margin: 0;
+}
+
+/*傳統*/
+.button {
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    /*outline: none;*/
+    position: relative;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 1025px) {
+    .button:hover::after {
+        content: '';
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+.button:active::after {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/*框線*/
+.button_o {
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 1025px) {
+    .button_o:hover::after {
+        content: '';
+        top: 0;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .button_o:active::after {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/*底線*/
+.button_l {
+    border: 0;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 5px 10px;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+    .button_l i {
+        color: #0094ff;
+    }
+
+@media screen and (min-width: 1025px) {
+    .button_l:hover {
+        color: #ff6a00;
+    }
+
+        .button_l:hover i {
+            color: #0072c4;
+        }
+}
+
+a.button_l:link,
+a.button_l:visited,
+a.button_l:active {
+    color: initial;
+}
+
+@media screen and (min-width: 1025px) {
+    a.button_l:hover {
+        color: #ff6a00;
+    }
+}
+
+.btn_s {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 2px;
+}
+
+.btn_lg {
+    font-size: 20px;
+    padding: 7px 12px;
+}
+
+/*底線專用*/
+.button_l {
+    padding: 3px;
+}
+
+/*透明 btn_space*/
+.btn_space_l {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_space_l:hover {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+/*白色 btn_white*/
+.btn_white {
+    color: #505050;
+    background-color: #f5f5f5;
+}
+
+.btn_white_o {
+    color: #505050;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_white_o:hover {
+        color: #505050;
+        background-color: #f5f5f5;
+    }
+}
+
+a.btn_white:link,
+a.btn_white:visited {
+    color: #505050;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_white:active,
+    a.btn_white:hover {
+        color: #505050;
+    }
+}
+
+a.btn_white_o:link,
+a.btn_white_o:visited {
+    color: #505050;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_white_o:hover,
+    a.btn_white_o:active {
+        color: #505050;
+    }
+}
+
+/*藍色 btn_blue*/
+.btn_blue {
+    color: #fff;
+    background-color: #0a6bb9;
+}
+
+.btn_blue_o {
+    color: #0a6bb9;
+    background-color: #fff;
+    border: 1px solid #0a6bb9;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_blue_o:hover {
+        color: #fff;
+        background-color: #0a6bb9;
+    }
+}
+
+a.btn_blue:link,
+a.btn_blue:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_blue:active,
+    a.btn_blue:hover {
+        color: #fff;
+    }
+}
+
+a.btn_blue_o:link,
+a.btn_blue_o:visited {
+    color: #0a6bb9;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_blue_o:hover,
+    a.btn_blue_o:active {
+        color: #fff;
+    }
+}
+
+/*天空藍 btn_sky*/
+.btn_sky {
+    color: #fff;
+    background-color: #3388ff;
+}
+
+.btn_sky_o {
+    color: #3388ff;
+    background-color: #fff;
+    border: 1px solid #3388ff;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_sky_o:hover {
+        color: #fff;
+        background-color: #3388ff;
+    }
+}
+
+.btn_sky_l {
+    border: 0;
+    border-bottom: 1px solid #d3d3d3;
+    margin: 0 0 1px 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_sky_l:hover {
+        border-bottom: 2px solid #0094ff;
+        margin: 0 0 0 0;
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+a.btn_sky:link,
+a.btn_sky:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_sky:active,
+    a.btn_sky:hover {
+        color: #fff;
+    }
+}
+
+a.btn_sky_o:link,
+a.btn_sky_o:visited {
+    color: #3388ff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_sky_o:hover,
+    a.btn_sky_o:active {
+        color: #fff;
+    }
+}
+
+/*綠色 btn_green*/
+.btn_green {
+    color: #fff;
+    background-color: #009149;
+}
+
+.btn_green_o {
+    color: #009149;
+    background-color: #fff;
+    border: 1px solid #009149;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_green_o:hover {
+        color: #fff;
+        background-color: #009149;
+    }
+}
+
+a.btn_green:link,
+a.btn_green:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_green:active,
+    a.btn_green:hover {
+        color: #fff;
+    }
+}
+
+a.btn_green_o:link,
+a.btn_green_o:visited {
+    color: #009149;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_green_o:hover,
+    a.btn_green_o:active {
+        color: #fff;
+    }
+}
+
+/*初音綠 btn_miku*/
+.btn_miku {
+    color: #fff;
+    background-color: #0098a1;
+}
+
+.btn_miku_o {
+    color: #0098a1;
+    background-color: #fff;
+    border: 1px solid #0098a1;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_miku_o:hover {
+        color: #fff;
+        background-color: #0098a1;
+    }
+}
+
+a.btn_miku:link,
+a.btn_miku:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_miku:active,
+    a.btn_miku:hover {
+        color: #fff;
+    }
+}
+
+a.btn_miku_o:link,
+a.btn_miku_o:visited {
+    color: #0098a1;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_miku_o:hover,
+    a.btn_miku_o:active {
+        color: #fff;
+    }
+}
+
+/*墨綠 btn_darkgreen*/
+.btn_darkgreen {
+    color: #fff;
+    background-color: #2f8966;
+}
+
+.btn_darkgreen_o {
+    color: #2f8966;
+    background-color: #fff;
+    border: 1px solid #2f8966;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_darkgreen_o:hover {
+        color: #fff;
+        background-color: #2f8966;
+    }
+}
+
+a.btn_darkgreen:link,
+a.btn_darkgreen:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_darkgreen:active,
+    a.btn_darkgreen:hover {
+        color: #fff;
+    }
+}
+
+a.btn_darkgreen_o:link,
+a.btn_darkgreen_o:visited {
+    color: #2f8966;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_darkgreen_o:hover,
+    a.btn_darkgreen_o:active {
+        color: #fff;
+    }
+}
+
+/*黃色 btn_yellow*/
+.btn_yellow {
+    color: #fff;
+    background-color: #f6a800;
+}
+
+.btn_yellow_o {
+    color: #f6a800;
+    background-color: #fff;
+    border: 1px solid #f6a800;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_yellow_o:hover {
+        color: #fff;
+        background-color: #f6a800;
+    }
+}
+
+a.btn_yellow:link,
+a.btn_yellow:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_yellow:active,
+    a.btn_yellow:hover {
+        color: #fff;
+    }
+}
+
+a.btn_yellow_o:link,
+a.btn_yellow_o:visited {
+    color: #f6a800;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_yellow_o:hover,
+    a.btn_yellow_o:active {
+        color: #fff;
+    }
+}
+
+/*紅色 btn_red*/
+.btn_red {
+    color: #fff;
+    background-color: #e53534;
+}
+
+.btn_red_o {
+    color: #e53534;
+    background-color: #fff;
+    border: 1px solid #e53534;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_red_o:hover {
+        color: #fff;
+        background-color: #e53534;
+    }
+}
+
+a.btn_red:link,
+a.btn_red:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_red:active,
+    a.btn_red:hover {
+        color: #fff;
+    }
+}
+
+a.btn_red_o:link,
+a.btn_red_o:visited {
+    color: #e53534;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_red_o:hover,
+    a.btn_red_o:active {
+        color: #fff;
+    }
+}
+
+/*紫色 btn_purple*/
+.btn_purple {
+    color: #fff;
+    background-color: #572381;
+}
+
+.btn_purple_o {
+    color: #572381;
+    background-color: #fff;
+    border: 1px solid #572381;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_purple_o:hover {
+        color: #fff;
+        background-color: #572381;
+    }
+}
+
+a.btn_purple:link,
+a.btn_purple:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_purple:active,
+    a.btn_purple:hover {
+        color: #fff;
+    }
+}
+
+a.btn_purple_o:link,
+a.btn_purple_o:visited {
+    color: #572381;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_purple_o:hover,
+    a.btn_purple_o:active {
+        color: #fff;
+    }
+}
+
+/*鐵灰色 btn_iron*/
+.btn_iron {
+    color: #fff;
+    background-color: #3e3e3e;
+}
+
+.btn_iron_o {
+    color: #3e3e3e;
+    background-color: #fff;
+    border: 1px solid #3e3e3e;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_iron_o:hover {
+        color: #fff;
+        background-color: #3e3e3e;
+    }
+}
+
+a.btn_iron:link,
+a.btn_iron:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_iron:active,
+    a.btn_iron:hover {
+        color: #fff;
+    }
+}
+
+a.btn_iron_o:link,
+a.btn_iron_o:visited {
+    color: #3e3e3e;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_iron_o:hover,
+    a.btn_iron_o:active {
+        color: #fff;
+    }
+}
+
+/*桃紅色 btn_peach*/
+.btn_peach {
+    color: #fff;
+    background-color: #a5027c;
+}
+
+.btn_peach_o {
+    color: #a5027c;
+    background-color: #fff;
+    border: 1px solid #a5027c;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_peach_o:hover {
+        color: #fff;
+        background-color: #a5027c;
+    }
+}
+
+a.btn_peach:link,
+a.btn_peach:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_peach:active,
+    a.btn_peach:hover {
+        color: #fff;
+    }
+}
+
+a.btn_peach_o:link,
+a.btn_peach_o:visited {
+    color: #a5027c;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_peach_o:hover,
+    a.btn_peach_o:active {
+        color: #fff;
+    }
+}
+
+/*橘色 btn_orange*/
+.btn_orange {
+    color: #fff;
+    background-color: #ec7405;
+}
+
+.btn_orange_o {
+    color: #ec7405;
+    background-color: #fff;
+    border: 1px solid #ec7405;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_orange_o:hover {
+        color: #fff;
+        background-color: #ec7405;
+    }
+}
+
+a.btn_orange:link,
+a.btn_orange:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_orange:active,
+    a.btn_orange:hover {
+        color: #fff;
+    }
+}
+
+a.btn_orange_o:link,
+a.btn_orange_o:visited {
+    color: #ec7405;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_orange_o:hover,
+    a.btn_orange_o:active {
+        color: #fff;
+    }
+}
+
+/*粉紅色 btn_pink*/
+.btn_pink {
+    color: #fff;
+    background-color: #f3a79f;
+}
+
+.btn_pink_o {
+    color: #f3a79f;
+    background-color: #fff;
+    border: 1px solid #f3a79f;
+}
+
+@media screen and (min-width: 1025px) {
+    .btn_pink_o:hover {
+        color: #fff;
+        background-color: #f3a79f;
+    }
+}
+
+a.btn_pink:link,
+a.btn_pink:visited {
+    color: #fff;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_pink:active,
+    a.btn_pink:hover {
+        color: #fff;
+    }
+}
+
+a.btn_pink_o:link,
+a.btn_pink_o:visited {
+    color: #f3a79f;
+}
+
+@media screen and (min-width: 1025px) {
+    a.btn_pink_o:hover,
+    a.btn_pink_o:active {
+        color: #fff;
+    }
+}
+
+
+.button:disabled {
+    cursor: not-allowed;
+    color: #505050;
+    background-color: #ccc;
+}
+
+@media screen and (min-width: 1025px) {
+    .button:disabled:hover::after {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+.button_o:disabled {
+    cursor: not-allowed;
+    color: #505050;
+    border: 1px solid #bbb;
+    background-color: #ccc;
+}
+
+.button_l:disabled {
+    cursor: not-allowed;
+    color: #ccc;
+}
+
+    .button_l:disabled i {
+        color: #ccc;
+    }
+
+.btn_sky_l:disabled {
+    border-bottom: 1px solid #d3d3d3;
+}

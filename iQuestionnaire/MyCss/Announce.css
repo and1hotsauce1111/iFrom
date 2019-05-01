@@ -1,0 +1,16 @@
+﻿.ContentBoxHeader {
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0098a1;
+    margin-bottom:10px;
+    padding:0px 0px 5px 0px;
+    border-bottom: 2px solid #0098a1;
+}
+.manipulate_btn {
+    display:flex;
+}
+    .manipulate_btn button {
+        margin-right:5px;
+    }

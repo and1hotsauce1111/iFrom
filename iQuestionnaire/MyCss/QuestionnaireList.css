@@ -1,0 +1,171 @@
+﻿.ContentBoxHeader {
+    width: 100%;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
+    color: #0098a1;
+    margin-bottom: 10px;
+    padding: 0px 0px 5px 0px;
+    border-bottom: 2px solid #0098a1;
+}
+
+.search_btn {
+    text-align:right;
+    margin-top:15px;
+}
+
+#listType, #squareType {
+    display: none;
+}
+
+.list_tools {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+.list_tools .change_list i {
+    font-size: 25px;
+    padding: 0px 5px;
+    color: #0098a1;
+}
+    .list_tools .change_list i:hover {
+        cursor: pointer;
+    }
+.question_list_square {
+    padding:2px;
+}
+    .question_list_square ul.question_list_square_list {
+        display:block;
+    }
+
+        .question_list_square ul.question_list_square_list > li {
+            display:inline-block;
+            width: calc((100% - 200px) / 5);
+            padding:0 20px;
+            margin: 10px 0;
+        }
+    .question_list_square .creat_questionnaire {
+        width: 276px;
+        height: 160px;
+        text-align: center;
+        line-height: 160px;
+        border-radius: 2px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 4px 1px #ccc;
+        border: 2px solid transparent;
+    }
+    .question_list_square .creat_questionnaire:hover {
+        cursor: pointer;
+        border: 2px solid #0960A6;
+    }
+
+    .question_list_square .creat_questionnaire span {
+        font-size: 20px;
+        color: #0960A6;
+    }
+
+.question_list_square .show_questionnaire {
+    position:relative;
+    width: 100%;
+    height: 160px;
+    border-radius: 2px;
+    box-shadow: 0px 0px 4px 1px #ccc;
+    box-sizing:border-box;
+}
+    .question_list_square .show_questionnaire .show_questionnaire_content {
+        position:absolute;
+        top:12%;
+        left:12%;
+    }
+    .question_list_square .show_questionnaire .show_questionnaire_tools {
+        opacity: 0;
+        position: absolute;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        top: 10px;
+        right: 5px;
+        transition: linear 0.1s;
+    }
+        .question_list_square .show_questionnaire .show_questionnaire_tools:hover{
+            background-color:#f7f7f7;
+        }
+            .question_list_square .show_questionnaire .show_questionnaire_tools:hover i {
+                color:#bbb;
+            }
+        .question_list_square .show_questionnaire .show_questionnaire_tools i {
+            font-size: 25px;
+            color: #ccc;
+            line-height: 25px;
+            padding: 5px 10px;
+            height: 25px;
+            margin: 0;
+        }
+        .question_list_square .show_questionnaire:hover {
+            cursor: pointer;
+            border: 2px solid #0960A6;
+        }
+            .question_list_square .show_questionnaire:hover > .show_questionnaire_tools {
+                opacity: 1;
+                transition: linear 0.2s;
+            }
+    .question_list_square .show_questionnaire span.questionnaire_name {
+        display: inline-block;
+        padding-top: 10px;
+    }
+    .question_list_square .show_questionnaire i {
+        display: block;
+        text-align: center;
+        font-size: 60px;
+        height: 60px;
+        line-height: 60px;
+        margin-top:20px;
+    }
+    .question_list_square .show_questionnaire .show_questionnaire_tools_options {
+        position:absolute;
+        display:none;
+        border: 1px solid #d3d3d3;
+        box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+        user-select:none;
+        z-index:6000;
+        max-width:130px;
+        padding:5px;
+        border-radius:3px;
+        background-color:#fff;
+        transition:linear 0.1s;
+    }
+        .question_list_square .show_questionnaire .show_questionnaire_tools_options ul.show_questionnaire_tools_options_list {
+            display: block;
+        }
+
+            .question_list_square .show_questionnaire .show_questionnaire_tools_options ul.show_questionnaire_tools_options_list li {
+                width: 100%;
+            }
+
+                .question_list_square .show_questionnaire .show_questionnaire_tools_options ul.show_questionnaire_tools_options_list li:last-child {
+                    margin-bottom: 0;
+                }
+            .question_list_square .show_questionnaire .show_questionnaire_tools_options i {
+                font-size: 18px;
+                line-height: 25px;
+                height: 25px;
+                padding-right: 10px;
+                margin: 0;
+            }
+        .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_edit,
+        .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_copy,
+        .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_delete,
+        .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_close {
+            display: flex;
+            padding: 5px;
+            margin: 10px 0;
+        }
+            .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_close {
+                margin-bottom:0;
+            }
+                .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_edit:hover,
+                .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_copy:hover,
+                .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_delete:hover,
+                .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_close:hover {
+                    background-color: #d3d3d3;
+                }

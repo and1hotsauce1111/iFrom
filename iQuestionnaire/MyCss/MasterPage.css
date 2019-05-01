@@ -1,0 +1,50 @@
+﻿/*文字顏色*/
+gray {
+    color: #ccc;
+}
+
+memo {
+    color: #0094ff;
+}
+
+error {
+    color: #f00;
+}
+
+good {
+    color: #009149;
+}
+
+warning {
+    color: #f6a800;
+}
+
+working i {
+    color: #0094ff;
+}
+
+success i {
+    color: #009149;
+}
+
+/* 麵包屑 */
+
+.breadCrumbs {
+    width:45%;
+    display: flex;
+    line-height: 40px;
+    color: #505050;
+    font-size: 16px;
+    padding-left:30px;
+}
+.breadCrumbs span:nth-child(n+1) {
+    margin-left:5px;
+}
+
+    .breadCrumbs span a,
+    .breadCrumbs span i {
+        color: #aaa;
+    }
+    .breadCrumbs span a:hover {
+        color:#7b7b7b;
+    }

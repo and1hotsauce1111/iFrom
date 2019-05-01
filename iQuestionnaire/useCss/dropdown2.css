@@ -1,0 +1,453 @@
+﻿/*本體區塊*/
+.DropList {
+    position: relative;
+    display: inline-block;
+    line-height: 30px;
+}
+
+    .DropList .DropList_i {
+        padding: 0 2px 0 5px;
+    }
+
+    .DropList button[mod-arrow="left"] {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .DropList button[mod-arrow="right"] {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .DropList .DropList_i_loading {
+        padding: 0;
+    }
+
+    /*下拉選單樣式*/
+    .DropList .DropListSelect {
+        text-align: left;
+        min-width: 210px;
+        max-width: 320px;
+        /*max-height: 205px;*/
+        z-index: 5000;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #d3d3d3;
+        border-radius: 0 5px 5px 5px;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);*/
+        box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    /*搜尋優先模式註解*/
+    .DropList .DropListSearchMemo {
+        font-size: 12px;
+        white-space: nowrap;
+        margin: 5px;
+    }
+
+    /*搜尋列樣式*/
+    .DropList .DropListSearch {
+        text-align: center;
+        margin: 5px;
+        /*padding: 0 0 5px 0;*/
+        border: 1px solid #d3d3d3;
+        border-radius: 0 3px 3px 3px;
+    }
+
+        .DropList .DropListSearch table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+            .DropList .DropListSearch table tr {
+                background-color: rgba(0, 0, 0, 0);
+            }
+
+                .DropList .DropListSearch table tr td {
+                    height: auto;
+                    background-color: rgba(0, 0, 0, 0);
+                    border: 0;
+                    padding: 0;
+                    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) inset,0 0 0 0 rgba(0, 0, 0, 0) inset;
+                }
+
+                    .DropList .DropListSearch table tr td:first-child {
+                        padding: 3px 0 3px 3px;
+                    }
+
+                    .DropList .DropListSearch table tr td:last-child {
+                        padding: 0 3px 0;
+                        width: 24px;
+                    }
+
+                    .DropList .DropListSearch table tr td button {
+                        padding: 3px 2px;
+                        outline: none;
+                        width: 100%;
+                        /*height: 100%;*/
+                        font-size: 16px;
+                    }
+
+                    .DropList .DropListSearch table tr td .DropListSearchInput {
+                        border: 0;
+                        margin: 0;
+                        color: #ff6a00;
+                    }
+
+    /*下拉清單外殼*/
+    .DropList .DropListTarget {
+        max-height: 180px;
+        overflow: auto;
+    }
+
+    /*擴充按鈕模組樣式*/
+    .DropList .DropListPlugin {
+        white-space: nowrap;
+        font-weight: bold;
+        /*text-align: center;*/
+        /*background-color: #f1f1f1;*/
+        margin: 5px;
+        /*padding: 0 0 5px 0;*/
+    }
+
+        .DropList .DropListPlugin button {
+            /*border-radius: 0;*/
+            margin: 0 5px 0 0;
+        }
+
+            .DropList .DropListPlugin button:first-child {
+                /*border-radius: 3px 0 0 3px;*/
+            }
+
+            .DropList .DropListPlugin button:last-child {
+                /*border-radius: 0 3px 3px 0;*/
+                margin: 0;
+            }
+
+    /*當前筆數顯示區塊*/
+    .DropList .DropListNowCount {
+        font-size: 12px;
+        padding: 2px 8px 2px 8px;
+        color: #808080;
+        background-color: #f1f1f1;
+        white-space: nowrap;
+    }
+
+    .DropList .DropListNowCountSelect {
+        color: #000;
+        margin: 0 15px 0 0;
+    }
+
+    .DropList .DropListNowCountSearch {
+        color: #000;
+        margin: 0 15px 0 0;
+    }
+
+    .DropList .DropListNowCountAll {
+        color: #000;
+    }
+
+    /*群組清單樣式*/
+    .DropList .DropListGroupList {
+        display: none;
+    }
+
+    .DropList .DropListGroupListItem {
+        cursor: pointer;
+        font-weight: bold;
+        padding: 2px 8px;
+        white-space: nowrap;
+    }
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListGroupListItem:hover {
+        color: #ff6a00;
+    }
+}
+
+/*群組樣式*/
+.DropList .DropListOptgroup {
+    /*white-space: nowrap;*/
+}
+
+.DropList .DropListOptgroupTitle {
+    cursor: default;
+    font-weight: bold;
+    /*padding: 0 4px;*/
+    padding: 5px;
+    color: #fff;
+}
+
+    .DropList .DropListOptgroupTitle .DropListOptgroupTitleSpan {
+        background-color: #0098a1;
+        padding: 3px 15px 3px 10px;
+        border-radius: 5px 20px 20px 5px;
+    }
+
+/*清單選項樣式*/
+.DropList .DropListOption {
+    cursor: pointer;
+    padding: 2px 8px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+}
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListOption:hover {
+        color: #505050;
+        background-color: #f1f1f1;
+    }
+}
+
+.DropList .DropListOption input[type="radio"],
+.DropList .DropListOption input[type="checkbox"] {
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0 inset;
+    cursor: pointer;
+}
+
+.DropList .DropListOption .label_icon,
+.DropList .DropListOption .label_icon {
+    margin-right: 5px;
+}
+
+.DropList .DropListOption input[type=checkbox] ~ .label_icon::after {
+    top: -9px;
+}
+
+.DropList .DropListOption input[type=checkbox]:checked ~ .label_icon::after {
+    top: -8px;
+}
+
+.DropList .DropListOption_Brick {
+    display: inline-block;
+    margin-right: 3.5px;
+    margin-left: 3.5px;
+    border-radius: 5px;
+}
+
+/*選項被選取時的顏色*/
+.DropList .DropListOptionSelectBG {
+    color: #fff;
+    background-color: #337ab7;
+}
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListOptionSelectBG:hover {
+        color: #fff;
+        background-color: #337ab7;
+    }
+}
+
+/*按鈕關閉使用*/
+.DropList .DropListDisabled {
+    cursor: not-allowed;
+}
+
+    .DropList .DropListDisabled .DropListOption {
+        cursor: not-allowed;
+    }
+
+
+.DropList .DropListOption input[type=radio]:disabled ~ .label_icon::after,
+.DropList .DropListOption input[type=checkbox]:disabled ~ .label_icon::after {
+    top: 0;
+}
+
+.DropList .DropListOption input[type=radio]:disabled ~ .label_icon::before,
+.DropList .DropListOption input[type=checkbox]:disabled ~ .label_icon::before,
+.DropList .DropListOption input[type=radio]:disabled ~ .label_icon::before,
+.DropList .DropListOption input[type=checkbox]:disabled ~ .label_icon::before {
+    font-family: 'FontAwesome';
+    content: '\f05e';
+    font-weight: 900;
+    font-size: 16px;
+    color: #f00;
+    top: -9px;
+    left: 2px;
+    position: absolute;
+}
+
+/*下拉選單樣式 手機專用*/
+.DropList .DropListSelect_Phone {
+    top: 0;
+    left: 0;
+    position: fixed;
+    border-radius: 0;
+    max-width: initial;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    max-height: initial;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    z-index: 9000;
+    /*overflow: auto;*/
+}
+
+    .DropList .DropListSelect_Phone .DropListOption {
+        padding: 8px 8px;
+        border-bottom: 1px dashed #d3d3d3;
+    }
+
+    /*.DropList .DropListSelect_Phone .DropListOption:last-child {
+            border: 0;
+        }*/
+
+    .DropList .DropListSelect_Phone .DropListOptgroupTitle {
+        /*padding: 0 4px;*/
+        padding: 0 8px;
+        background-color: #f1f1f1;
+        line-height: 40px;
+        border-bottom: 1px dashed #d3d3d3;
+    }
+
+    .DropList .DropListSelect_Phone .DropListOptgroup:first-child .DropListOptgroupTitle {
+        border-top: 1px dashed #d3d3d3;
+    }
+
+    .DropList .DropListSelect_Phone .DropListOptgroupTitle .DropListOptgroupTitleSpan {
+        background-color: #f1f1f1;
+        padding: 0;
+        color: #000;
+    }
+
+    .DropList .DropListSelect_Phone .DropListSearch {
+        padding: 5px;
+        border-radius: 3px;
+    }
+
+        .DropList .DropListSelect_Phone .DropListSearch button {
+            padding: 5px 0px;
+        }
+
+    .DropList .DropListSelect_Phone .DropListTarget {
+        /*max-height: initial;
+            overflow: initial;
+            border-radius: 0;*/
+    }
+
+    .DropList .DropListSelect_Phone .DropListGroupListItem {
+        padding: 8px 8px;
+        border-bottom: 1px dashed #d3d3d3;
+    }
+
+        .DropList .DropListSelect_Phone .DropListGroupListItem:first-child {
+            border-top: 1px dashed #d3d3d3;
+        }
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListSelect_Phone .DropListGroupListItem:hover {
+        /*color: #ff6a00;*/
+    }
+}
+
+/*關閉選單按鈕 手機專用*/
+.DropList .DropListClose {
+    cursor: pointer;
+    padding: 8px 0;
+    text-align: center;
+    color: #fff;
+    background-color: #808080;
+    margin: 0 0 5px 0;
+}
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListClose:hover {
+        background-color: #17578e;
+    }
+}
+
+/*下拉選單樣式 清單模式*/
+.DropList .DropListSelect_List {
+    display: inline-block;
+    text-align: left;
+    /*min-width: 125px;
+        max-height: initial;*/
+    z-index: 1;
+    position: inherit;
+    background-color: #fff;
+    border: 1px solid #d3d3d3;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    border-radius: 0;
+    overflow: auto;
+    /*top: 0;
+        left: 0;*/
+}
+
+/*群組選取樣式*/
+.DropList .DropListOptgroupTitleGroupSelect {
+    cursor: pointer;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListOptgroupTitleGroupSelect:hover {
+        background-color: #dfdfdf;
+    }
+}
+
+/*選項被選取時的顏色*/
+.DropList .DropListOptgroupTitleGroupSelectBG {
+    color: #fff;
+    background-color: #1b5b93;
+}
+
+@media screen and (min-width: 1025px) {
+    .DropList .DropListOptgroupTitleGroupSelectBG:hover {
+        color: #fff;
+        background-color: #1b5b93;
+    }
+}
+
+.DropList .DropListSelect_Phone .DropListOptgroupTitleGroupSelectBG {
+    background-color: #1b5b93;
+}
+
+
+/*控制滑動條樣式*/
+
+/* 滑動條 寬度 (必要) */
+.DropList .dropdown_list::-webkit-scrollbar {
+    /*width: 10px;*/
+}
+
+/* 滑動條 背景顏色 */
+.DropList .dropdown_list::-webkit-scrollbar-track {
+    /*margin: 3px 0;*/
+}
+
+/* 滑動條 滑塊樣式 */
+.DropList .dropdown_list::-webkit-scrollbar-thumb {
+    /*background-color: #ccc;
+    border-radius: 2px;*/
+}
+
+@media screen and (min-width: 1025px) {
+    .DropList .dropdown_list::-webkit-scrollbar-thumb:hover {
+        /*background-color: #aaa;*/
+    }
+}
+
+/* 滑動條 兩頭監聽按鈕樣式 */
+.DropList .dropdown_list::-webkit-scrollbar-button {
+    /*width: 0px;
+    height: 0px;*/
+}
+
+/* 橫向滑動條跟縱向滑動條相交處顏色 */
+.DropList .dropdown_list::-webkit-scrollbar-corner {
+    /*background-color: rgba(0, 0, 0, 0);*/
+}

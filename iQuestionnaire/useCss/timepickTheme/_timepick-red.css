@@ -1,0 +1,15 @@
+﻿.TimePick .TimePickHeader {
+    background-color: #e53534;
+}
+
+.TimePick .TimePickSelect .TimePickTable tr td .TimePickTableSelect {
+    background-color: #e53534;
+}
+
+    .TimePick .TimePickSelect .TimePickTable tr td .TimePickTableSelect:hover {
+        background-color: #e53534;
+    }
+
+.TimePick .TimePickWork .button:last-child {
+    background-color: #e53534;
+}

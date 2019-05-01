@@ -1,0 +1,15 @@
+﻿.TimePick .TimePickSelect {
+        zoom: 1.5;
+        text-align: left;
+        width: 300px;
+        z-index: 4950;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #d3d3d3;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        border-radius: 5px 5px 5px 5px;
+        overflow: auto;
+        top: 0;
+        left: 0;
+    }
+

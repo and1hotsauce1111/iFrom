@@ -1,0 +1,104 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterTemplate/MasterPage.master" AutoEventWireup="true" CodeFile="MasterPage_Basic.master.cs" Inherits="MasterPage_Basic" %>
+
+<%@ MasterType VirtualPath="~/MasterTemplate/MasterPage.master" %>
+
+<asp:Content ID="MsBady" ContentPlaceHolderID="PlaceHolderHead1" runat="Server">
+
+    <!--creat專用css跟js-->
+    <style type="text/css">
+    </style>
+    <script type="text/javascript">
+    </script>
+
+    <!-- 子層引用區塊 需修改為 PlaceHolderHead2 -->
+    <asp:ContentPlaceHolder ID="PlaceHolderHead2" runat="server">
+    </asp:ContentPlaceHolder>
+
+</asp:Content>
+
+<asp:Content ID="Bady1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <div id="VisualModule">
+
+        <!--抬頭欄位(ICON、LOGO、登入狀態、搜尋列)-->
+        <div id="HeaderBox">
+            <div id="HeaderBoxInset">
+                <table>
+                    <tr>
+                        <td>
+                            <i class="fa fa-bars HeaderBoxMenuBtn" onclick="LeftMenuViewToggle()"></i>
+                        </td>
+                        <td>
+                            <img class="HeaderBoxLogo" src="<%=ResolveClientUrl("~/Images/Logo.png")%>" />
+                        </td>
+                        <td>
+                            <div class="HeaderBoxUnitsName">
+                                iQuestionnaire
+                                <div class="HeaderBoxUnitsMessage">Public Module 3</div>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!--抬頭副欄位(多用於內頁層子選單選)-->
+         <div id="DeputyBox">
+            <div id="DeputyBoxInset">
+                <div class="breadCrumbs"></div>
+            </div>
+        </div>
+        
+
+        <!--左側主選單-->
+        <div id="LeftMenu">
+            <div id="LeftMenuInset">
+                <%--<a href="Default.aspx" class="LeftMenuBtn" id="default" select-val="Index">
+                    <i class="fa fa-home LeftMenuSpan"></i>
+                    首頁
+                </a>--%>
+                <div style="margin:30px 0px 10px 0;border-bottom:1px dotted #ccc"></div>
+                <a href="Announce.aspx" class="LeftMenuBtn" id="announce" select-val="Announce">
+                    <i class="fa fa-bullhorn LeftMenuSpan"></i>
+                    公告管理
+                </a>
+                <a href="QuestionnaireList.aspx" class="LeftMenuBtn" id="questionnaireList" select-val="QuestionnaireList">
+                    <i class="fa fa-list-alt LeftMenuSpan"></i>
+                    問卷管理
+                </a>
+                <%--<a href="AddQuestionnire.aspx" class="LeftMenuBtn" select-val="AddQuestionnaire">
+                    <i class="fa fa-plus LeftMenuSpan"></i>
+                    新增問卷
+                </a>--%>
+            </div>
+        </div>
+
+        <!--內容區塊(內容放置於 ContentBoxHtml 內部)-->
+        <div id="ContentBox">
+            <div id="ContentBoxInset">
+
+                <!-- 子層內容區塊 需修改為 ContentPlaceHolder2 -->
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </div>
+        </div>
+
+        <!--版權宣告-->
+        <div id="ContentBoxCopyRight">
+            <div id="ContentBoxCopyRightInset">
+                <%--<div style="text-align: center">
+                    相關宣告資訊
+                </div>
+                <hr />--%>
+                <div class="CopyrightDeclareText">
+                    Copyright&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018&nbsp;Jhenggao.&nbsp;All&nbsp;Rights&nbsp;Reserved
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</asp:Content>

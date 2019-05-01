@@ -1,0 +1,634 @@
+﻿@font-face {
+    font-family: '微軟正黑體修正';
+    unicode-range: U+7db0, U+78A7, U+7B75; /* ASCII (碧筵綰) */
+    font-style: normal;
+    font-weight: bold;
+    src: local(MS Gothic);
+}
+
+html {
+    font-size: 16px;
+    font-family: '微軟正黑體修正','微軟正黑體';
+    background-color: #f1f1f1;
+}
+
+/*載入icon字型*/
+/*@font-face {
+    font-family: 'FontAwesome';
+    src: url('../includeCss/font-awesome-4.7.0/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('../includeCss/font-awesome-4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('../includeCss/font-awesome-4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('../includeCss/font-awesome-4.7.0/fonts/fontawesome-webfont.ttf') format('truetype'), url('../includeCss/font-awesome-4.7.0/fonts/FontAwesome.otf') format('opentype'), url('../includeCss/font-awesome-4.7.0/fonts/fontawesome-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+/*Page*/
+html {
+    color: #505050;
+    font-weight: bold;
+}
+
+/*alert*/
+.alert_S_box,
+.alert_S_wait_box {
+    color: #505050;
+}
+
+#alert_S_div button,
+.alert_S_float_div button {
+    font-size: 14px;
+}
+
+.alert_S_float_box {
+    color: #505050;
+}
+
+/*dropdown2*/
+.DropList .DropListNowCountSelect {
+    color: #505050;
+}
+
+.DropList .DropListNowCountSearch {
+    color: #505050;
+}
+
+.DropList .DropListNowCountAll {
+    color: #505050;
+}
+
+/*timepick*/
+.TimePick .TimePickTitle select {
+    font-weight: bold;
+}
+
+.TimePick .TimePickTimeBox select {
+    font-weight: bold;
+    color: #505050;
+}
+
+.TimePick option {
+    font-weight: bold;
+    color: #505050;
+}
+
+.TimePick .TimePickWork .button {
+    font-size: 14px;
+}
+
+.TimePick .TimePickSelect .TimePickTable {
+    font-weight: bold;
+}
+
+/*button2*/
+button {
+    color: #505050;
+    font-weight: bold;
+}
+
+/*input*/
+input {
+    font-weight: bold;
+}
+
+textarea {
+    font-weight: bold;
+}
+
+/*placeholder字樣的樣式*/
+::-webkit-input-placeholder {
+    font-weight: bold;
+    color: #ccc;
+}
+
+::-moz-placeholder {
+    font-weight: bold;
+    color: #ccc;
+}
+
+
+
+
+
+/*定義頁面寬高*/
+html, body {
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+    min-width: 100%;
+}
+
+/*去除超連結底線*/
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    a:link,
+    a:visited,
+    a:active {
+        color: #0094ff;
+    }
+
+@media screen and (min-width: 1025px) {
+    a:hover {
+        color: #0072c4;
+    }
+}
+
+
+
+
+
+
+
+
+/*定義容器高度*/
+#VisualModule {
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+/*置頂欄位*/
+#HeaderBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5010;
+    /*display: none;*/
+    box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+}
+
+#HeaderBoxInset {
+    /*background-color: #3e434a;*/
+    padding: 0 20px;
+    font-size: 0;
+    /*background-color: #0598b6;*/
+    background-color: #0098a1;
+}
+
+    #HeaderBoxInset table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+        #HeaderBoxInset table tr td {
+            padding: 0;
+            height: 60px;
+        }
+
+    #HeaderBoxInset .HeaderBoxMenuBtn {
+        font-size: 16px;
+        cursor: pointer;
+        padding: 15px 20px;
+        color: #fff;
+        opacity: 0.7;
+        display: none;
+    }
+
+    #HeaderBoxInset .HeaderBoxUnitsName {
+        font-size: 18px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    #HeaderBoxInset .HeaderBoxUnitsMessage {
+        font-size: 10px;
+        color: #fff;
+        opacity: 0.5;
+        font-weight: normal;
+    }
+
+@media screen and (min-width: 1025px) {
+    #HeaderBoxInset .HeaderBoxMenuBtn:hover {
+        opacity: 1;
+    }
+}
+
+#HeaderBoxInset .HeaderBoxLogo {
+    height: 60px;
+}
+
+#HeaderBoxInset table tr td:nth-child(1) {
+    width: 54px;
+}
+
+#HeaderBoxInset table tr td:nth-child(2) {
+    width: 1px;
+}
+
+#HeaderBoxInset table tr td:nth-child(3) {
+    font-size: 16px;
+}
+
+#HeaderBoxInset table tr td:nth-child(4) {
+    font-size: 16px;
+    text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*副選單*/
+#DeputyBox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5020;
+    width: auto;
+    /*display: none;*/
+    /*transition: ease 0.3s;*/
+}
+
+#DeputyBoxInset {
+    width: 0;
+    height: 40px;
+    /*padding: 3px 0 0 0;*/
+    background-color: #fff;
+    font-size: 0;
+    /*border-bottom: 1px solid #363b43;*/
+    text-align: center;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    position: relative;
+    /*transition: ease 0.3s;*/
+    box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+}
+
+    #DeputyBoxInset .DeputyBoxBtn {
+        display: inline-block;
+        line-height: 34px;
+        color: #505050;
+        font-size: 16px;
+        border-top: 3px solid #fff;
+        border-bottom: 4px solid #fff;
+        margin: 0;
+        position: relative;
+        padding: 0 15px;
+        font-weight: bold;
+    }
+
+        #DeputyBoxInset .DeputyBoxBtn i {
+            color: #ccc;
+        }
+
+@media screen and (min-width: 1025px) {
+    #DeputyBoxInset .DeputyBoxBtnHover:hover {
+        color: #505050;
+        border-top: 3px solid #f5f5f5;
+        border-bottom: 4px solid #f5f5f5;
+        background-color: #f5f5f5;
+        /*background-image: linear-gradient(to top,#f5f5f5 0%,#fff 100%);*/
+    }
+
+        #DeputyBoxInset .DeputyBoxBtnHover:hover i {
+            opacity: 1;
+            color: #0098a1;
+        }
+
+    #DeputyBoxInset .DeputyBoxBtnHover:active {
+        border-top: 3px solid #eee;
+        border-bottom: 4px solid #eee;
+        background-color: #eee;
+    }
+}
+
+#DeputyBoxInset .DeputyBoxBtnSelect {
+    color: #505050;
+    border-top: 3px solid #f5f5f5;
+    border-bottom: 4px solid #0098a1;
+    background-color: #f5f5f5;
+    /*background-image: linear-gradient(to top,#f5f5f5 0%,#fff 100%);*/
+}
+
+@media screen and (min-width: 1025px) {
+    #DeputyBoxInset .DeputyBoxBtnSelect:hover {
+        color: #505050;
+        border-top: 3px solid #f5f5f5;
+        border-bottom: 4px solid #0098a1;
+        /*background-image: linear-gradient(to top,#f5f5f5 0%,#fff 100%);*/
+    }
+
+    #DeputyBoxInset .DeputyBoxBtnSelect:active {
+        border-top: 3px solid #eee;
+    }
+}
+/*#DeputyBoxInset .DeputyBoxBtn:first-child {
+        margin: 0 0 0 10px;
+    }
+
+    #DeputyBoxInset .DeputyBoxBtn:last-child {
+        margin: 0 10px 0 0;
+    }*/
+
+#DeputyBoxInset .mCS-dark-3.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    top: -3px;
+    height: 3px;
+    background-color: #000;
+    opacity: 0.1;
+}
+
+#DeputyBoxInset .mCS-dark-3.mCSB_scrollTools .mCSB_draggerRail {
+    top: -3px;
+    position: absolute;
+    height: 3px;
+    background-color: #000;
+    opacity: 0.05;
+}
+
+#DeputyBoxInset .mCS-dark-3.mCSB_scrollTools {
+    top: 0;
+    position: absolute;
+    /*background-color: #689f38;*/
+    height: 5px;
+}
+
+    #DeputyBoxInset .mCS-dark-3.mCSB_scrollTools .mCSB_buttonLeft,
+    #DeputyBoxInset .mCS-dark-3.mCSB_scrollTools .mCSB_buttonRight {
+        background-image: url(); /* css sprites */
+    }
+
+
+
+
+
+
+
+
+/*左側選單*/
+#LeftMenu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    z-index: 5030;
+    /*display: none;*/
+    box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+    height: 100%;
+}
+
+/*左側選單內部樣式 (選單寬度設定)*/
+#LeftMenuInset {
+    width: 200px;
+    height: 100%;
+    background-color: #fff;
+    /*border-right: 1px solid #363b43;*/
+    /*border-bottom: 1px solid #ddd;*/
+    padding: 0 15px;
+    overflow: auto;
+    /*transition: ease 0.3s;*/
+    /*padding: 25px 15px 0 15px;
+    background-image: url('visualmoduleTheme/LeftMenuTopBG.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top center;*/
+}
+
+    /*左側選單內部樣式 按鈕 (按鈕樣式設定)*/
+    #LeftMenuInset .LeftMenuBtn {
+        display: block;
+        padding: 10px;
+        color: #505050;
+        font-size: 16px;
+        font-weight: bold;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        /*border-radius: 3px;*/
+        border-left: 3px solid rgba(0, 0, 0, 0);
+    }
+
+        #LeftMenuInset .LeftMenuBtn:first-child {
+            margin-top: 15px;
+        }
+
+        #LeftMenuInset .LeftMenuBtn:last-child {
+            margin-bottom: 15px;
+        }
+
+        #LeftMenuInset .LeftMenuBtn i {
+            text-align: center;
+            width: 20px;
+            margin: 0 5px 0 0;
+        }
+
+    #LeftMenuInset .LeftMenuSpan {
+        color: #ccc;
+    }
+
+@media screen and (min-width: 1025px) {
+    #LeftMenuInset .LeftMenuBtnHover:hover {
+        color: #505050;
+        background-color: #f5f5f5;
+    }
+
+        #LeftMenuInset .LeftMenuBtnHover:hover .LeftMenuSpan {
+            color: #505050;
+        }
+
+    #LeftMenuInset .LeftMenuBtnHover:active {
+        background-color: #eee;
+    }
+}
+
+#LeftMenuInset .LeftMenuBtnSelect {
+    border-left: 3px solid #0098a1;
+    background-color: #f5f5f5;
+}
+
+    #LeftMenuInset .LeftMenuBtnSelect,
+    #LeftMenuInset .LeftMenuBtnSelect .LeftMenuSpan {
+        color: #505050;
+        /*background-color: #0598b6;*/
+    }
+
+@media screen and (min-width: 1025px) {
+    #LeftMenuInset .LeftMenuBtnSelect:hover {
+        background-color: #f5f5f5;
+    }
+
+        #LeftMenuInset .LeftMenuBtnSelect:hover .LeftMenuSpan {
+            color: #505050;
+            /*background-color: #0598b6;*/
+        }
+
+    #LeftMenuInset .LeftMenuBtnSelect:active {
+        background-color: #eee;
+    }
+}
+
+#LeftMenuInset hr {
+    height: 0;
+    border: 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+#LeftMenuInset .LeftMenuFloat {
+    float: right;
+    /*line-height: 18px;*/
+    font-size: 13px;
+    position: relative;
+    top: 3px;
+}
+
+#LeftMenuInset .LeftMenuList {
+    display: none;
+}
+
+#LeftMenuInset .LeftMenuGroupTitle {
+    cursor: pointer;
+    display: block;
+    color: #0098a1;
+    padding: 10px 0;
+    font-size: 16px;
+}
+
+#LeftMenuInset .LeftMenuGroup .LeftMenuGroupTitle .LeftMenuFloat {
+    padding: 0 5px;
+    color: #505050;
+    opacity: 0.5;
+    line-height: 18px;
+}
+
+@media screen and (min-width: 1025px) {
+    #LeftMenuInset .LeftMenuGroupTitle:hover {
+        text-decoration: underline;
+    }
+
+        #LeftMenuInset .LeftMenuGroupTitle:hover .LeftMenuFloat {
+            opacity: 1;
+        }
+}
+
+
+
+
+
+
+/*內容區塊*/
+#ContentBox {
+    display: none;
+    position: relative;
+}
+
+#ContentBoxInset {
+    min-height: 0;
+    padding-top: 0px;
+    padding-left: 0px;
+    /*transition: ease 0.3s;*/
+}
+
+    #ContentBoxInset .ContentBoxHtml {
+        width: 1000px;
+        margin: 15px auto;
+        background-color: #fff;
+        /*border: 1px solid #ddd;*/
+        padding: 10px;
+        /*transition: ease 0.3s;*/
+        /*border-radius: 5px;*/
+        box-shadow: 0 6px 10px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    #ContentBoxInset .ContentBoxHeaderText {
+        color: #0098a1;
+        font-weight: bold;
+        font-size: 22px;
+        padding: 0 0 5px 0;
+        margin: 0 0 10px 0;
+        border-bottom: 1px solid #0098a1;
+    }
+
+
+/*宣告欄位*/
+#ContentBoxCopyRight {
+    /*display: none;*/
+}
+
+#ContentBoxCopyRightInset {
+    padding: 10px 20px;
+    /*background-color: #fff;*/
+    /*border-top: 1px solid #ddd;*/
+    font-size: 12px;
+    color: #505050;
+    /*transition: ease 0.3s;*/
+}
+
+    #ContentBoxCopyRightInset i {
+        color: #ccc;
+    }
+
+    #ContentBoxCopyRightInset hr {
+        height: 0;
+        border: 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    #ContentBoxCopyRightInset .CopyrightDeclareText {
+        text-align: center;
+        font-size: 10px;
+        color: #ccc;
+    }
+
+
+
+
+
+
+
+
+
+/*gotop按鈕的事件*/
+#gotop {
+    z-index: 5050;
+    text-align: center;
+    display: none;
+    position: fixed;
+    right: 2px;
+    bottom: 5px;
+    padding: 0 12px 5px 12px;
+    font-size: 8px;
+    background: rgba(0, 0, 0, 0.07);
+    color: #808080;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+    #gotop i {
+        padding: 8px 0 0 0;
+        font-size: 16px;
+    }
+
+@media screen and (min-width: 1025px) {
+    #gotop:hover {
+        background: rgba(0, 0, 0, 0.14);
+    }
+}
+
+
+
+
+
+
+
+@media screen and (min-width: 1920px) {
+}
+
+@media screen and (min-width: 1360px) and (max-width: 1919px) {
+}
+
+@media screen and (max-width: 1359px) {
+}

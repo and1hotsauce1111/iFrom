@@ -1,0 +1,132 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterTemplate_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta name="viewport" http-equiv="Content-Type" charset="UTF-8" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+
+    <title>快速開發模組 3</title>
+
+    <!--輔助工具-->
+    <link href="<%=ResolveClientUrl("~/IncludeCss/jquery.mCustomScrollbar.min.css")%>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/IncludeCss/nprogress.css")%>" rel="stylesheet" />
+
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/jquery-3.3.1.min.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/jquery.easing.1.3.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/jquery.mCustomScrollbar.concat.min.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/nprogress.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/autosize.min.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/linq.min.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/vue.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/lodash.min.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/v-dropdown.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/v-pager.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/JQueryToolsFuntion.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/uuid.js")%>"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+    
+
+    <!--套件主體-->
+    <link href="<%=ResolveClientUrl("~/UseCss/alert2.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/autoslideshow.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/button2.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/dropdown2.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/input2.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/label.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/table2.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/timepick.css") + publicModuleVersion %>" rel="stylesheet" />
+    <link href="<%=ResolveClientUrl("~/UseCss/visualmodule.css") + publicModuleVersion %>" rel="stylesheet" />
+
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/alert2.js") + publicModuleVersion %>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/autoslideshow.js") + publicModuleVersion %>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/dropdown2.js") + publicModuleVersion %>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/tablelist.js") + publicModuleVersion %>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/timepick.js") + publicModuleVersion %>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/function.js") + publicModuleVersion %>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/UseJs/visualmodule.js") + publicModuleVersion %>"></script>
+
+
+    <!--icon套件-->
+    <link href="<%=ResolveClientUrl("~/IncludeCss/font-awesome-4.7.0/css/font-awesome.min.css")%>" rel="stylesheet" />
+
+
+    <!--頁面設定-->
+    <link href="<%=ResolveClientUrl("~/MyCss/MasterPage.css") + version %>" rel="stylesheet" />
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/MyJs/MasterPage.js") + version %>"></script>
+
+
+    <style type="text/css">
+    </style>
+    <script type="text/javascript">
+
+        //麵包屑
+        //pid為0代表父層，子層pid = 父層的id
+        var nav = [
+            { id: '/iQuestionnaire/Default.aspx', pid: 0, name: '首頁' },
+            { id: '/iQuestionnaire/Announce.aspx', pid: '/iQuestionnaire/Default.aspx', name: '公告管理' },
+            { id: '/iQuestionnaire/QuestionnaireList.aspx', pid: '/iQuestionnaire/Default.aspx', name: '問卷管理' },
+            { id: '/iQuestionnaire/AddQuestionnire.aspx', pid: '/iQuestionnaire/QuestionnaireList.aspx', name: '編輯問卷' },
+        ];
+
+        var homeIcon = '<i class="fa fa-home"></i>';
+        var arrow = '<i class="fa fa-angle-double-right"></i>';
+
+        var breadCrumbs = function (id, path) {
+
+            //初始化path，確保不為undefined
+            path = path ? path : '';
+            //找出當前頁面在哪一層
+            var data = {};
+            for (var i = 0; i < nav.length; i++) {
+                if (nav[i]['id'] == id) {
+                    data = nav[i];
+                    //找到就跳出
+                    break;
+                }
+            }
+
+            if (data['pid'] == 0) { //若是父層，回傳完整路徑
+
+                path = homeIcon + '&nbsp;<a href="' + data['id'] + '">'+ data['name'] +'</a>&nbsp;' + path;
+
+                //從父層回傳完整path
+                return '<span>'+ path +'</span>';
+            } else { //不為父層，繼續往上找
+                path = arrow + '&nbsp;<a href="' + data['id'] + '">'+ data['name'] +'</a>&nbsp;' + path;
+
+                //從子層向父層依序傳遞path
+                return breadCrumbs(data['pid'], path);
+            }
+
+        };
+
+    </script>
+
+
+    <!-- 子層引用區塊 -->
+    <asp:ContentPlaceHolder ID="PlaceHolderHead1" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <!-- favicon.ico 語法-->
+    <link class="faviconLink" rel="shortcut icon" href="<%=ResolveClientUrl("~/Favicon/Jhenggao.ico")%>" />
+    <link class="faviconLink" rel="bookmark" href="<%=ResolveClientUrl("~/Favicon/Jhenggao.ico")%>" />
+
+</head>
+<body>
+
+    <!-- 子層內容區塊 -->
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <!--gotop-->
+    <%--<div id="gotop">
+        <i class="fa fa-chevron-left"></i>
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <i class="fa fa-arrow-up"></i>
+        <br />
+        Top
+    </div>--%>
+</body>
+</html>
