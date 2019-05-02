@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
-                                            <li onclick="deleteOption(event,'add')">
+                                            <li onclick="deleteOption(event,'radio','add')">
                                                 <span title="刪除">
                                                     <i class="fa fa-minus"></i>
                                                 </span>
@@ -225,7 +225,7 @@
                                     </div>
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
-                                            <li onclick="deleteOption(event,'edit')">
+                                            <li onclick="deleteOption(event,'radio','edit')">
                                                 <span title="刪除">
                                                     <i class="fa fa-minus"></i>
                                                 </span>
@@ -299,7 +299,7 @@
                                                     <i class="fa fa-plus"></i>
                                                 </span>
                                             </li>--%>
-                                            <li onclick="deleteOption(event)">
+                                            <li onclick="deleteOption(event,'checkbox','add')">
                                                 <span title="刪除">
                                                     <i class="fa fa-minus"></i>
                                                 </span>
@@ -381,15 +381,17 @@
                                                     <i class="fa fa-plus"></i>
                                                 </span>
                                             </li>--%>
-                                            <li onclick="deleteOption(event)">
+                                            <li onclick="deleteOption(event,'checkbox','edit')">
                                                 <span title="刪除">
                                                     <i class="fa fa-minus"></i>
                                                 </span>
+                                                <span style="display:none" id="edit_eidtCheckbox_del"></span>
                                             </li>
                                             <li onclick="copyOption(event)">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
+                                                <span style="display:none" id="edit_eidtCheckbox_copy"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -454,7 +456,7 @@
                                                     <i class="fa fa-plus"></i>
                                                 </span>
                                             </li>--%>
-                                            <li onclick="deleteOption(event)">
+                                            <li onclick="deleteOption(event,'pulldown','add')">
                                                 <span title="刪除">
                                                     <i class="fa fa-minus"></i>
                                                 </span>
@@ -529,15 +531,17 @@
                                                     <i class="fa fa-plus"></i>
                                                 </span>
                                             </li>--%>
-                                            <li onclick="deleteOption(event)">
+                                            <li onclick="deleteOption(event,'pulldown','edit')">
                                                 <span title="刪除">
                                                     <i class="fa fa-minus"></i>
                                                 </span>
+                                                <span style="display:none" id="edit_eidtPulldown_del"></span>
                                             </li>
                                             <li onclick="copyOption(event)">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
+                                                <span style="display:none" id="edit_eidtPulldown_copy"></span>
                                             </li>
                                         </ul>
                                     </div>
@@ -641,7 +645,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i><span>&nbsp;添加問卷題目及選項後，可依據填答的選項跳轉至某道題目。</span>
                     <br />
-                    <span style="display:inline-block;padding-left:27px">若無設定不略過題目，則預設跳過所有題目。</span>
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i><span style="display:inline-block">文本題型無須設定填答選項。</span>
                 </div>
             </div>
 
@@ -781,7 +785,7 @@
                                         <div class="showQuestions_unit_tools">
                                             <ul class="showQuestions_unit_tools_list">
                                                 <li>
-                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'radio','add')" :data-index="index">
+                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'radio')" :data-index="index">
                                                         <i class="fa fa-code-fork"></i>
                                                     </span>
                                                 </li>
@@ -803,7 +807,7 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this))" :data-logic="index" v-if="question.showLogicCount.length !== 0">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'radio')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
                                             <span class="logic_count">{{ question.showLogicCount.length }}</span>
                                         </div>
@@ -831,6 +835,11 @@
                                         <div class="showQuestions_unit_tools">
                                             <ul class="showQuestions_unit_tools_list">
                                                 <li>
+                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'checkbox')" :data-index="index">
+                                                        <i class="fa fa-code-fork"></i>
+                                                    </span>
+                                                </li>
+                                                <li>
                                                     <span title="編輯" onclick="editCheckbox(event,'edit',$(this))" :data-index="index">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </span>
@@ -848,7 +857,7 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting()">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'checkbox')" :data-logic="index">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
                                             <span class="logic_count">2</span>
                                         </div>
@@ -873,6 +882,11 @@
                                         <div class="showQuestions_unit_tools">
                                             <ul class="showQuestions_unit_tools_list">
                                                 <li>
+                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'pulldown')" :data-index="index">
+                                                        <i class="fa fa-code-fork"></i>
+                                                    </span>
+                                                </li>
+                                                <li>
                                                     <span title="編輯" onclick="editPulldown(event,'edit',$(this))" :data-index="index">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </span>
@@ -890,7 +904,7 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting()">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'pulldown')" :data-logic="index">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
                                             <span class="logic_count">2</span>
                                         </div>
@@ -915,6 +929,11 @@
                                         <div class="showQuestions_unit_tools">
                                             <ul class="showQuestions_unit_tools_list">
                                                 <li>
+                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'textarea')" :data-index="index">
+                                                        <i class="fa fa-code-fork"></i>
+                                                    </span>
+                                                </li>
+                                                <li>
                                                     <span title="編輯" onclick="editTextarea(event,'edit',$(this))" :data-index="index">
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </span>
@@ -932,7 +951,7 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting()">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'textarea')" :data-logic="index">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
                                             <span class="logic_count">2</span>
                                         </div>
