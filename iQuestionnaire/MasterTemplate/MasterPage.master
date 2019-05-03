@@ -77,7 +77,9 @@
             { id: '/iQuestionnaire/Default.aspx', pid: 0, name: '首頁' },
             { id: '/iQuestionnaire/Announce.aspx', pid: '/iQuestionnaire/Default.aspx', name: '公告管理' },
             { id: '/iQuestionnaire/QuestionnaireList.aspx', pid: '/iQuestionnaire/Default.aspx', name: '問卷管理' },
+            { id: '/iQuestionnaire/AnswerQuestionnaireList.aspx', pid: '/iQuestionnaire/Default.aspx', name: '我的問卷' },
             { id: '/iQuestionnaire/AddQuestionnire.aspx', pid: '/iQuestionnaire/QuestionnaireList.aspx', name: '編輯問卷' },
+            { id: '/iQuestionnaire/Answer.aspx', pid: '/iQuestionnaire/AnswerQuestionnaireList.aspx', name: '問卷填答' }
         ];
 
         var homeIcon = '<i class="fa fa-home"></i>';

@@ -4,7 +4,7 @@
     VisualModule({
         LeftSelect: 'Index',
         //DeputyDisplay: false,
-        LeftSelect: 'QuestionnaireList'
+        LeftSelect: 'AnswerQuestionnaireList'
     });
 
 
@@ -19,7 +19,8 @@
                 repeatAnswer: item.repeatAnswer,
                 publicQuestionnaire: item.publicQuestionnaire,
                 name: item.questionnaireTitle,
-                date: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
+                start: item.questionnaireStartTime || '<span style="color:#f00">未設定開始日期</span>',
+                end: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
                 status: item.publicQuestionnaire == 'true' ? '<span style="color:#009149">已發佈</span>' : '<span style="color:#f00">未發佈</span>',
                 repeat: item.repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>'
             });
@@ -131,10 +132,10 @@
                     if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
-                    if (Option.Search['keyword2'] == '' || test[i]['date'].match(Option.Search['keyword2'])) {
+                    if (Option.Search['keyword2'] == '' || test[i]['start'].match(Option.Search['keyword2'])) {
                         checkB = true;
                     }
-                    if (Option.Search['keyword3'] == '' || test[i]['status'].match(Option.Search['keyword3'])) {
+                    if (Option.Search['keyword3'] == '' || test[i]['end'].match(Option.Search['keyword3'])) {
                         checkC = true;
                     }
                     if (Option.Search['keyword4'] == '' || test[i]['repeat'].match(Option.Search['keyword4'])) {
@@ -176,10 +177,10 @@
                     if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
-                    if (Option.Search['keyword2'] == '' || test[i]['date'].match(Option.Search['keyword2'])) {
+                    if (Option.Search['keyword2'] == '' || test[i]['start'].match(Option.Search['keyword2'])) {
                         checkB = true;
                     }
-                    if (Option.Search['keyword3'] == '' || test[i]['status'].match(Option.Search['keyword3'])) {
+                    if (Option.Search['keyword3'] == '' || test[i]['end'].match(Option.Search['keyword3'])) {
                         checkC = true;
                     }
                     if (Option.Search['keyword4'] == '' || test[i]['repeat'].match(Option.Search['keyword4'])) {

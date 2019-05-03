@@ -33,8 +33,8 @@
                         </td>
                         <td>
                             <div class="HeaderBoxUnitsName">
-                                iQuestionnaire
-                                <div class="HeaderBoxUnitsMessage">Public Module 3</div>
+                                問卷系統
+                                <div class="HeaderBoxUnitsMessage">iQuestion</div>
                             </div>
                         </td>
                         <td></td>
@@ -67,10 +67,10 @@
                     <i class="fa fa-list-alt LeftMenuSpan"></i>
                     問卷管理
                 </a>
-                <%--<a href="AddQuestionnire.aspx" class="LeftMenuBtn" select-val="AddQuestionnaire">
-                    <i class="fa fa-plus LeftMenuSpan"></i>
-                    新增問卷
-                </a>--%>
+                <a href="AnswerQuestionnaireList.aspx" class="LeftMenuBtn" id="answerQuestionnaireList" select-val="AnswerQuestionnaireList">
+                    <i class="fa fa-pencil LeftMenuSpan"></i>
+                    我的問卷
+                </a>
             </div>
         </div>
 

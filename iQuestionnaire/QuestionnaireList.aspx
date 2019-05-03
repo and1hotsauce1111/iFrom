@@ -18,16 +18,7 @@
 
     <div class="ContentBoxHtml">
         <div class="ContentBoxHeader">問卷查詢</div>
-        <div class="list_tools">
-            <div class="addNewQuestionnaire">
 
-                <%--<button type="button" class="button btn_miku btn-lg" id="addQuestionnaire"><i class="fa fa-plus" style="padding-right: 5px"></i>新建問卷</button>--%>
-            </div>
-            <div class="change_list">
-                <i class="fa fa-th-list" onclick="listModeBtn('block')"></i>
-                <i class="fa fa fa-th" onclick="listModeBtn('list')"></i>
-            </div>
-        </div>
         <div style="margin: 5px 0">
             <table class="table">
                 <tr>
@@ -36,16 +27,19 @@
                         <input id="keyword" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入問卷名稱..." />
                         <div class="inputLine"></div>
                     </td>
-                    <th>截止日期</th>
+                    <th>問卷起始日期</th>
                     <td>
-                        <input id="keyword2" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入截止日期..." />
+                        <input id="keyword2" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入起始日期..." />
                         <div class="inputLine"></div>
+                    </td>
+                    <td class="textC">
+                        <button onclick="TableListClear()" type="button" class="button btn_white">清空</button>
                     </td>
                 </tr>
                 <tr>
-                    <th>發佈狀態</th>
+                    <th>問卷截止日期</th>
                     <td>
-                        <input id="keyword3" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入發佈狀態..." />
+                        <input id="keyword3" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入截止日期..." />
                         <div class="inputLine"></div>
                     </td>
                     <th>問卷填答設置</th>
@@ -53,11 +47,12 @@
                         <input id="keyword4" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入問卷填答設置..." />
                         <div class="inputLine"></div>
                     </td>
+                    <td class="textC">
+                        <button tbl-build="列表元件-RunBtn" type="button" class="button btn_miku">查詢</button>
+                    </td>
                 </tr>
             </table>
             <div class="search_btn">
-                <button onclick="TableListClear()" type="button" class="button btn_white">清空</button>
-                <button tbl-build="列表元件-RunBtn" type="button" class="button btn_miku">查詢</button>
             </div>
         </div>
     </div>
@@ -75,7 +70,19 @@
 
     <%-- 顯示問卷列表 --%>
     <div class="ContentBoxHtml" id="show_list">
-        <div class="ContentBoxHeader">查詢結果</div>
+        <div class="ContentBoxHeader">
+            查詢結果
+            <div class="list_tools">
+                <div class="addNewQuestionnaire">
+
+                    <%--<button type="button" class="button btn_miku btn-lg" id="addQuestionnaire"><i class="fa fa-plus" style="padding-right: 5px"></i>新建問卷</button>--%>
+                </div>
+                <div class="change_list">
+                    <i class="fa fa-th-list" onclick="listModeBtn('block')"></i>
+                    <i class="fa fa fa-th" onclick="listModeBtn('list')"></i>
+                </div>
+            </div>
+        </div>
         <div style="margin-bottom: 20px">
             總共查詢到&nbsp;<span tbl-build="列表元件-Count"></span>&nbsp;筆&emsp;<div tbl-build="列表元件-PageDrop"></div>
             <div tbl-build="列表元件-PerDrop"></div>
@@ -97,8 +104,8 @@
                             </label>
                         </th>
                         <th>問卷名稱</th>
+                        <th>問卷起始日期</th>
                         <th>問卷截止日期</th>
-                        <th>發佈狀態</th>
                         <th>問卷填答設置</th>
                     </tr>
                     <tr tbl-repeat="列表元件" class="trHover textC">
@@ -110,8 +117,8 @@
                             </label>
                         </td>
                         <td>@name</td>
-                        <td>@date</td>
-                        <td>@status</td>
+                        <td>@start</td>
+                        <td>@end</td>
                         <td>@repeat</td>
                     </tr>
                     <tr tbl-build="列表元件-NoData">
