@@ -1207,32 +1207,55 @@
         var surveyId = $.getUrlVar('surveyId');
 
         if (surveyId !== undefined) {
+
+            //判斷問卷開放時間是否有誤
+            if (startTimeVal > deadlineVal) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#ff6a00">問卷結束時間早於開放時間！</p>'
+                });
+
+                return false;
+            }
+
             //儲存編輯後問卷資料
             var questionnaire = {
                 id: surveyId,
                 questionnaireTitle: vm.questionnaireTitle,
                 questionnaireDesc: vm.questionnaireDesc,
-                questionnaireDeadline: pickTime || vm.deadline,
+                questionnaireDeadline: deadline || vm.deadline,
+                questionnaireStartTime: startTime || vm.startTime,
                 allQuestionnaireData: vm.allQuestionnaireData,
                 repeatAnswer: vm.repeat,
-                publicQuestionnaire: vm.public
             };
+
             axios.patch('http://localhost:3000/questionnaire/' + surveyId + '', questionnaire).then(function (res) {
                 window.location.href = 'QuestionnaireList.aspx';
             });
 
         } else {
+
+            //判斷問卷開放時間是否有誤
+            if (startTimeVal > deadlineVal) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#ff6a00">問卷結束時間早於開放時間！</p>'
+                });
+
+                return false;
+            }
+
             //儲存新建問卷
             var questionnaire = {
                 id: _uuid(),
                 questionnaireTitle: vm.questionnaireTitle,
                 questionnaireDesc: vm.questionnaireDesc,
-                questionnaireDeadline: pickTime || '',
+                questionnaireDeadline: deadline || '',
+                questionnaireStartTime: startTime || '',
                 allQuestionnaireData: vm.allQuestionnaireData,
                 repeatAnswer: vm.repeat,
-                publicQuestionnaire: vm.public
             };
-            console.log(questionnaire);
+
 
             axios.post('http://localhost:3000/questionnaire', questionnaire).then(function (res) {
                 window.location.href = 'QuestionnaireList.aspx';
@@ -1409,22 +1432,30 @@
                     //刪除跳題關聯設定
                     vm.allQuestionnaireData.forEach(function (page) {
                         page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            question.options.forEach(function (option) {
-                                if (option.jumpLogic !== null) {
-                                    if (option.jumpLogic.jumpTo.id[0] === delId) {
-                                        option.jumpLogic = null;
+                            if (question.options) {
+                                question.options.forEach(function (option) {
+                                    if (option.jumpLogic !== null) {
+                                        if (option.jumpLogic.jumpTo.id[0] === delId) {
+                                            option.jumpLogic = null;
 
-                                        //紀錄關聯問題的id
-                                        question.showLogicCount.forEach(function (item, index) {
-                                            if (item.jumpTo.id[0] == delId) {
-                                                question.showLogicCount.splice(index, 1);
-                                            }
-                                        });
+                                            //紀錄關聯問題的id
+                                            question.showLogicCount.forEach(function (item, index) {
+                                                if (item.jumpTo.id[0] == delId) {
+                                                    question.showLogicCount.splice(index, 1);
+                                                }
+                                            });
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            } else {
+                                //文本題的狀況
 
-
+                                question.showLogicCount.forEach(function (logic, index) {
+                                    if (logic.jumpTo.id[0] == delId) {
+                                        question.showLogicCount = [];
+                                    }
+                                });
+                            }
                         });
                     });
 
@@ -1454,19 +1485,24 @@
                                         });
                                     }
                                 });
+
                             }
 
-                            question.showLogicCount.forEach(function (logic) {
-                                if (logic !== null) {
-                                    vm.allQuestionnaireData.forEach(function (data) {
-                                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                            if (item.id == logic.jumpTo.id[0]) {
-                                                logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                            }
+                            //若有跳題設定
+                            if (question.showLogicCount.length !== 0) {
+                                question.showLogicCount.forEach(function (logic) {
+                                    if (logic !== null) {
+                                        vm.allQuestionnaireData.forEach(function (data) {
+                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                if (item.id == logic.jumpTo.id[0]) {
+                                                    logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                }
+                                            });
                                         });
-                                    });
-                                }
-                            });
+                                    }
+                                });
+                            }
+
 
                         });
                     });
@@ -1900,34 +1936,23 @@
                             //多選跳題
                             //有任意選項跳題
 
-                            //判斷是否同選項的設定
-                            //清空顯示跳題提示data
-                            //target.showLogicCount = [];
-                            //target.options.forEach(function (option) {
-                            //    if (option.jumpLogic !== null) {
-                            //        target.showLogicCount.push(option.jumpLogic);
-                            //    }
-                            //});
-                           
-                            var index = -1;
+                            var index = -1; //不存在的index，用來記錄相同的多選跳題選項
                             for (var i = 0; i < target.showLogicCount.length; i++) {
+                                //若為單選跳題則跳過
                                 if (target.showLogicCount[i].triggerOption.val.length === 1) {
                                     continue;
                                 }
 
-
                                 if (_.isEqual(target.showLogicCount[i].triggerOption.val, vm.tempLogicSetting.triggerOption.val)) {
-                                    console.log(target.showLogicCount[i].triggerOption.val);
-                                    console.log(vm.tempLogicSetting.triggerOption.val);
-                                    console.log('same');
+
                                     index = i;
                                     break;
                                 }
                             }
 
-                            if (index !== -1) {
+                            if (index !== -1) { //匹配相同的多選跳題選項
                                 target.showLogicCount[index] = _.cloneDeep(vm.tempLogicSetting);
-                            } else {
+                            } else { //若無匹配則新增
                                 target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
                             }
 
@@ -1969,9 +1994,27 @@
                         } else {
                             //多選跳題
                             //有任意選項跳題
-                            //清空顯示跳題提示data
-                            target.showLogicCount = [];
-                            target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+
+                            var index = -1; //不存在的index，用來記錄相同的多選跳題選項
+                            for (var i = 0; i < target.showLogicCount.length; i++) {
+                                //若為單選跳題則跳過
+                                if (target.showLogicCount[i].triggerOption.val.length === 1) {
+                                    continue;
+                                }
+
+                                if (_.isEqual(target.showLogicCount[i].triggerOption.val, vm.tempLogicSetting.triggerOption.val)) {
+
+                                    index = i;
+                                    break;
+                                }
+                            }
+
+                            if (index !== -1) { //匹配相同的多選跳題選項
+                                target.showLogicCount[index] = _.cloneDeep(vm.tempLogicSetting);
+                            } else { //若無匹配則新增
+                                target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+                            }
+
                         }
                     } else {
                         //有任意選項跳題
@@ -1981,7 +2024,11 @@
                     }
                 }
                 if (type === 'textarea') {
+                    //取得當前編輯的問題
+                    var index = $(dom).attr('data-index');
+                    var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
 
+                    target.showLogicCount = [(_.cloneDeep(vm.tempLogicSetting))];
                 }
             }
         });
@@ -1998,7 +2045,7 @@
                 $('#show_logic_content').empty();
                 var index = $(dom).attr("data-logic");
                 var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
-
+                console.log(target);
                 if (type === 'radio') {
                     //判斷是否有任意選項
                     if (target.length === 1) {
@@ -2008,13 +2055,13 @@
                             $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val[0] + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[0].jumpTo.val[0] + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
                         } else {
                             //有任意選項跳題
                             $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[0].jumpTo.val[0] + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="任意選項" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
                         }
                     } else {
                         for (var i = 0; i < target.length; i++) {
@@ -2022,7 +2069,7 @@
                             $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[i].triggerOption.val[0] + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[i].jumpTo.val[0] + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[i].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[i].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
 
                         }
                     }
@@ -2036,26 +2083,30 @@
                             $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[0].jumpTo.val[0] + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
                         } else {
                             //有任意選項跳題
                             $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[0].jumpTo.val[0] + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="任意選項" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
                         }
                     } else {
+                        //多選跳題
                         for (var i = 0; i < target.length; i++) {
 
                             $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[i].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[i].jumpTo.val[0] + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[i].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="多選跳題" onclick="delLogicSetting(event,' + index + ',$(this), ' + i + ')">刪除跳題設定</button></div>');
 
                         }
                     }
                 } else {
 
+                    $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                         若有填答則跳至第&nbsp;<span style="color:#FD6A4F">【' + target[0].jumpTo.val[0] + '】</span>&nbsp; 題\
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="文本跳題" onclick="delLogicSetting(event,' + index + ',$(this), ' + null + ')">刪除跳題設定</button></div>');
                 }
 
             }
@@ -2063,7 +2114,7 @@
     };
 
     //刪除邏輯跳題
-    delLogicSetting = function (e, index, dom) {
+    delLogicSetting = function (e, index, dom, multi) {
         alertBox({
             Mode: 'C',
             Title: '刪除跳題設定',
@@ -2071,22 +2122,36 @@
             OnOK: function () {
                 //刪除畫面
                 $(e.target).parent().parent().remove();
+
                 //刪除資料
                 var delId = $(dom).attr('data-delId');
                 var item = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
 
-                item.options.forEach(function (option) {
-                    if (option.id == delId) {
-                        option.jumpLogic = null;
-                    }
-                });
+                //判斷是多選或單選跳題
 
-                //更新顯示跳題提示
-                item.showLogicCount.forEach(function (logic, index) {
-                    if (logic.triggerOption.id[0] == delId) {
-                        item.showLogicCount.splice(index, 1);
+                if (delId == '任意選項' || delId == '文本跳題') {
+                    item.showLogicCount = [];
+                } else {
+                    if (delId === '多選跳題') {
+                        item.showLogicCount.splice(multi, 1);
+                    } else {
+                        item.options.forEach(function (option) {
+                            if (option.id == delId) {
+                                option.jumpLogic = null;
+                            }
+                        });
+
+                        //更新顯示跳題提示
+                        item.showLogicCount.forEach(function (logic, index) {
+                            if (logic.triggerOption.id[0] == delId) {
+                                item.showLogicCount.splice(index, 1);
+                            }
+                        });
                     }
-                });
+
+                }
+
+
 
             }
         });
@@ -2166,15 +2231,30 @@
     });
 
     //選取時間
-    var pickTime;
+    var startTime;
+    var deadline;
+    var startTimeVal;
+    var deadlineVal;
     TimePickSetting({
-        ID: 'timepick',
+        ID: 'deadline',
         Format: 'yyyy-MM-dd HH:mm',
         TimePick: true,
         OnClose: function () {
-            pickTime = TimePickGet('timepick').Format;
+            deadlineVal = TimePickGet('deadline').Time;
+            deadline = TimePickGet('deadline').Format;
         }
     });
+
+    TimePickSetting({
+        ID: 'startTime',
+        Format: 'yyyy-MM-dd HH:mm',
+        TimePick: true,
+        OnClose: function () {
+            startTimeVal = TimePickGet('startTime').Time;
+            startTime = TimePickGet('startTime').Format;
+        }
+    });
+
 
 
     //監聽頁面刷新
@@ -2210,9 +2290,9 @@
                 data: [{ Optgroup: '', Option: [{ Text: '第 1 頁', Val: 1 }] }], //頁面下拉選單資料
                 questionnaireTitle: '', //問卷標題
                 questionnaireDesc: '', //問卷說明
+                startTime:'', //開始時間
                 deadline: '', //截止日期
                 repeat: '', // 問卷可否重複填答
-                public: '', //問卷是否發佈
                 tempLogicSetting: {
                     triggerOption: {
                         id: '',
@@ -2247,12 +2327,18 @@
                     vm.questionnaireTitle = res.data.questionnaireTitle;
                     vm.questionnaireDesc = res.data.questionnaireDesc;
                     vm.deadline = res.data.questionnaireDeadline;
+                    vm.startTime = res.data.questionnaireStartTime;
                     vm.repeat = res.data.repeatAnswer;
-                    vm.public = res.data.publicQuestionnaire;
                 });
             },
-            resetDeadline: function () {
-                this.deadline = '';
+            resetTime: function (type) {
+                if (type === 'start') {
+                    this.startTime = '';
+                }
+                if (type === 'end') {
+                    this.deadline = '';
+                }
+   
             }
         },
         mounted: function () {

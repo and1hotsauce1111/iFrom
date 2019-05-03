@@ -66,8 +66,8 @@
                     }
 
         .tools_bar .tools_bar_items .tool_type {
-            /*display:flex;*/
-            background-color: #3388ff;
+            display:flex;
+            /*background-color: #3388ff;*/
             width:100%;
             color: #fff;
             text-align: center;
@@ -115,6 +115,7 @@
             }
 
     .tools_bar_mini .basic_tools {
+        flex: 0 0 75%;
         display: inline-block;
         vertical-align: middle;
         width: 360px;
@@ -131,13 +132,22 @@
 
             .tools_bar_mini .basic_tools ul.basic_tools_list li {
                 width: 60px;
-                border-right: 1px dashed #ccc;
-                border-bottom: 3px solid #3388ff;
+                border-right: 1px dashed #ccc;              
             }
+                .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(1),
+                .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(2),
+                .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(3) {
+                    border-bottom: 3px solid #3388ff;
+                }
+                .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(4) {
+                    border-bottom: 3px solid #EA4335;
+                }
+                .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(5) {
+                    border-bottom: 3px solid #FFD04A;
+                }
 
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:last-child {
-                    border: none;
-                    border-bottom: 3px solid #3388ff;
+                    border-bottom: 3px solid #FFD04A;
                 }
 
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:hover {

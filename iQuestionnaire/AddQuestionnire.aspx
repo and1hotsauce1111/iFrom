@@ -51,9 +51,9 @@
                         </ul>
                     </div>
                     <div class="tool_type">
-                        基本題型
-                        <%--<span style="display: inline-block; background-color: #3388ff; flex: 0 0 85.8%">基本題型</span>--%>
-                        <%--<span style="display: inline-block; background-color: #FFD04A; flex: 0 0 14.2%">問卷設置</span>--%>
+                        <span style="display: inline-block; background-color: #3388ff; flex: 0 0 50.1%">選擇題</span>
+                        <span style="display: inline-block; background-color: #EA4335; flex: 0 0 16.5%">填空題</span>
+                        <span style="display: inline-block; background-color: #FFD04A; flex: 0 0 33.4%">備註說明</span>
                     </div>
                 </div>
                 <div class="save_items">
@@ -90,8 +90,8 @@
             </div>
             <div class="save">
                 <ul class="save_list">
-                    <li id="saveIcon" title="儲存問卷"><i class="fa fa-floppy-o"></i></li>
-                    <li id="returnIcon" title="返回列表"><i class="fa fa-reply"></i></li>
+                    <li id="saveIcon" title="儲存問卷" style="color:#008991" onclick="saveQuestionnaire()"><i class="fa fa-floppy-o"></i></li>
+                    <li id="returnIcon" title="返回列表"><i class="fa fa-reply" onclick="cancelQuestionnaire()"></i></li>
                 </ul>
             </div>
         </div>
@@ -690,25 +690,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="font-size: 18px">問卷截止日期</th>
+                    <th style="font-size: 18px">問卷開放期間</th>
                     <td>
-                        <div v-if="deadline === ''" id="timepick"></div>
-                        <div v-else>{{ deadline }} &emsp;<button type="button" class="button btn_blue" @click="resetDeadline">重新設定</button></div>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="font-size: 18px">是否發佈問卷</th>
-                    <td>
-                        <label class="label_radio">
-                            <input type="radio" name="public" value="true" v-model="public"/>
-                            <span class="label_icon"></span>
-                            <span class="label_text">發佈</span>
-                        </label>
-                        <label class="label_radio">
-                            <input type="radio" name="public" value="false" v-model="public"/>
-                            <span class="label_icon"></span>
-                            <span class="label_text">不發佈</span>
-                        </label>
+                        <span style="color:#ff6a00">起: </span>
+                        <div v-if="startTime === ''" id="startTime" style="margin-right:15px"></div>
+                        <div v-else>{{ startTime }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('start')">重新設定</button></div>
+                        <span style="color:#ff6a00">迄: </span>
+                        <div v-if="deadline === ''" id="deadline"></div>
+                        <div v-else>{{ deadline }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('end')">重新設定</button></div>
                     </td>
                 </tr>
             </table>
@@ -857,9 +846,9 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'checkbox')" :data-logic="index">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'checkbox')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
-                                            <span class="logic_count">2</span>
+                                            <span class="logic_count">{{ question.showLogicCount.length }}</span>
                                         </div>
 
                                     </div> 
@@ -904,9 +893,9 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'pulldown')" :data-logic="index">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'pulldown')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
-                                            <span class="logic_count">2</span>
+                                            <span class="logic_count">{{ question.showLogicCount.length }}</span>
                                         </div>
 
                                     </div>
@@ -951,9 +940,9 @@
                                             </ul>
                                         </div>
 
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'textarea')" :data-logic="index">
+                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'textarea')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
-                                            <span class="logic_count">2</span>
+                                            <span class="logic_count">{{ question.showLogicCount.length }}</span>
                                         </div>
 
                                     </div> 

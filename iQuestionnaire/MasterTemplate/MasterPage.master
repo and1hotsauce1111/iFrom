@@ -63,6 +63,16 @@
 
         //麵包屑
         //pid為0代表父層，子層pid = 父層的id
+
+        //本機
+        //var nav = [
+        //    { id: '/Default.aspx', pid: 0, name: '首頁' },
+        //    { id: '/Announce.aspx', pid: '/Default.aspx', name: '公告管理' },
+        //    { id: '/QuestionnaireList.aspx', pid: '/Default.aspx', name: '問卷管理' },
+        //    { id: '/AddQuestionnire.aspx', pid: '/QuestionnaireList.aspx', name: '編輯問卷' },
+        //];
+
+        //IIS
         var nav = [
             { id: '/iQuestionnaire/Default.aspx', pid: 0, name: '首頁' },
             { id: '/iQuestionnaire/Announce.aspx', pid: '/iQuestionnaire/Default.aspx', name: '公告管理' },
