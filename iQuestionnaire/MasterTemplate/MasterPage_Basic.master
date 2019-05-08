@@ -8,6 +8,26 @@
     <style type="text/css">
     </style>
     <script type="text/javascript">
+
+        $(function () {
+
+            getUrlVars();
+            var user = $.getUrlVar('user');
+
+            if (window.location.pathname == '/iQuestion/AddQuestionnire.aspx'
+                || window.location.pathname == '/iQuestion/QuestionnaireList.aspx'
+                || window.location.pathname == '/iQuestion/Announce.aspx') {
+                $('#answerQuestionnaireList').hide();
+            }
+
+            if (window.location.pathname == '/iQuestion/AnswerQuestionnaireList.aspx'
+                || window.location.pathname == '/iQuestion/Answer.aspx') {
+                $('#announce').hide();
+                $('#questionnaireList').hide();
+            }
+
+        });
+
     </script>
 
     <!-- 子層引用區塊 需修改為 PlaceHolderHead2 -->
@@ -25,7 +45,7 @@
             <div id="HeaderBoxInset">
                 <table>
                     <tr>
-                        <td>
+                        <td style="display: none">
                             <i class="fa fa-bars HeaderBoxMenuBtn" onclick="LeftMenuViewToggle()"></i>
                         </td>
                         <td>
@@ -44,12 +64,12 @@
         </div>
 
         <!--抬頭副欄位(多用於內頁層子選單選)-->
-         <div id="DeputyBox">
+        <div id="DeputyBox">
             <div id="DeputyBoxInset">
                 <div class="breadCrumbs"></div>
             </div>
         </div>
-        
+
 
         <!--左側主選單-->
         <div id="LeftMenu">
@@ -58,18 +78,21 @@
                     <i class="fa fa-home LeftMenuSpan"></i>
                     首頁
                 </a>--%>
-                <div style="margin:30px 0px 10px 0;border-bottom:1px dotted #ccc"></div>
-                <a href="Announce.aspx" class="LeftMenuBtn" id="announce" select-val="Announce">
+                <a href="Announce.aspx?user=admin" class="LeftMenuBtn" id="announce" select-val="Announce">
                     <i class="fa fa-bullhorn LeftMenuSpan"></i>
                     公告管理
                 </a>
-                <a href="QuestionnaireList.aspx" class="LeftMenuBtn" id="questionnaireList" select-val="QuestionnaireList">
+                <a href="QuestionnaireList.aspx?user=admin" class="LeftMenuBtn" id="questionnaireList" select-val="QuestionnaireList">
                     <i class="fa fa-list-alt LeftMenuSpan"></i>
                     問卷管理
                 </a>
-                <a href="AnswerQuestionnaireList.aspx" class="LeftMenuBtn" id="answerQuestionnaireList" select-val="AnswerQuestionnaireList">
+                <a href="AnswerQuestionnaireList.aspx?user=user" class="LeftMenuBtn" id="answerQuestionnaireList" select-val="AnswerQuestionnaireList">
                     <i class="fa fa-pencil LeftMenuSpan"></i>
                     我的問卷
+                </a>
+                <a href="Default.aspx" class="LeftMenuBtn" id="logout" select-val="logout">
+                    <i class="fa fa-power-off LeftMenuSpan"></i>
+                    登出
                 </a>
             </div>
         </div>
@@ -102,3 +125,4 @@
 
 
 </asp:Content>
+

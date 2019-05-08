@@ -5,8 +5,7 @@
     //本機
     //var path = window.location.pathname;
     //IIS
-
-    var path = window.location.pathname == '/iQuestionnaire/' ? '/iQuestionnaire/Default.aspx' : window.location.pathname;
+    var path = window.location.pathname == '/iQuestion/' ? '/iQuestion/Default.aspx' : window.location.pathname;
     $('#DeputyBoxInset .breadCrumbs').html(breadCrumbs(path));
 
     //本機
@@ -19,11 +18,11 @@
     //}
 
     //IIS
-    if (window.location.pathname == '/iQuestionnaire/AddQuestionnire.aspx') {
+    if (window.location.pathname == '/iQuestion/AddQuestionnire.aspx') {
         $('.LeftMenuBtn#questionnaireList').addClass('LeftMenuBtnSelect');
     }
 
-    if (window.location.pathname == '/iQuestionnaire/Answer.aspx') {
+    if (window.location.pathname == '/iQuestion/Answer.aspx') {
         $('.LeftMenuBtn#answerQuestionnaireList').addClass('LeftMenuBtnSelect');
     }
 

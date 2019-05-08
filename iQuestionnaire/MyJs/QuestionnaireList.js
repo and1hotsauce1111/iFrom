@@ -16,12 +16,9 @@
                 id: item.id,
                 questionnaireDesc: item.questionnaireDesc,
                 allQuestionnaireData: item.allQuestionnaireData,
-                repeatAnswer: item.repeatAnswer,
-                publicQuestionnaire: item.publicQuestionnaire,
                 name: item.questionnaireTitle,
-                start: item.questionnaireStartTime || '<span style="color:#f00">未設定開始日期</span>',
+                start: item.questionnaireStartTime || '<span style="color:#f00">未設定起始日期</span>',
                 end: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
-                status: item.publicQuestionnaire == 'true' ? '<span style="color:#009149">已發佈</span>' : '<span style="color:#f00">未發佈</span>',
                 repeat: item.repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>'
             });
         });
@@ -240,34 +237,44 @@
     /* 問卷操作功能 */
 
     //編輯問卷
-    editQuestionnaire = function (index) {
-        var array = TableListGetCheck('列表元件');
-        if (array.length === 0) {
-            //不可同時編輯超過1筆
-            alertBox({
-                Mode: 'A',
-                Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
-                Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>'
-            });
-        } else if (array.length > 1) {
-            //不可同時編輯超過1筆
-            alertBox({
-                Mode: 'A',
-                Title: '錯誤提示',
-                Html: '<p style="font-size:18px;color:#ff6a00">不可同時編輯超過一筆!</p>'
-            });
-        } else {
-            var id = '';
-            //找到相對應問卷id
-            for (var i = 0; i < test.length; i++) {
-                if (test[i].id == array[0].id) {
-                    id = test[i].id;
-                    break;
-                }
-            }
+    editQuestionnaire = function (dom) {
+        var id = $(dom).attr('data-index');
+        window.location.href = 'AddQuestionnire.aspx?surveyId=' + id + '';
+        //var id = '';
+        ////找到相對應問卷id
+        //for (var i = 0; i < test.length; i++) {
+        //    if (test[i].id == array[0].id) {
+        //        id = test[i].id;
+        //        break;
+        //    }
+        //}
+        //var array = TableListGetCheck('列表元件');
+        //if (array.length === 0) {
+        //    //不可同時編輯超過1筆
+        //    alertBox({
+        //        Mode: 'A',
+        //        Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
+        //        Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>'
+        //    });
+        //} else if (array.length > 1) {
+        //    //不可同時編輯超過1筆
+        //    alertBox({
+        //        Mode: 'A',
+        //        Title: '錯誤提示',
+        //        Html: '<p style="font-size:18px;color:#ff6a00">不可同時編輯超過一筆!</p>'
+        //    });
+        //} else {
+        //    var id = '';
+        //    //找到相對應問卷id
+        //    for (var i = 0; i < test.length; i++) {
+        //        if (test[i].id == array[0].id) {
+        //            id = test[i].id;
+        //            break;
+        //        }
+        //    }
 
-            window.location.href = 'AddQuestionnire.aspx?surveyId=' + id + '';
-        }
+        //    window.location.href = 'AddQuestionnire.aspx?surveyId=' + id + '';
+        //}
     };
 
     //刪除問卷
@@ -302,7 +309,7 @@
                                 break;
                             }
                         }
-                 
+
                     }
 
                     //呼叫TableListRun重新建立列表
@@ -344,9 +351,9 @@
                             id: test[j].id,
                             questionnaireTitle: test[j].name + ' - 副本',
                             questionnaireDesc: test[j].questionnaireDesc,
-                            questionnaireDeadline: test[j].date,
+                            questionnaireDeadline: test[j].end,
+                            questionnaireStartTime: test[j].start,
                             repeatAnswer: test[j].repeatAnswer,
-                            publicQuestionnaire: 'false',
                             allQuestionnaireData: test[j].allQuestionnaireData,
                         };
 
@@ -354,11 +361,11 @@
                         var newListData = {
                             id: test[j].id,
                             name: test[j].name + ' - 副本',
-                            date: test[j].date,
-                            status: '<span style="color:#f00">未發佈</span>',
-                            repeat: test[j].repeat,
+                            repeat: test[j].repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>',
                             questionnaireDesc: test[j].questionnaireDesc,
                             allQuestionnaireData: test[j].allQuestionnaireData,
+                            start: test[j].start || '<span style="color:#f00">未設定起始日期</span>',
+                            end: test[j].end || '<span style="color:#f00">未設定截止日期</span>',
                         };
 
                         //更新到資料庫
@@ -377,7 +384,7 @@
             //呼叫TableListRun重新建立列表
             TableListRun('列表元件');
         }
-        
+
 
     };
 

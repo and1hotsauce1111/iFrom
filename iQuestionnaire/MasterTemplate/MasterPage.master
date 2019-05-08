@@ -6,7 +6,7 @@
 <head runat="server">
     <meta name="viewport" http-equiv="Content-Type" charset="UTF-8" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
-    <title>快速開發模組 3</title>
+    <title>問卷系統</title>
 
     <!--輔助工具-->
     <link href="<%=ResolveClientUrl("~/IncludeCss/jquery.mCustomScrollbar.min.css")%>" rel="stylesheet" />
@@ -24,9 +24,12 @@
     <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/v-pager.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/JQueryToolsFuntion.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/uuid.js")%>"></script>
+    <%-- axios 支援IE用 --%>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-    
+
 
     <!--套件主體-->
     <link href="<%=ResolveClientUrl("~/UseCss/alert2.css") + publicModuleVersion %>" rel="stylesheet" />
@@ -74,12 +77,12 @@
 
         //IIS
         var nav = [
-            { id: '/iQuestionnaire/Default.aspx', pid: 0, name: '首頁' },
-            { id: '/iQuestionnaire/Announce.aspx', pid: '/iQuestionnaire/Default.aspx', name: '公告管理' },
-            { id: '/iQuestionnaire/QuestionnaireList.aspx', pid: '/iQuestionnaire/Default.aspx', name: '問卷管理' },
-            { id: '/iQuestionnaire/AnswerQuestionnaireList.aspx', pid: '/iQuestionnaire/Default.aspx', name: '我的問卷' },
-            { id: '/iQuestionnaire/AddQuestionnire.aspx', pid: '/iQuestionnaire/QuestionnaireList.aspx', name: '編輯問卷' },
-            { id: '/iQuestionnaire/Answer.aspx', pid: '/iQuestionnaire/AnswerQuestionnaireList.aspx', name: '問卷填答' }
+            { id: '/iQuestion/Default.aspx', pid: 0, name: '首頁' },
+            { id: '/iQuestion/Announce.aspx', pid: '/iQuestion/Default.aspx', name: '公告管理' },
+            { id: '/iQuestion/QuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '問卷管理' },
+            { id: '/iQuestion/AnswerQuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '我的問卷' },
+            { id: '/iQuestion/AddQuestionnire.aspx', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
+            { id: '/iQuestion/Answer.aspx', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' }
         ];
 
         var homeIcon = '<i class="fa fa-home"></i>';
@@ -101,12 +104,12 @@
 
             if (data['pid'] == 0) { //若是父層，回傳完整路徑
 
-                path = homeIcon + '&nbsp;<a href="' + data['id'] + '">'+ data['name'] +'</a>&nbsp;' + path;
+                path = homeIcon + '&nbsp;<a href="' + data['id'] + '">' + data['name'] + '</a>&nbsp;' + path;
 
                 //從父層回傳完整path
-                return '<span>'+ path +'</span>';
+                return '<span>' + path + '</span>';
             } else { //不為父層，繼續往上找
-                path = arrow + '&nbsp;<a href="' + data['id'] + '">'+ data['name'] +'</a>&nbsp;' + path;
+                path = arrow + '&nbsp;<a href="' + data['id'] + '">' + data['name'] + '</a>&nbsp;' + path;
 
                 //從子層向父層依序傳遞path
                 return breadCrumbs(data['pid'], path);

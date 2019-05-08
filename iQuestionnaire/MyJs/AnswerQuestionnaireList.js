@@ -19,7 +19,7 @@
                 repeatAnswer: item.repeatAnswer,
                 publicQuestionnaire: item.publicQuestionnaire,
                 name: item.questionnaireTitle,
-                start: item.questionnaireStartTime || '<span style="color:#f00">未設定開始日期</span>',
+                start: item.questionnaireStartTime || '<span style="color:#f00">未設定起始日期</span>',
                 end: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
                 status: item.publicQuestionnaire == 'true' ? '<span style="color:#009149">已發佈</span>' : '<span style="color:#f00">未發佈</span>',
                 repeat: item.repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>'
@@ -34,40 +34,6 @@
 
     //列表元件
     //渲染用data
-    //var test = [
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/10', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span></span>' },
-    //    { name: '台北六年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span></span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台北六年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/5/20', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '台中九年級學習特質問卷', date: '2019/4/10', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台中九年級學習特質問卷', date: '2019/6/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台北六年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/6/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '台中九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台中九年級學習特質問卷', date: '2019/5/20', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台中九年級學習特質問卷', date: '2019/4/10', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '台南七年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台南七年級學習特質問卷', date: '2019/5/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台南七年級學習特質問卷', date: '2019/5/10', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '台南七年級學習特質問卷', date: '2019/6/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/6/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#f00">未發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '台南七年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#009149"><i class="fa fa-check"></i>可</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //    { name: '桃園九年級學習特質問卷', date: '2019/4/20', status: '<span style="color:#009149">已發佈</span>', repeat:'<span style="color:#f00"><i class="fa fa-times"></i>否</span>' },
-    //];
-
 
     //選取要複製的列表模板
     var listHtml = $('#listType').html();
@@ -239,148 +205,11 @@
 
     /* 問卷操作功能 */
 
-    //編輯問卷
-    editQuestionnaire = function (index) {
-        var array = TableListGetCheck('列表元件');
-        if (array.length === 0) {
-            //不可同時編輯超過1筆
-            alertBox({
-                Mode: 'A',
-                Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
-                Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>'
-            });
-        } else if (array.length > 1) {
-            //不可同時編輯超過1筆
-            alertBox({
-                Mode: 'A',
-                Title: '錯誤提示',
-                Html: '<p style="font-size:18px;color:#ff6a00">不可同時編輯超過一筆!</p>'
-            });
-        } else {
-            var id = '';
-            //找到相對應問卷id
-            for (var i = 0; i < test.length; i++) {
-                if (test[i].id == array[0].id) {
-                    id = test[i].id;
-                    break;
-                }
-            }
-
-            window.location.href = 'AddQuestionnire.aspx?surveyId=' + id + '';
-        }
+    //填答問卷
+    answerQuestion = function (dom) {
+        var id = $(dom).attr('data-index');
+        window.location.href = 'Answer.aspx?surveyId=' + id + '';
     };
-
-    //刪除問卷
-    delQuestionnaire = function (index) {
-        var array = TableListGetCheck('列表元件');
-        if (array.length === 0) {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
-                OutsideStyle: 'max-width:500px',
-                Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>',
-            });
-        } else {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;刪除問卷',
-                OutsideStyle: 'max-width:500px',
-                Html: '<p style="font-size:18px;color:#ff6a00">確定刪除問卷 ?</p>',
-                OnOK: function () {
-
-                    var array = TableListGetCheck('列表元件');
-
-                    for (var i = 0; i < array.length; i++) {
-                        axios.delete('http://localhost:3000/questionnaire/' + array[i].id + '').then(function (res) {
-                            console.log(res.data);
-                        });
-
-                        //刪除test資料
-                        for (var j = 0; j < test.length; j++) {
-                            if (test[j].id == array[i].id) {
-                                test.splice(j, 1);
-                                break;
-                            }
-                        }
-                 
-                    }
-
-                    //呼叫TableListRun重新建立列表
-                    TableListRun('列表元件');
-
-                }
-            });
-        }
-    };
-
-    //複製問卷
-    copyQuestionnaire = function (index) {
-
-        var array = TableListGetCheck('列表元件');
-        if (array.length === 0) {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
-                OutsideStyle: 'max-width:500px',
-                Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>',
-            });
-        } else {
-            for (var i = 0; i < array.length; i++) {
-                for (var j = 0; j < test.length; j++) {
-
-                    if (test[j].id == array[i].id) {
-                        //重新設定問卷id和問題id
-                        test[j].id = _uuid();
-                        for (var k = 0; k < test[j].allQuestionnaireData.length; k++) {
-                            for (var m = 0; m < test[j].allQuestionnaireData[k].questionDataPerPage.length; m++) {
-                                for (var n = 0; n < test[j].allQuestionnaireData[k].questionDataPerPage[m].pageQuestionData.length; n++) {
-                                    test[j].allQuestionnaireData[k].questionDataPerPage[m].pageQuestionData[n].id = _uuid();
-                                }
-                            }
-                        }
-
-                        //更新資料庫
-                        var copy = {
-                            id: test[j].id,
-                            questionnaireTitle: test[j].name + ' - 副本',
-                            questionnaireDesc: test[j].questionnaireDesc,
-                            questionnaireDeadline: test[j].date,
-                            repeatAnswer: test[j].repeatAnswer,
-                            publicQuestionnaire: 'false',
-                            allQuestionnaireData: test[j].allQuestionnaireData,
-                        };
-
-                        //更新列表
-                        var newListData = {
-                            id: test[j].id,
-                            name: test[j].name + ' - 副本',
-                            date: test[j].date,
-                            status: '<span style="color:#f00">未發佈</span>',
-                            repeat: test[j].repeat,
-                            questionnaireDesc: test[j].questionnaireDesc,
-                            allQuestionnaireData: test[j].allQuestionnaireData,
-                        };
-
-                        //更新到資料庫
-                        axios.post('http://localhost:3000/questionnaire/', copy).then(function (res) {
-                            console.log(res.data);
-                        });
-
-                        //更新test資料
-                        test.push(newListData);
-
-                        break;
-                    }
-                }
-            }
-
-            //呼叫TableListRun重新建立列表
-            TableListRun('列表元件');
-        }
-        
-
-    };
-
 
 
 

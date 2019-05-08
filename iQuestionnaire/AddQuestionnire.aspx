@@ -614,6 +614,13 @@
                             </label>
                         </td>
                     </tr>
+                    <tr>
+                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <td>
+                            <input type="text" value="" placeholder="輸入內容..." id="edit_textarea_question_title" />
+                            <div class="inputLine"></div>
+                        </td>
+                    </tr>
                 </table>
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
@@ -673,7 +680,7 @@
                 </tr>
                 <tr>
                     <th style="font-size: 18px">問卷說明</th>
-                    <td>
+                    <td colspan="2">
                         <div style="font-size: 0">
                             <textarea rows="5" v-model="questionnaireDesc" placeholder="輸入內容..."></textarea>
                         </div>
@@ -681,7 +688,7 @@
                 </tr>
                 <tr>
                     <th style="width: 30%;font-size: 18px" class="textC">問卷填答設置</th>
-                    <td>
+                    <td colspan="2">
                         <label class="label_checkbox">
                             <input type="checkbox" value="重複填答" v-model="repeat"/>
                             <span class="label_icon"></span>
@@ -694,7 +701,9 @@
                     <td>
                         <span style="color:#ff6a00">起: </span>
                         <div v-if="startTime === ''" id="startTime" style="margin-right:15px"></div>
-                        <div v-else>{{ startTime }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('start')">重新設定</button></div>
+                        <div v-else>{{ startTime }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('start')">重新設定</button></div>               
+                    </td>
+                    <td>
                         <span style="color:#ff6a00">迄: </span>
                         <div v-if="deadline === ''" id="deadline"></div>
                         <div v-else>{{ deadline }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('end')">重新設定</button></div>

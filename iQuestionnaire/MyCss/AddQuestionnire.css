@@ -242,7 +242,7 @@
             bottom: -35px;
             right: 10px;
             /*transition: all 0.2s ease;*/
-            opacity: 0;
+            /*opacity: 0;*/
             visibility: hidden;
         }
 
@@ -273,7 +273,7 @@
 
         .showQuestions_wrap .showQuestions_unit:hover .showQuestions_unit_tools,
         .showQuestions_wrap .showQuestions_pageDesc:hover .showQuestions_unit_tools {
-            opacity: 1;
+            /*opacity: 1;*/
             visibility: visible;
         }
 

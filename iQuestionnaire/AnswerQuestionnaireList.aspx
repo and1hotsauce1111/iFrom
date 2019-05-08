@@ -57,10 +57,10 @@
 
 
     <%-- 問卷操作功能 --%>
-    <div class="ContentBoxHtml">
+    <%--<div class="ContentBoxHtml">
         <div class="ContentBoxHeader">操作功能</div>
-        <a href="Answer.aspx" class="button btn_white"><i class="fa fa-pencil" style="color: #1E9E74; padding-right: 3px"></i>填答問卷</a>
-    </div>
+        <a href="Answer.aspx" class="button btn_white" onclick="answerQuestion(event)"><i class="fa fa-pencil" style="color: #1E9E74; padding-right: 3px"></i>填答問卷</a>
+    </div>--%>
 
 
     <%-- 顯示問卷列表 --%>
@@ -102,6 +102,7 @@
                         <th>問卷起始日期</th>
                         <th>問卷截止日期</th>
                         <th>問卷填答設置</th>
+                        <th>操作功能</th>
                     </tr>
                     <tr tbl-repeat="列表元件" class="trHover textC">
                         <td>
@@ -115,6 +116,9 @@
                         <td>@start</td>
                         <td>@end</td>
                         <td>@repeat</td>
+                        <td>
+                            <button type="button" data-index="@id" class="button btn_white_o" onclick="answerQuestion($(this))"><i class="fa fa-pencil-square-o" style="color: #F6A800; padding-right: 3px"></i>填答</button>
+                        </td>
                     </tr>
                     <tr tbl-build="列表元件-NoData">
                         <td colspan="4">查無資料</td>

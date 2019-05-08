@@ -3,35 +3,55 @@
     props: ['id', 'setting', 'data', 'value', 'disabled'],
     data: function () {
         return {
+            isBuilding: false
         };
     },
     created: function () {
     },
     mounted: function () {
-        this.build();
+        this.$nextTick(function () {
+            this.build();
+        });
     },
     watch: {
+        id: function (newVal, oldVal) {
+            if (newVal !== oldVal) {
+                this.isBuilding = true;
+                this.$nextTick(function () {
+                    this.isBuilding = false;
+                    this.build();
+                });
+            }
+        },
         data: function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                var setting = { Data: newVal || [{ Optgroup: '', Option: [] }] };
-                DropListSettingChange(this.id, setting);
+                if (!this.isBuilding) {
+                    var setting = { Data: newVal || [{ Optgroup: '', Option: [] }] };
+                    DropListSettingChange(this.id, setting);
+                }
             }
         },
         value: function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                DropListSet(this.id, newVal || []);
+                if (!this.isBuilding) {
+                    DropListSet(this.id, newVal || []);
+                }
             }
         },
         disabled: function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                DropListEnabled(this.id, !newVal);
+                if (!this.isBuilding) {
+                    DropListEnabled(this.id, !newVal);
+                }
             }
         },
         setting: function (newVal, oldVal) {
             if (newVal !== oldVal) {
-                var setting = !newVal ? {} : _(newVal)
-                    .omit(['ID', 'Select', 'Data', 'Disabled', 'OnChange', 'OnEnd']);
-                DropListSettingChange(this.id, setting);
+                if (!this.isBuilding) {
+                    var setting = !newVal ? {} : _(newVal)
+                        .omit(['ID', 'Select', 'Data', 'Disabled', 'OnChange', 'OnEnd']).value();
+                    DropListSettingChange(this.id, setting);
+                }
             }
         }
     },

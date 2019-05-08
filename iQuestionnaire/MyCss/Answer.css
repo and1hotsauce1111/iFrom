@@ -1,2 +1,28 @@
-﻿body {
+﻿/* 問題樣式 */
+
+.question_title, .question_wrap {
+    padding:10px;
+}
+
+.question_content_radio,
+.question_content_checkbox,
+.question_content_pulldown {
+    padding-bottom:10px;
+}
+
+.page_desc {
+    border: 1px solid #555;
+    border-radius: 2px;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.change_page {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.extra_blank {
+    width:100%;
+    height:60px;
 }

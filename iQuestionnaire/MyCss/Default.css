@@ -1,0 +1,7 @@
+﻿html {
+    background-image: url('../Images/gray_bg.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

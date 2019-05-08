@@ -61,9 +61,8 @@
     <%-- 問卷操作功能 --%>
     <div class="ContentBoxHtml">
         <div class="ContentBoxHeader">操作功能</div>
-        <a href="AddQuestionnire.aspx" class="button btn_white"><i class="fa fa-plus" style="color: #1E9E74; padding-right: 3px"></i>新增問卷</a>
+        <a href="AddQuestionnire.aspx?user=admin" class="button btn_white"><i class="fa fa-plus" style="color: #1E9E74; padding-right: 3px"></i>新增問卷</a>
         <button type="button" class="button btn_white" onclick="delQuestionnaire()"><i class="fa fa-trash-o" style="color: #f00; padding-right: 3px"></i>刪除問卷</button>
-        <button type="button" class="button btn_white" onclick="editQuestionnaire()"><i class="fa fa-pencil-square-o" style="color: #F6A800; padding-right: 3px"></i>編輯問卷</button>
         <button type="button" class="button btn_white" onclick="copyQuestionnaire()"><i class="fa fa-clone" style="color: #0085E5; padding-right: 3px"></i>複製問卷</button>
     </div>
 
@@ -107,6 +106,7 @@
                         <th>問卷起始日期</th>
                         <th>問卷截止日期</th>
                         <th>問卷填答設置</th>
+                        <th>操作功能</th>
                     </tr>
                     <tr tbl-repeat="列表元件" class="trHover textC">
                         <td>
@@ -120,6 +120,9 @@
                         <td>@start</td>
                         <td>@end</td>
                         <td>@repeat</td>
+                        <td>
+                            <button type="button" data-index="@id" class="button btn_white_o" onclick="editQuestionnaire($(this))"><i class="fa fa-pencil-square-o" style="color: #F6A800; padding-right: 3px"></i>編輯問卷</button>
+                        </td>
                     </tr>
                     <tr tbl-build="列表元件-NoData">
                         <td colspan="4">查無資料</td>
