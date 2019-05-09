@@ -19,17 +19,17 @@
                 "title": "對於國語課程中的基本概念我可以理解。",
                 "options": [
                   {
-                    "id": "7c136954-d6d2-44c6-99d9-2f793a16da6c",
+                    "id": "5160abbe-b912-4428-b26a-3dbd0fb3faaa",
                     "val": "不太像我",
                     "jumpLogic": null
                   },
                   {
-                    "id": "b6e53645-a9b3-4199-ac8a-14fccae2a434",
+                    "id": "bd5067e3-f2c1-4b22-92da-1f100112bef2",
                     "val": "有點像我",
                     "jumpLogic": {
                       "triggerOption": {
                         "id": [
-                          "b6e53645-a9b3-4199-ac8a-14fccae2a434"
+                          "bd5067e3-f2c1-4b22-92da-1f100112bef2"
                         ],
                         "val": [
                           "有點像我"
@@ -37,10 +37,10 @@
                       },
                       "jumpTo": {
                         "id": [
-                          "1d88bbf2-0d66-495d-a4c6-17a006c42dd6"
+                          "ea5147a4-89e5-4b19-a526-edd43529cc4d"
                         ],
                         "val": [
-                          "Q9 爸媽或(外)祖父母會和我討論或教導我學校功課。"
+                          "Q13 電話"
                         ]
                       },
                       "noSkip": {
@@ -51,12 +51,12 @@
                     }
                   },
                   {
-                    "id": "c7554366-9983-4c34-ad2d-ac2a5469cc2c",
+                    "id": "329c151d-4b04-4b4c-a8a2-ac9098a64034",
                     "val": "很像我",
                     "jumpLogic": null
                   },
                   {
-                    "id": "ffb599d0-8175-4bca-a59b-f5e8f77db185",
+                    "id": "66350868-2db2-40f7-b7d6-f69456a39f0d",
                     "val": "非常像我",
                     "jumpLogic": null
                   }
@@ -65,7 +65,7 @@
                   {
                     "triggerOption": {
                       "id": [
-                        "b6e53645-a9b3-4199-ac8a-14fccae2a434"
+                        "bd5067e3-f2c1-4b22-92da-1f100112bef2"
                       ],
                       "val": [
                         "有點像我"
@@ -73,10 +73,10 @@
                     },
                     "jumpTo": {
                       "id": [
-                        "1d88bbf2-0d66-495d-a4c6-17a006c42dd6"
+                        "ea5147a4-89e5-4b19-a526-edd43529cc4d"
                       ],
                       "val": [
-                        "Q9 爸媽或(外)祖父母會和我討論或教導我學校功課。"
+                        "Q13 電話"
                       ]
                     },
                     "noSkip": {
@@ -86,7 +86,8 @@
                     "allJump": []
                   }
                 ],
-                "isSelect": ""
+                "isSelect": "",
+                "required": "true"
               },
               {
                 "type": "radio",
@@ -95,27 +96,27 @@
                 "title": "我覺得我能在國語考試中得到好成績。",
                 "options": [
                   {
-                    "id": "03eb9c68-5554-4c45-8055-9e22f98f5c73",
+                    "id": "3f016f8e-8dd9-4d4b-8041-0864fe23cb55",
                     "val": "不太像我",
                     "jumpLogic": null
                   },
                   {
-                    "id": "f4713112-8b84-4410-85be-b7a03b6577e6",
+                    "id": "a173da0d-c124-455c-8714-94f4989d7e13",
                     "val": "有點像我",
                     "jumpLogic": null
                   },
                   {
-                    "id": "5427c86c-718d-4dda-85b9-dda1880707fd",
+                    "id": "f3d98bf2-447b-4158-84c0-199d7ecc86f1",
                     "val": "很像我",
                     "jumpLogic": null
                   },
                   {
-                    "id": "f86ca535-d35e-4ac9-b0e1-799332d4e0e5",
+                    "id": "7a8cdecc-9270-4eaf-a5ed-23f787fa4741",
                     "val": "非常像我",
                     "jumpLogic": null
                   }
                 ],
-                "required": "true",
+                "required": "false",
                 "showLogicCount": [],
                 "isSelect": ""
               },
@@ -474,6 +475,22 @@
                   },
                   "allJump": []
                 }
+              },
+              {
+                "type": "textarea",
+                "id": "14f87bc3-8f5f-4148-963b-508a5e391b42",
+                "questionNum": 12,
+                "title": "trest",
+                "showLogicCount": [],
+                "answerVal": ""
+              },
+              {
+                "type": "textarea",
+                "id": "51b5912e-f3ac-40eb-bbc1-3febcfa4c504",
+                "questionNum": 13,
+                "title": "15",
+                "showLogicCount": [],
+                "answerVal": ""
               }
             ]
           }
@@ -486,7 +503,7 @@
               {
                 "type": "textarea",
                 "id": "3051e0e4-edca-4b50-a7b2-a185ee1f2a27",
-                "questionNum": 12,
+                "questionNum": 14,
                 "title": "未來的夢想",
                 "showLogicCount": [],
                 "answerVal": ""
@@ -494,7 +511,7 @@
               {
                 "type": "textarea",
                 "id": "ea5147a4-89e5-4b19-a526-edd43529cc4d",
-                "questionNum": 13,
+                "questionNum": 15,
                 "title": "電話",
                 "showLogicCount": [],
                 "answerVal": ""

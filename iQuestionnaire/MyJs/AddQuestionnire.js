@@ -20,6 +20,8 @@
     });
 
     /* 問卷編輯區塊 */
+   
+
 
 
     //編輯單選題
@@ -1063,20 +1065,25 @@
 
                             item.questionDataPerPage.pageQuestionData.forEach(function (data) {
                                 //刪除顯示跳題提示資料
-                                data.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        if (option.jumpLogic.jumpTo.id[0] == question.id) {
-                                            option.jumpLogic = null;
+                                if (data.options) {
+                                    data.options.forEach(function (option) {
+                                        if (option.jumpLogic !== null) {
+                                            if (option.jumpLogic.jumpTo.id[0] == question.id) {
+                                                option.jumpLogic = null;
+                                            }
                                         }
-                                    }
-                                });
-                                //刪除選項跳題設定
-                                data.showLogicCount = [];
-                                data.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        data.showLogicCount.push(option.jumpLogic);
-                                    }
-                                });
+                                    });
+                                    //刪除選項跳題設定
+                                    data.showLogicCount = [];
+                                    data.options.forEach(function (option) {
+                                        if (option.jumpLogic !== null) {
+                                            data.showLogicCount.push(option.jumpLogic);
+                                        }
+                                    });
+                                } else {
+                                    data.showLogicCount = [];
+                                }
+
                             });
                         });
                     });
@@ -1137,20 +1144,24 @@
 
                             item.questionDataPerPage.pageQuestionData.forEach(function (data) {
                                 //刪除顯示跳題提示資料
-                                data.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        if (option.jumpLogic.jumpTo.id[0] == question.id) {
-                                            option.jumpLogic = null;
+                                if (data.options) {
+                                    data.options.forEach(function (option) {
+                                        if (option.jumpLogic !== null) {
+                                            if (option.jumpLogic.jumpTo.id[0] == question.id) {
+                                                option.jumpLogic = null;
+                                            }
                                         }
-                                    }
-                                });
-                                //刪除選項跳題設定
-                                data.showLogicCount = [];
-                                data.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        data.showLogicCount.push(option.jumpLogic);
-                                    }
-                                });
+                                    });
+                                    //刪除選項跳題設定
+                                    data.showLogicCount = [];
+                                    data.options.forEach(function (option) {
+                                        if (option.jumpLogic !== null) {
+                                            data.showLogicCount.push(option.jumpLogic);
+                                        }
+                                    });
+                                } else {
+                                    data.showLogicCount = [];
+                                }
                             });
                         });
                     });
@@ -1425,12 +1436,15 @@
     };
 
     //刪除問題
-    deleteQuestion = function (e, type, dom) {
+    deleteQuestion = function (e,dom) {
 
         alertBox({
             Mode: 'C',
             Html: '<p style="font-size:18px;color:#ff6a00">確定刪除問題 (跳題設定將會一併刪除)?</p>',
             OnOK: function () {
+
+                var type = $(dom).attr('data-type');
+
                 if (type === 'radio' || type === 'checkbox' || type === 'pulldown' || type === 'textarea') {
                     var currentIndex = $(dom).attr('data-index');
                     var delId;
@@ -1608,14 +1622,15 @@
     };
 
     //邏輯跳題
-    jumpQuestion = function (e, dom, type) {
-
+    jumpQuestion = function (e, dom) {
         alertBox({
             Mode: 'C',
             Title: '<i class="fa fa-code-fork"></i>&nbsp;設定跳題邏輯',
             OutsideStyle: 'max-width:900px',
             Html: $('#jumpQuestion'),
             OnReady: function () {
+
+                var type = $(dom).attr('data-type');
 
                 if (type === 'radio') {
 
@@ -2111,7 +2126,7 @@
                         }
                     }
 
-                } else if (type === 'checkbox' || type === 'pulldown') {    
+                } else if (type === 'checkbox' || type === 'pulldown') {
 
                     //判斷是否有任意選項
                     if (target.length === 1) {
@@ -2144,7 +2159,7 @@
                     } else {
                         //多選跳題
                         for (var i = 0; i < target.length; i++) {
-                            
+
                             //切割字串
                             var string = _.split(target[i].jumpTo.val[0], '');
                             var split;
@@ -2263,13 +2278,15 @@
             vm.nowPage++;
             vm.currentPage = '第 ' + vm.nowPage + ' 頁';
         }
+        //$('body').delay(500).show(1, function () {
+        //    $('.showQuestions_unit_tools').show();
+        //});
     };
 
     //跳頁
     jumpPage = function (e) {
         e.stopPropagation();
         $('.show_jump_page').toggle('fast');
-
     };
 
     jumpToPage = function (e, dom) {
@@ -2327,7 +2344,7 @@
 
 
 
-    
+
     window.onbeforeunload = function (event) {
         var event = event || window.event;
         if (event) {

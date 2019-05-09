@@ -99,7 +99,6 @@
                             </label>
                         </th>
                         <th>問卷名稱</th>
-                        <th>問卷起始日期</th>
                         <th>問卷截止日期</th>
                         <th>問卷填答設置</th>
                         <th>操作功能</th>
@@ -113,7 +112,6 @@
                             </label>
                         </td>
                         <td>@name</td>
-                        <td>@start</td>
                         <td>@end</td>
                         <td>@repeat</td>
                         <td>

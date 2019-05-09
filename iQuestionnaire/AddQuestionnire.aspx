@@ -737,11 +737,14 @@
 
                         <div class="showQuestions_wrap">
 
-                            <div class="showQuestions_pageDesc" v-if="page.questionDataPerPage.pageDesc !== ''">
-                                <div style="font-size: 0">
-                                    <textarea rows="3" placeholder="輸入內容..." class="show_page_desc" :data-index="i" disabled="disabled">{{ page.questionDataPerPage.pageDesc }}</textarea>
+                            <div class="showQuestions_pageDesc_wrap">
+                                <div class="showQuestions_pageDesc" v-if="page.questionDataPerPage.pageDesc !== ''">
+                                    <div style="font-size: 0">
+                                        <textarea rows="3" placeholder="輸入內容..." class="show_page_desc" :data-index="i" disabled="disabled">{{ page.questionDataPerPage.pageDesc }}</textarea>
+                                    </div>                             
                                 </div>
-                                <div class="showQuestions_unit_tools">
+
+                                <div class="showQuestions_unit_tools_pageDesc">
                                     <ul class="showQuestions_unit_tools_list">
                                         <li>
                                             <span title="編輯" onclick="editPageDesc(event,'edit',$(this))" :data-index="i">
@@ -756,6 +759,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            
 
 
                             <div class="clear"></div>
@@ -763,14 +767,15 @@
 
                             <%-- 顯示問題區塊 --%>
 
-                            <template v-for="(question,index) in page.questionDataPerPage.pageQuestionData">
+                            <div class="question_wrap" v-for="(question,index) in page.questionDataPerPage.pageQuestionData">
 
                                 <%-- 單選題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'radio'">
-                                        <span style="font-size: 18px" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;{{ question.title }}</span>
-
+                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+                                        <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
+
                                             <label class="label_radio">
                                                 <input type="radio" disabled="disabled" />
                                                 <span class="label_icon"></span>
@@ -779,32 +784,6 @@
                                             
                                         </div>
                                   
-
-                                        <div class="showQuestions_unit_tools">
-                                            <ul class="showQuestions_unit_tools_list">
-                                                <li>
-                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'radio')" :data-index="index">
-                                                        <i class="fa fa-code-fork"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="編輯" onclick="editRadio(event,'edit',$(this))" :data-index="index">
-                                                        <i class="fa fa-pencil-square-o"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="複製" onclick="copyQuestion(event,$(this))" :data-index="index">
-                                                        <i class="fa fa-clone"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="刪除" onclick="deleteQuestion(event,'radio',$(this))" :data-index="index">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-
                                         <div class="show_logic_setting" onclick="showLogicSetting($(this),'radio')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
                                             <span class="logic_count">{{ question.showLogicCount.length }}</span>
@@ -820,8 +799,8 @@
                                 <%-- 多選題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'checkbox'">
-                                        <span style="font-size: 18px" class="question_title"><span v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;{{ question.title }}</span>
-
+                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+                                        <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
                                             <label class="label_checkbox">
                                                 <input type="checkbox" disabled="disabled"/>
@@ -830,30 +809,7 @@
                                             </label>
                                         </div>
 
-                                        <div class="showQuestions_unit_tools">
-                                            <ul class="showQuestions_unit_tools_list">
-                                                <li>
-                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'checkbox')" :data-index="index">
-                                                        <i class="fa fa-code-fork"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="編輯" onclick="editCheckbox(event,'edit',$(this))" :data-index="index">
-                                                        <i class="fa fa-pencil-square-o"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="複製" onclick="copyQuestion(event,$(this))" :data-index="index">
-                                                        <i class="fa fa-clone"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="刪除" onclick="deleteQuestion(event,'checkbox',$(this))" :data-index="index">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                       
 
                                         <div class="show_logic_setting" onclick="showLogicSetting($(this),'checkbox')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
@@ -868,8 +824,8 @@
                                 <%-- 下拉題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'pulldown'">
-                                        <span style="font-size: 18px" class="question_title"><span v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;{{ question.title }}</span>
-
+                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+                                        <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
                                             <span style="display:flex;align-items:center">
                                                 <i class="fa fa-caret-square-o-down" style="font-size:18px"></i>&nbsp;
@@ -877,30 +833,7 @@
                                             </span>                                    
                                         </div>
 
-                                        <div class="showQuestions_unit_tools">
-                                            <ul class="showQuestions_unit_tools_list">
-                                                <li>
-                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'pulldown')" :data-index="index">
-                                                        <i class="fa fa-code-fork"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="編輯" onclick="editPulldown(event,'edit',$(this))" :data-index="index">
-                                                        <i class="fa fa-pencil-square-o"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="複製" onclick="copyQuestion(event,$(this))" :data-index="index">
-                                                        <i class="fa fa-clone"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="刪除" onclick="deleteQuestion(event,'pulldown',$(this))" :data-index="index">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        
 
                                         <div class="show_logic_setting" onclick="showLogicSetting($(this),'pulldown')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
@@ -916,38 +849,15 @@
                                 <%-- 文本題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'textarea'">
-                                        <span style="font-size: 18px" class="question_title"><span v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;{{ question.title }}</span>
-
+                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+                                        <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options">
                                             <div style="font-size: 0">
                                                 <textarea rows="5" placeholder="" disabled></textarea>
                                             </div>                                    
                                         </div>
 
-                                        <div class="showQuestions_unit_tools">
-                                            <ul class="showQuestions_unit_tools_list">
-                                                <li>
-                                                    <span title="跳題設定" onclick="jumpQuestion(event, $(this),'textarea')" :data-index="index">
-                                                        <i class="fa fa-code-fork"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="編輯" onclick="editTextarea(event,'edit',$(this))" :data-index="index">
-                                                        <i class="fa fa-pencil-square-o"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="複製" onclick="copyQuestion(event,$(this))" :data-index="index">
-                                                        <i class="fa fa-clone"></i>
-                                                    </span>
-                                                </li>
-                                                <li>
-                                                    <span title="刪除" onclick="deleteQuestion(event,'textarea',$(this))" :data-index="index">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        
 
                                         <div class="show_logic_setting" onclick="showLogicSetting($(this),'textarea')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
@@ -958,7 +868,35 @@
                             
                                 <!-- end of 文本題 -->
 
-                            </template> <%-- end顯示問題區塊 --%>
+                                <%-- 題目編輯面板 --%>
+                                <div class="showQuestions_unit_tools">
+                                    <ul class="showQuestions_unit_tools_list">
+                                        <li onclick="jumpQuestion(event, $(this))" :data-index="index" :data-type="question.type">
+                                            <span title="跳題設定">
+                                                <i class="fa fa-code-fork"></i>
+                                            </span>
+                                        </li>
+                                        <li onclick="editTextarea(event,'edit',$(this))" :data-index="index">
+                                            <span title="編輯">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </span>
+                                        </li>
+                                        <li onclick="copyQuestion(event,$(this))" :data-index="index">
+                                            <span title="複製">
+                                                <i class="fa fa-clone"></i>
+                                            </span>
+                                        </li>
+                                        <li onclick="deleteQuestion(event,$(this))" :data-index="index" :data-type="question.type">
+                                            <span title="刪除">
+                                                <i class="fa fa-trash-o"></i>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+
+                            </div> <%-- end顯示問題區塊 --%>
                     
                         </div>
                 </template>

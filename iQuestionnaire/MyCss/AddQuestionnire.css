@@ -58,17 +58,17 @@
                     background-color: rgba(255, 207, 73,0.06);
                 }
 
-                    .tools_bar .tools_bar_items .tool_items ul.tool_items_list li div {
-                        text-align: center;
-                        font-size: 16px;
-                        margin: 5px 0;
-                        user-select: none;
-                    }
+                .tools_bar .tools_bar_items .tool_items ul.tool_items_list li div {
+                    text-align: center;
+                    font-size: 16px;
+                    margin: 5px 0;
+                    user-select: none;
+                }
 
         .tools_bar .tools_bar_items .tool_type {
-            display:flex;
+            display: flex;
             /*background-color: #3388ff;*/
-            width:100%;
+            width: 100%;
             color: #fff;
             text-align: center;
             font-size: 16px;
@@ -132,16 +132,19 @@
 
             .tools_bar_mini .basic_tools ul.basic_tools_list li {
                 width: 60px;
-                border-right: 1px dashed #ccc;              
+                border-right: 1px dashed #ccc;
             }
+
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(1),
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(2),
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(3) {
                     border-bottom: 3px solid #3388ff;
                 }
+
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(4) {
                     border-bottom: 3px solid #EA4335;
                 }
+
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(5) {
                     border-bottom: 3px solid #FFD04A;
                 }
@@ -163,6 +166,7 @@
                 .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(7) {
                     border-bottom: 3px solid #FFD04A;
                 }
+
                     .tools_bar_mini .basic_tools ul.basic_tools_list li:nth-child(7):hover {
                         background-color: rgba(255, 207, 73,0.06);
                     }
@@ -204,86 +208,119 @@
     .showQuestions_wrap .showQuestions_pageDesc {
         position: relative;
         padding: 10px;
-        margin-bottom: 40px;
         border: 1px solid transparent;
         border-radius: 5px;
         /*box-shadow: 0 0 2px 1px #d3d3d3;*/
         background-color: #fff;
     }
 
-        .showQuestions_wrap .showQuestions_unit:hover,
-        .showQuestions_wrap .showQuestions_pageDesc:hover {
+.question_wrap:hover .showQuestions_unit {
+    cursor: pointer;
+    border: 1px solid #d3d3d3;
+}
+
+.showQuestions_pageDesc_wrap:hover .showQuestions_pageDesc {
+    cursor: pointer;
+    border: 1px solid #d3d3d3;
+    /*background-color: #f7f7f7;*/
+    /*border-bottom: 1px solid #d3d3d3;*/
+    /*box-shadow: 0 0 2px 1px #d3d3d3;*/
+}
+
+.showQuestions_wrap .showQuestions_unit .showQuestions_unit_options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    padding-left: 57px;
+}
+
+    .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label {
+        margin-bottom: 15px;
+    }
+
+        .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label:hover {
+            color: #505050;
+        }
+
+.showQuestions_wrap .showQuestions_unit_tools,
+.showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc {
+    position: relative;
+    top: -1px;
+    width: 20%;
+    margin: 0 10px 20px auto;
+    padding-left: 10px;
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid #d3d3d3;
+    border-top: 0;
+    background-color: #fff;
+    visibility: hidden;
+}
+
+.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools {
+    position: absolute;
+    width: 25%;
+    bottom: -35px;
+    right: 10px;
+    opacity: 0;
+    /*visibility: hidden;*/
+}
+
+.showQuestions_wrap .showQuestions_unit_tools ul.showQuestions_unit_tools_list,
+.showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc ul.showQuestions_unit_tools_list {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/*.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list {
+    display: flex;
+    text-align: center;
+    padding: 5px;
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid #d3d3d3;
+    border-top: 0;
+    background-color: #fff;
+}*/
+
+    .showQuestions_wrap .showQuestions_unit_tools ul.showQuestions_unit_tools_list li,
+    .showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc ul.showQuestions_unit_tools_list li {
+        flex: 0 0 24%;
+        font-size: 18px;
+        text-align: center;
+    }
+        .showQuestions_wrap .showQuestions_unit_tools ul.showQuestions_unit_tools_list li:hover,
+        .showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc ul.showQuestions_unit_tools_list li:hover {
             cursor: pointer;
-            border: 1px solid #d3d3d3;
-            /*background-color: #f7f7f7;*/
-            /*border-bottom: 1px solid #d3d3d3;*/
-            /*box-shadow: 0 0 2px 1px #d3d3d3;*/
         }
 
-        .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options {
-            display: flex;
-            flex-direction: column;
-            margin-top: 15px;
-            padding-left: 57px;
+    /*.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list li {
+        flex: 0 0 13%;
+        font-size: 18px;
+    }*/
+
+        .showQuestions_wrap .showQuestions_unit_tools ul.showQuestions_unit_tools_list li i:hover,
+        .showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc ul.showQuestions_unit_tools_list li:hover {
+            color: #aaa;
         }
 
-            .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label {
-                margin-bottom: 15px;
-            }
 
-                .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label:hover {
-                    color: #505050;
-                }
+.showQuestions_wrap .showQuestions_unit:hover .showQuestions_unit_tools,
+.showQuestions_wrap .showQuestions_pageDesc:hover .showQuestions_unit_tools {
+    opacity: 1;
+    /*visibility: visible;*/
+}
 
-        .showQuestions_wrap .showQuestions_unit .showQuestions_unit_tools,
-        .showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools {
-            position: absolute;
-            width: 25%;
-            bottom: -35px;
-            right: 10px;
-            /*transition: all 0.2s ease;*/
-            /*opacity: 0;*/
-            visibility: hidden;
-        }
-
-            .showQuestions_wrap .showQuestions_unit .showQuestions_unit_tools ul.showQuestions_unit_tools_list,
-            .showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list {
-                display: flex;
-                text-align: center;
-                padding: 5px;
-                border-radius: 0px 0px 5px 5px;
-                border: 1px solid #d3d3d3;
-                border-top: 0;
-                background-color: #fff;
-                /*box-shadow: 0 0 2px 0 #d3d3d3;*/
-            }
-
-                .showQuestions_wrap .showQuestions_unit .showQuestions_unit_tools ul.showQuestions_unit_tools_list li,
-                .showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list li {
-                    flex: 0 0 13%;
-                    font-size: 18px;
-                }
-
-                    .showQuestions_wrap .showQuestions_unit .showQuestions_unit_tools ul.showQuestions_unit_tools_list li i:hover,
-                    .showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list li:hover {
-                        /*background-color:#f5f5f5;*/
-                        color: #aaa;
-                    }
-
-
-        .showQuestions_wrap .showQuestions_unit:hover .showQuestions_unit_tools,
-        .showQuestions_wrap .showQuestions_pageDesc:hover .showQuestions_unit_tools {
-            /*opacity: 1;*/
-            visibility: visible;
-        }
+.question_wrap:hover .showQuestions_unit_tools,
+.showQuestions_pageDesc_wrap:hover .showQuestions_unit_tools_pageDesc {
+    visibility: visible;
+}
 
 .page_move {
-    position:relative;
-    cursor:pointer;
+    position: relative;
+    cursor: pointer;
 }
 
     .page_move .show_jump_page {
-        display:none;
+        display: none;
         position: absolute;
         min-width: 163px;
         max-width: 320px;
@@ -298,17 +335,19 @@
     }
 
         .page_move .show_jump_page ul {
-            text-align:center;
+            text-align: center;
         }
+
             .page_move .show_jump_page ul li {
                 padding: 5px 0px;
                 font-size: 16px;
                 color: #505050;
             }
+
                 .page_move .show_jump_page ul li:hover {
                     cursor: pointer;
                     background-color: #0098a1;
-                    color:#fff;
+                    color: #fff;
                 }
 
     .page_move span.del_page {
@@ -321,18 +360,18 @@
         line-height: 32px;
     }
 
-.page_side_tools{
-    visibility:hidden;
-    position:fixed;
-    right:2px;
-    top:45%;
-    min-width:60px;
-    max-width:100px;
-    height:auto;
-    text-align:center;
-    z-index:60000;
-    opacity:0;
-    transition:all 0.3s;
+.page_side_tools {
+    visibility: hidden;
+    position: fixed;
+    right: 2px;
+    top: 45%;
+    min-width: 60px;
+    max-width: 100px;
+    height: auto;
+    text-align: center;
+    z-index: 60000;
+    opacity: 0;
+    transition: all 0.3s;
 }
 
 .page_side_tools_prev, .page_side_tools_next {
@@ -343,6 +382,7 @@
     color: #808080;
     box-sizing: border-box;
 }
+
     .page_side_tools_prev:hover, .page_side_tools_next:hover {
         cursor: pointer;
         background: rgba(0, 0, 0, 0.2);
@@ -362,8 +402,8 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    z-index:5000;
-    user-select:none;
+    z-index: 5000;
+    user-select: none;
 }
 
     .show_logic_setting .logic_count {
@@ -385,6 +425,7 @@
 .editOptions_wrap {
     display: none;
 }
+
 .editOptions {
     display: flex;
     align-items: center;

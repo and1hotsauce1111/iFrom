@@ -1,8 +1,17 @@
 ﻿/* 問題樣式 */
 
-.question_title, .question_wrap {
-    padding:10px;
+.question_title_radio.warn,
+.question_title_checkbox.warn,
+.question_title_pulldown.warn,
+.question_title_textarea.warn {
+    padding:5px;
+    border: 2px solid #f00;
+    border-radius: 3px;
 }
+
+    .question_title, .question_wrap {
+        padding: 10px;
+    }
 
 .question_content_radio,
 .question_content_checkbox,
