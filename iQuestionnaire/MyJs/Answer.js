@@ -35,7 +35,9 @@
                 dropVal: [],
                 dropData: {},
                 nowPage: 1, //當前頁面
-                select: ''
+                select: '',
+                ifJump: false, //是否啟動跳題
+                check: true //是否有選擇必填題
             }
         },
         created: function () {
@@ -73,61 +75,81 @@
                 });
             },
             prevPage: function () {
+                this.check = true;
                 vm.nowPage--;
             },
             nextPage: function () {
 
                 //判斷有沒有必填
 
+
                 var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
                 for (var i = 0; i < target.length; i++) {
                     if (target[i].type !== 'textarea') {
                         if (target[i].required === 'true') {
+                            console.log('true');
+
                             if (target[i].isSelect === '' || target[i].isSelect.length === 0) {
                                 $('#q-' + target[i].questionNum).addClass('warn');
+                                this.check = false;
                                 continue;
                             }
-
-                            vm.nowPage++;
-                            break;
-
-                        } else {
-                            vm.nowPage++;
-                            break;
                         }
 
                     } else {
                         if (target[i].required === 'true') {
                             if (target[i].answerVal === '') {
                                 $('#q-' + target[i].questionNum).addClass('warn');
+                                this.check = false;
                                 continue;
                             }
 
-                            vm.nowPage++;
-                            break;
-
-                        } else {
-                            vm.nowPage++;
-                            break;
                         }
-
 
                     }
                 }
 
+                //條件單獨拉出來判斷
+                if (this.check == true) {
+                    vm.nowPage++;
+                }
 
             },
             singleInputVal: function (optionId, index, number) {
 
                 //取消警告樣式
-                if ($('#q-' + number).hasClass('warn')) {
-                    console.log('cancel');
-                    $('#q-' + number).removeClass('warn');
+                var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
+                for (var i = 0; i < target.length; i++) {
+                    if (target[i].type !== 'textarea') {
+                        if (target[i].required === 'true') {
+                            if (target[i].isSelect !== '' || target[i].isSelect.length !== 0) {
+                                $('#q-' + target[i].questionNum).removeClass('warn');
+                                this.check = true;
+                                continue;
+                            }
+                        }
+
+                    } else {
+                        if (target[i].required === 'true') {
+                            if (target[i].answerVal !== '') {
+                                $('#q-' + target[i].questionNum).removeClass('warn');
+                                this.check = true;
+                                continue;
+                            }
+
+                        }
+
+                    }
                 }
+                //if ($('#q-' + number).hasClass('warn')) {
+                //    console.log('cancel');
+                //    $('#q-' + number).removeClass('warn');
+                //}
 
                 var logicSetting = this.allQuestionnaireData[this.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
 
                 if (logicSetting.length !== 0) {
+
 
                     //跳至該題的num
                     var jumpId = logicSetting[0].jumpTo.id[0];
@@ -139,10 +161,10 @@
                         });
                     });
 
-
-
                     if (optionId == logicSetting[0].triggerOption.id[0]) { //選到跳題選項
                         console.log('trigger');
+                        //忽略必填題的提示
+
                         //選到跳題選項
                         this.allQuestionnaireData.forEach(function (page) {
                             var data = page.questionDataPerPage.pageQuestionData;
@@ -151,28 +173,33 @@
 
                                 if (number < data[i].questionNum && data[i].questionNum < jumpNum) {
 
+                                    //移除提示紅框
+                                    if ($('#q-' + data[i].questionNum).hasClass('warn')) {
+                                        $('#q-' + data[i].questionNum).removeClass('warn');
+                                    }
+
                                     if (data[i].type === 'radio') {
                                         $('#q-' + data[i].questionNum).find('input[type="radio"]').attr('disabled', true);
-                                        data[i].isSelect = '';
+                                        data[i].isSelect = 'jump';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#ccc' });
                                     }
 
                                     if (data[i].type === 'checkbox') {
                                         $('#q-' + data[i].questionNum).find('input[type="checkbox"]').attr('disabled', true);
-                                        data[i].isSelect = [];
+                                        data[i].isSelect = ['jump'];
                                         $('#q-' + data[i].questionNum).css({ 'color': '#ccc' });
                                     }
 
                                     if (data[i].type === 'pulldown') {
                                         $('#q-' + data[i].questionNum).find('button').attr('disabled', true);
-                                        data[i].isSelect = '';
+                                        data[i].isSelect = 'jump';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#ccc' });
 
                                     }
 
                                     if (data[i].type === 'textarea') {
                                         $('#q-' + data[i].questionNum).find('textarea').attr('disabled', true);
-                                        data[i].answerVal = '';
+                                        data[i].answerVal = 'jump';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#ccc' });
 
                                     }
@@ -182,6 +209,8 @@
                         });
 
                     } else { //選到非跳題選項
+
+                        //恢復必填題的提示
                         console.log('notrigger');
 
                         this.allQuestionnaireData.forEach(function (page) {

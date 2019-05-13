@@ -24,19 +24,19 @@
                 <div class="tools_bar_items_basic">
                     <div class="tool_items">
                         <ul class="tool_items_list">
-                            <li onclick="editRadio(event,'add')">
+                            <li onclick="editQuestion(event,'add',$(this))" data-type="radio">
                                 <div class="radio_icon"><i class="fa fa-dot-circle-o"></i></div>
                                 <div class="radio_text">單選題</div>
                             </li>
-                            <li onclick="editCheckbox(event,'add')">
+                            <li onclick="editQuestion(event,'add',$(this))" data-type="checkbox">
                                 <div class="checkbox_icon"><i class="fa fa-check-square-o"></i></div>
                                 <div class="checkbox_text">多選題</div>
                             </li>
-                            <li onclick="editPulldown(event,'add')">
+                            <li onclick="editQuestion(event,'add',$(this))" data-type="pulldown">
                                 <div class="pulldown_icon"><i class="fa fa-caret-square-o-down"></i></div>
                                 <div class="pulldown_text">下拉單選題</div>
                             </li>
-                            <li onclick="editTextarea(event,'add')">
+                            <li onclick="editQuestion(event,'add',$(this))" data-type="textarea">
                                 <div class="textarea_icon"><i class="fa fa-file-text-o"></i></div>
                                 <div class="textarea_text">文本題</div>
                             </li>
@@ -68,16 +68,16 @@
         <div class="tools_bar_mini">
             <div class="basic_tools">
                 <ul class="basic_tools_list">
-                    <li onclick="editRadio(event,'add')">
+                    <li onclick="editQuestion(event,'add',$(this))" data-type="radio">
                         <div class="radio_icon" title="單選題"><i class="fa fa-dot-circle-o"></i></div>
                     </li>
-                    <li onclick="editCheckbox(event,'add')">
+                    <li onclick="editQuestion(event,'add',$(this))" data-type="checkbox">
                         <div class="checkbox_icon" title="多選題"><i class="fa fa-check-square-o"></i></div>
                     </li>
-                    <li onclick="editPulldown(event,'add')">
+                    <li onclick="editQuestion(event,'add',$(this))" data-type="pulldown">
                         <div class="pulldown_icon" title="下拉題"><i class="fa fa-caret-square-o-down"></i></div>
                     </li>
-                    <li onclick="editTextarea(event,'add')">
+                    <li onclick="editQuestion(event,'add',$(this))" data-type="textarea">
                         <div class="textarea_icon" title="文本題"><i class="fa fa-file-text-o"></i></div>
                     </li>
                     <li onclick="editPageDesc(event,'add')">
@@ -126,14 +126,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="radio_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="radio_question_title" />
                             <div class="inputLine"></div>
                         </td>
                     </tr>                    
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
+                        <th style="width: 30%" class="textC" id="radio_options"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="show_radio_edit" onclick="addOption(event,'radio','add')"><i class="fa fa-plus"></i>&nbsp;新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_radio">
@@ -204,7 +204,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="edit_radio_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="edit_radio_question_title" />
                             <div class="inputLine"></div>
@@ -212,7 +212,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
+                        <th style="width: 30%" class="textC" id="edit_radio_options"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="edit_show_radio_edit" onclick="addOption(event,'radio','edit')">新增選項</button>
 
@@ -275,14 +275,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="checkbox_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="checkbox_question_title" />
                             <div class="inputLine"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
+                        <th style="width: 30%" class="textC" id="checkbox_options"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="show_checkbox_edit" onclick="addOption(event,'checkbox','add')">新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_checkbox">
@@ -357,14 +357,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="edit_checkbox_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="edit_checkbox_question_title" />
                             <div class="inputLine"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
+                        <th style="width: 30%" class="textC" id="edit_checkbox_options"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="edit_show_checkbox_edit" onclick="addOption(event,'checkbox','edit')">新增選項</button>
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_checkbox" style="display: block">
@@ -432,14 +432,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="pulldown_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="pulldown_question_title" />
                             <div class="inputLine"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
+                        <th style="width: 30%" class="textC" id="pulldown_options"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="show_pulldown_edit" onclick="addOption(event,'pulldown','add')">新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_pulldown">
@@ -507,14 +507,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="edit_pulldown_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="edit_pulldown_question_title" />
                             <div class="inputLine"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
+                        <th style="width: 30%" class="textC" id="edit_pulldown_options"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題選項</th>
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="edit_show_pulldown_edit" onclick="addOption(event,'pulldown','edit')">新增選項</button>
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_pulldown" style="display: block">
@@ -582,7 +582,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="textarea_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="textarea_question_title" />
                             <div class="inputLine"></div>
@@ -615,7 +615,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <th style="width: 30%" class="textC"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
+                        <th style="width: 30%" class="textC" id="edit_textarea_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
                             <input type="text" value="" placeholder="輸入內容..." id="edit_textarea_question_title" />
                             <div class="inputLine"></div>
@@ -876,7 +876,7 @@
                                                 <i class="fa fa-code-fork"></i>
                                             </span>
                                         </li>
-                                        <li onclick="editTextarea(event,'edit',$(this))" :data-index="index">
+                                        <li onclick="editQuestion(event,'edit',$(this))" :data-type="question.type" :data-index="index">
                                             <span title="編輯">
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </span>

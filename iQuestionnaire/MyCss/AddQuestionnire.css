@@ -271,7 +271,7 @@
     justify-content: flex-start;
 }
 
-/*.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list {
+    /*.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list {
     display: flex;
     text-align: center;
     padding: 5px;
@@ -287,12 +287,13 @@
         font-size: 18px;
         text-align: center;
     }
+
         .showQuestions_wrap .showQuestions_unit_tools ul.showQuestions_unit_tools_list li:hover,
         .showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc ul.showQuestions_unit_tools_list li:hover {
             cursor: pointer;
         }
 
-    /*.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list li {
+        /*.showQuestions_wrap .showQuestions_pageDesc .showQuestions_unit_tools ul.showQuestions_unit_tools_list li {
         flex: 0 0 13%;
         font-size: 18px;
     }*/
@@ -396,6 +397,13 @@
     background-color: #FFF3CD;
     color: #A18533;
 }
+
+/* 編輯問題模板提示樣式 */
+.textC.warning {
+    color: #f00;
+    box-shadow: 0 0 0 3px #f00 inset
+}
+
 
 /* 顯示跳題設定 */
 .show_logic_setting {

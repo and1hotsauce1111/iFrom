@@ -18,12 +18,14 @@
                 || window.location.pathname == '/iQuestion/QuestionnaireList.aspx'
                 || window.location.pathname == '/iQuestion/Announce.aspx') {
                 $('#answerQuestionnaireList').hide();
+                $('#myAnnounce').hide();
             }
 
             if (window.location.pathname == '/iQuestion/AnswerQuestionnaireList.aspx'
-                || window.location.pathname == '/iQuestion/Answer.aspx') {
+                || window.location.pathname == '/iQuestion/Answer.aspx'
+                || window.location.pathname == '/iQuestion/MyAnnounce.aspx') {
                 $('#announce').hide();
-                $('#questionnaireList').hide();
+                $('#questionnaireList').hide();          
             }
 
         });
@@ -85,6 +87,10 @@
                 <a href="QuestionnaireList.aspx?user=admin" class="LeftMenuBtn" id="questionnaireList" select-val="QuestionnaireList">
                     <i class="fa fa-list-alt LeftMenuSpan"></i>
                     問卷管理
+                </a>
+                <a href="MyAnnounce.aspx?user=user" class="LeftMenuBtn" id="myAnnounce" select-val="MyAnnounce">
+                    <i class="fa fa-rss LeftMenuSpan"></i>
+                    公告消息
                 </a>
                 <a href="AnswerQuestionnaireList.aspx?user=user" class="LeftMenuBtn" id="answerQuestionnaireList" select-val="AnswerQuestionnaireList">
                     <i class="fa fa-pencil LeftMenuSpan"></i>

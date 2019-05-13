@@ -1,14 +1,6 @@
 {
   "announce": [
     {
-      "id": "68e19a2f-6523-48a2-905d-eb8672ca08d5",
-      "type": "置頂消息",
-      "status": "啟用",
-      "title": "測試 測試",
-      "content": "<p>test1234</p>\n",
-      "time": "2019年04月13日 12:00"
-    },
-    {
       "id": "e8a4ad12-0ab3-4bec-a8cf-ca4168686314",
       "title": "再一次",
       "content": "<p>test again</p>\n",

@@ -20,177 +20,283 @@
     });
 
     /* 問卷編輯區塊 */
-   
+
+    editQuestion = function (event, status, dom) {
+
+        var type = $(dom).attr('data-type');
+
+        if (type === 'radio') {
+
+            if (status === 'add') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增單選題',
+                    OutsideStyle: 'max-width:770px',
+                    Html: $('#editRadio'),
+                    OnClose: function (Type) {
+                        if (Type == 'ok') {
+                            //存每個選項的值
+                            var options = [];
+                            $('.showEditOptions_radio .input_area input').each(function (index) {
+                                options.push({
+                                    id: _uuid(),
+                                    val: $(this).val(),
+                                    jumpLogic: null
+                                });
+                            });
+
+                            //未添加題目的提示
+                            if ($('#radio_question_title').val() == '') {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#radio_title').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#radio_title').hasClass('warning')) {
+                                    $('#radio_title').removeClass('warning');
+                                }
+                            }
+
+                            //未添加選項的提示
+                            if (options.length === 0) {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                    OnOK: function () {
+                                        $('#radio_options').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#radio_options').hasClass('warning')) {
+                                    $('#radio_options').removeClass('warning');
+                                }
+                            }
+
+                            //重複選項的提示
+                            var repeatResult = {};
+                            options.forEach(function (option) {
+                                repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
+                            });
+
+                            for (var i in repeatResult) {
+                                if (repeatResult[i] > 1) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+                        }
+
+                        return true;
+                    },
+                    OnOK: function () {
 
 
+                        //是否必填
+                        var required = $('input[type="radio"][name="radio1"]:checked').val();
 
-    //編輯單選題
-    editRadio = function (event, status, dom) {
-
-        if (status === 'add') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增單選題',
-                OutsideStyle: 'max-width:770px',
-                Html: $('#editRadio'),
-                OnClose: function (Type) {
-                    if (Type == 'ok') {
                         //存每個選項的值
                         var options = [];
                         $('.showEditOptions_radio .input_area input').each(function (index) {
                             options.push({
                                 id: _uuid(),
                                 val: $(this).val(),
-                                jumpLogic: null
+                                jumpLogic: null,
                             });
                         });
 
-                        //重複選項的提示
-                        var repeatResult = {};
-                        options.forEach(function (option) {
-                            repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
-                        });
 
-                        for (var i in repeatResult) {
-                            if (repeatResult[i] > 1) {
+                        if (vm.nowPage === 1) {
+                            //初始第一頁
+                            vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
+                                type: 'radio',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#radio_question_title').val(),
+                                options: options,
+                                required: required,
+                                showLogicCount: [],
+                                isSelect: ''
+                            });
+
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+
+
+
+                        } else {
+                            vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
+                                type: 'radio',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#radio_question_title').val(),
+                                options: options,
+                                required: required,
+                                showLogicCount: [],
+                                isSelect: ''
+                            });
+
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        }
+
+
+                    }
+                });
+            }
+
+            if (status === 'edit') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯單選題',
+                    OutsideStyle: 'max-width:770px',
+                    Html: $('#edit_editRadio'),
+                    OnReady: function (Code) {
+
+                        if (status == 'edit') {
+
+                            var index = $(dom).attr('data-index');
+                            //存問題index
+                            $('#edit_eidtRadio_del').html(index);
+                            $('#edit_eidtRadio_copy').html(index);
+
+                            var data = {};
+                            for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
+                                if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
+                                    data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
+                                    break;
+                                }
+                            }
+
+                            //更新必填
+                            var requires = $('input[type="radio"][name="edit_radio1"]');
+                            for (var k = 0; k < requires.length; k++) {
+                                if (data.required === requires[k].value) {
+                                    requires[k].checked = 'checked';
+                                }
+                            }
+
+                            //更新題目
+
+                            $('#edit_radio_question_title').val(data['title']);
+
+                            //存題號
+                            //抓當前DOM父層的問題題號標題
+                            var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
+                            $('#quesitonNum').html(questionTitle);
+
+                            //更新選項
+                            var option = $('.editOptions_wrap#edit_editOptions_wrap_radio').html();
+
+                            $('.editOptions_wrap#edit_editOptions_wrap_radio').empty();
+
+
+                            for (var j = 0; j < data['options'].length; j++) {
+                                $('.editOptions_wrap#edit_editOptions_wrap_radio').append(option);
+                            }
+
+                            for (var k = 0; k < data['options'].length; k++) {
+                                $('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_editRadio_input')[k].value = data['options'][k].val;
+                            }
+                        }
+
+                    },
+                    OnClose: function (Type) {
+                        if (Type == 'ok') {
+                            //儲存新選項
+                            var newOption = [];
+
+                            var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_editRadio_input');
+
+
+                            for (var j = 0; j < nodeList.length; j++) {
+                                newOption.push({
+                                    id: _uuid(),
+                                    val: nodeList[j].value,
+                                    jumpLogic: null
+                                });
+                            }
+
+                            //未添加題目的提示
+                            if ($('#edit_radio_question_title').val() == '') {
+                                console.log('title');
                                 alertBox({
                                     Mode: 'A',
-                                    Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#edit_radio_title').addClass('warning');
+                                    }
                                 });
                                 return false;
+                            } else {
+                                if ($('#edit_radio_title').hasClass('warning')) {
+                                    $('#edit_radio_title').removeClass('warning');
+                                }
+                            }
+
+                            //未添加選項的提示
+                            if (newOption.length === 0) {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                    OnOK: function () {
+                                        $('#edit_radio_options').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#edit_radio_options').hasClass('warning')) {
+                                    $('#edit_radio_options').removeClass('warning');
+                                }
+                            }
+
+                            //重複選項的提示
+                            var repeatResult = {};
+                            newOption.forEach(function (option) {
+                                repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
+                            });
+
+
+                            for (var i in repeatResult) {
+                                if (repeatResult[i] > 1) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
                             }
                         }
-                    }
+                    },
+                    OnOK: function () {
 
-                    return true;
-                },
-                OnOK: function () {
-
-                    //是否必填
-                    var required = $('input[type="radio"][name="radio1"]:checked').val();
-
-                    //存每個選項的值
-                    var options = [];
-                    $('.showEditOptions_radio .input_area input').each(function (index) {
-                        options.push({
-                            id: _uuid(),
-                            val: $(this).val(),
-                            jumpLogic: null,
-                        });
-                    });
-
-
-                    if (vm.nowPage === 1) {
-                        //初始第一頁
-                        vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
-                            type: 'radio',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#radio_question_title').val(),
-                            options: options,
-                            required: required,
-                            showLogicCount: [],
-                            isSelect: ''
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-
-
-
-                    } else {
-                        vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
-                            type: 'radio',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#radio_question_title').val(),
-                            options: options,
-                            required: required,
-                            showLogicCount: [],
-                            isSelect: ''
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    }
-
-
-                }
-            });
-        }
-
-        if (status === 'edit') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯單選題',
-                OutsideStyle: 'max-width:770px',
-                Html: $('#edit_editRadio'),
-                OnReady: function (Code) {
-
-                    if (status == 'edit') {
 
                         var index = $(dom).attr('data-index');
-                        //存問題index
-                        $('#edit_eidtRadio_del').html(index);
-                        $('#edit_eidtRadio_copy').html(index);
 
-                        var data = {};
-                        for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-                            if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-                                data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
-                                break;
-                            }
-                        }
+                        //是否必填
+                        var required = $('input[type="radio"][name="edit_radio1"]:checked').val();
 
-                        //更新必填
-                        var requires = $('input[type="radio"][name="edit_radio1"]');
-                        for (var k = 0; k < requires.length; k++) {
-                            if (data.required === requires[k].value) {
-                                requires[k].checked = 'checked';
-                            }
-                        }
-
-                        //更新題目
-
-                        $('#edit_radio_question_title').val(data['title']);
-
-                        //存題號
-                        //抓當前DOM父層的問題題號標題
-                        var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
-                        $('#quesitonNum').html(questionTitle);
-
-                        //更新選項
-                        var option = $('.editOptions_wrap#edit_editOptions_wrap_radio').html();
-
-                        $('.editOptions_wrap#edit_editOptions_wrap_radio').empty();
-
-
-                        for (var j = 0; j < data['options'].length; j++) {
-                            $('.editOptions_wrap#edit_editOptions_wrap_radio').append(option);
-                        }
-
-                        for (var k = 0; k < data['options'].length; k++) {
-                            $('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_editRadio_input')[k].value = data['options'][k].val;
-                        }
-                    }
-
-                },
-                OnClose: function (Type) {
-                    if (Type == 'ok') {
                         //儲存新選項
                         var newOption = [];
 
@@ -201,502 +307,742 @@
                             newOption.push({
                                 id: _uuid(),
                                 val: nodeList[j].value,
-                                jumpLogic: null
+                                jumpLogic: null,
                             });
                         }
 
-                        //重複選項的提示
-                        var repeatResult = {};
-                        newOption.forEach(function (option) {
-                            repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
-                        });
+                        //更新問題
 
-
-                        for (var i in repeatResult) {
-                            if (repeatResult[i] > 1) {
-                                alertBox({
-                                    Mode: 'A',
-                                    Html: '<p style="color:#FF6A00">選項重複設定!</p>'
-                                });
-                                return false;
+                        for (var k = 0; k < vm.allQuestionnaireData.length; k++) {
+                            if (vm.allQuestionnaireData[k]['page'] == vm.nowPage) {
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].title = $('#edit_radio_question_title').val();
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].options = newOption;
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].required = required;
+                                break;
                             }
                         }
-                    }
-                },
-                OnOK: function () {
 
+                        //刪除跳題
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+                        if (typeof (target.options) !== 'undefined') {
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    if (option.val == title) {
+                                        option.jumpLogic = null;
+                                    }
+                                }
+                            });
 
-                    var index = $(dom).attr('data-index');
+                            //顯示跳題選項數目
+                            //顯示跳題提示
 
-                    //是否必填
-                    var required = $('input[type="radio"][name="edit_radio1"]:checked').val();
+                            //顯示設定跳題選項數目
+                            var optionsLogic = [];
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    optionsLogic.push(option.jumpLogic);
+                                }
+                            });
 
-                    //儲存新選項
-                    var newOption = [];
+                            target.showLogicCount = optionsLogic;
 
-                    var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_editRadio_input');
-
-
-                    for (var j = 0; j < nodeList.length; j++) {
-                        newOption.push({
-                            id: _uuid(),
-                            val: nodeList[j].value,
-                            jumpLogic: null,
-                        });
-                    }
-
-                    //更新問題
-
-                    for (var k = 0; k < vm.allQuestionnaireData.length; k++) {
-                        if (vm.allQuestionnaireData[k]['page'] == vm.nowPage) {
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].title = $('#edit_radio_question_title').val();
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].options = newOption;
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].required = required;
-                            break;
-                        }
-                    }
-
-                    //跳題題號重新排序
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            if (question.options) {
-                                question.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                    option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
+                            //跳題題號重新排序
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    if (question.options) {
+                                        question.options.forEach(function (option) {
+                                            if (option.jumpLogic !== null) {
+                                                vm.allQuestionnaireData.forEach(function (data) {
+                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                        }
+                                                    });
+                                                });
+                                            }
                                         });
                                     }
+
+
+                                    question.showLogicCount.forEach(function (logic) {
+                                        if (logic !== null) {
+                                            vm.allQuestionnaireData.forEach(function (data) {
+                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                    if (item.id == logic.jumpTo.id[0]) {
+                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+
                                 });
-                            }
+                            });
 
-                        });
-                    });
+                        }
 
-                }
-            });
+                        //跳題題號重新排序
+                        //vm.allQuestionnaireData.forEach(function (page) {
+                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                        //        if (question.options) {
+                        //            question.options.forEach(function (option) {
+                        //                if (option.jumpLogic !== null) {
+                        //                    vm.allQuestionnaireData.forEach(function (data) {
+                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                        //                            }
+                        //                        });
+                        //                    });
+                        //                }
+                        //            });
+                        //        }
+
+                        //    });
+                        //});
+
+                    }
+                });
+            }
         }
 
+        if (type === 'checkbox') {
 
-    };
+            if (status === 'add') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增多選題',
+                    OutsideStyle: 'max-width:770px',
+                    Html: $('#editCheckbox'),
+                    OnClose: function (Type) {
+                        if (Type == 'ok') {
+                            //存每個選項的值
+                            var options = [];
+                            $('.showEditOptions_checkbox .input_area input').each(function (index) {
+                                options.push({
+                                    id: _uuid(),
+                                    val: $(this).val(),
+                                    jumpLogic: null
+                                });
+                            });
 
-    //編輯多選題
-    editCheckbox = function (event, status, dom) {
+                            //未添加題目的提示
+                            if ($('#checkbox_question_title').val() == '') {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#checkbox_title').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#checkbox_title').hasClass('warning')) {
+                                    $('#checkbox_title').removeClass('warning');
+                                }
+                            }
 
-        if (status === 'add') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增多選題',
-                OutsideStyle: 'max-width:770px',
-                Html: $('#editCheckbox'),
-                OnClose: function (Type) {
-                    if (Type == 'ok') {
+                            //未添加選項的提示
+                            if (options.length === 0) {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                    OnOK: function () {
+                                        $('#checkbox_options').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#checkbox_options').hasClass('warning')) {
+                                    $('#checkbox_options').removeClass('warning');
+                                }
+                            }
+
+
+                            //重複選項的提示
+                            //篩選重複的選項
+                            var repeatResult = {};
+                            options.forEach(function (option) {
+                                repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
+                            });
+
+                            for (var i in repeatResult) {
+                                if (repeatResult[i] > 1) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+                        }
+
+                        return true;
+                    },
+                    OnOK: function () {
+
+                        //是否必填
+                        var required = $('input[type="radio"][name="radio2"]:checked').val();
+
                         //存每個選項的值
                         var options = [];
                         $('.showEditOptions_checkbox .input_area input').each(function (index) {
                             options.push({
                                 id: _uuid(),
                                 val: $(this).val(),
-                                jumpLogic: null
+                                jumpLogic: null,
                             });
                         });
 
-                        //重複選項的提示
-                        //篩選重複的選項
-                        var repeatResult = {};
-                        options.forEach(function (option) {
-                            repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
-                        });
+                        if (vm.nowPage === 1) {
+                            //初始第一頁
+                            vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
+                                type: 'checkbox',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#checkbox_question_title').val(),
+                                options: options,
+                                required: required,
+                                showLogicCount: [],
+                                isSelect: []
+                            });
 
-                        for (var i in repeatResult) {
-                            if (repeatResult[i] > 1) {
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        } else {
+                            vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
+                                type: 'checkbox',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#checkbox_question_title').val(),
+                                options: options,
+                                required: required,
+                                showLogicCount: [],
+                                isSelect: []
+                            });
+
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        }
+
+                    }
+                });
+
+            }
+
+            if (status === 'edit') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯多選題',
+                    OutsideStyle: 'max-width:770px',
+                    Html: $('#edit_editCheckbox'),
+                    OnReady: function (Code) {
+
+                        if (status == 'edit') {
+
+                            var index = $(dom).attr('data-index');
+                            //存問題index
+                            $('#edit_eidtCheckbox_del').html(index);
+                            $('#edit_eidtCheckbox_copy').html(index);
+
+                            var data = {};
+                            for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
+                                if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
+                                    data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
+                                    break;
+                                }
+                            }
+
+                            //更新必填
+                            var requires = $('input[type="radio"][name="edit_radio2"]');
+                            for (var n = 0; n < requires.length; n++) {
+                                if (data.required === requires[n].value) {
+                                    requires[n].checked = 'checked';
+                                }
+                            }
+
+                            $('#edit_checkbox_question_title').val(data['title']);
+
+                            //存題號
+                            //抓當前DOM父層的問題題號標題
+                            var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
+                            $('#quesitonNum').html(questionTitle);
+
+                            var option = $('.editOptions_wrap#edit_editOptions_wrap_checkbox').html();
+
+
+                            $('.editOptions_wrap#edit_editOptions_wrap_checkbox').empty();
+
+                            for (var j = 0; j < data['options'].length; j++) {
+                                $('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(option);
+                                //console.log($('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_editRadio_input'));
+                            }
+
+                            for (var k = 0; k < data['options'].length; k++) {
+                                $('.editOptions_wrap#edit_editOptions_wrap_checkbox').find('.edit_editCheckbox_input')[k].value = data['options'][k].val;
+                            }
+
+                        }
+
+                    },
+                    OnClose: function (Type) {
+                        if (Type == 'ok') {
+                            //儲存新選項
+                            var newOption = [];
+
+                            var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_checkbox .edit_editCheckbox_input');
+
+
+                            for (var j = 0; j < nodeList.length; j++) {
+                                newOption.push({
+                                    id: _uuid(),
+                                    val: nodeList[j].value,
+                                    jumpLogic: null
+                                });
+                            }
+
+                            //未添加題目的提示
+                            if ($('#edit_checkbox_question_title').val() == '') {
                                 alertBox({
                                     Mode: 'A',
-                                    Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#edit_checkbox_title').addClass('warning');
+                                    }
                                 });
                                 return false;
+                            } else {
+                                if ($('#edit_checkbox_title').hasClass('warning')) {
+                                    $('#edit_checkbox_title').removeClass('warning');
+                                }
+                            }
+
+                            //未添加選項的提示
+                            if (newOption.length === 0) {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                    OnOK: function () {
+                                        $('#edit_checkbox_options').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#edit_checkbox_options').hasClass('warning')) {
+                                    $('#edit_checkbox_options').removeClass('warning');
+                                }
+                            }
+
+                            //重複選項的提示
+                            var repeatResult = {};
+                            newOption.forEach(function (option) {
+                                repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
+                            });
+
+
+                            for (var i in repeatResult) {
+                                if (repeatResult[i] > 1) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
                             }
                         }
-                    }
-
-                    return true;
-                },
-                OnOK: function () {
-
-                    //是否必填
-                    var required = $('input[type="radio"][name="radio2"]:checked').val();
-
-                    //存每個選項的值
-                    var options = [];
-                    $('.showEditOptions_checkbox .input_area input').each(function (index) {
-                        options.push({
-                            id: _uuid(),
-                            val: $(this).val(),
-                            jumpLogic: null,
-                        });
-                    });
-
-                    if (vm.nowPage === 1) {
-                        //初始第一頁
-                        vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
-                            type: 'checkbox',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#checkbox_question_title').val(),
-                            options: options,
-                            required: required,
-                            showLogicCount: [],
-                            isSelect: []
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    } else {
-                        vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
-                            type: 'checkbox',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#checkbox_question_title').val(),
-                            options: options,
-                            required: required,
-                            showLogicCount: [],
-                            isSelect: []
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    }
-
-                }
-            });
-
-        }
-
-        if (status === 'edit') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯多選題',
-                OutsideStyle: 'max-width:770px',
-                Html: $('#edit_editCheckbox'),
-                OnReady: function (Code) {
-
-                    if (status == 'edit') {
+                    },
+                    OnOK: function () {
 
                         var index = $(dom).attr('data-index');
-                        //存問題index
-                        $('#edit_eidtCheckbox_del').html(index);
-                        $('#edit_eidtCheckbox_copy').html(index);
 
-                        var data = {};
-                        for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-                            if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-                                data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
-                                break;
-                            }
-                        }
+                        //是否必填
+                        var required = $('input[type="radio"][name="edit_radio2"]:checked').val();
 
-                        //更新必填
-                        var requires = $('input[type="radio"][name="edit_radio2"]');
-                        for (var n = 0; n < requires.length; n++) {
-                            if (data.required === requires[n].value) {
-                                requires[n].checked = 'checked';
-                            }
-                        }
-
-                        $('#edit_checkbox_question_title').val(data['title']);
-
-                        //存題號
-                        //抓當前DOM父層的問題題號標題
-                        var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
-                        $('#quesitonNum').html(questionTitle);
-
-                        var option = $('.editOptions_wrap#edit_editOptions_wrap_checkbox').html();
-
-
-                        $('.editOptions_wrap#edit_editOptions_wrap_checkbox').empty();
-
-                        for (var j = 0; j < data['options'].length; j++) {
-                            $('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(option);
-                            //console.log($('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_editRadio_input'));
-                        }
-
-                        for (var k = 0; k < data['options'].length; k++) {
-                            $('.editOptions_wrap#edit_editOptions_wrap_checkbox').find('.edit_editCheckbox_input')[k].value = data['options'][k].val;
-                        }
-
-                    }
-
-                },
-                OnClose: function (Type) {
-                    if (Type == 'ok') {
                         //儲存新選項
                         var newOption = [];
 
                         var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_checkbox .edit_editCheckbox_input');
 
-
                         for (var j = 0; j < nodeList.length; j++) {
                             newOption.push({
                                 id: _uuid(),
                                 val: nodeList[j].value,
-                                jumpLogic: null
+                                jumpLogic: null,
                             });
                         }
 
-                        //重複選項的提示
-                        var repeatResult = {};
-                        newOption.forEach(function (option) {
-                            repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
-                        });
 
 
-                        for (var i in repeatResult) {
-                            if (repeatResult[i] > 1) {
-                                alertBox({
-                                    Mode: 'A',
-                                    Html: '<p style="color:#FF6A00">選項重複設定!</p>'
-                                });
-                                return false;
+                        //更新問題
+
+                        var jumpToQuestion = vm.tempLogicSetting.jumpTo !== '' ? $.extend(true, {}, vm.tempLogicSetting) : [];
+                        for (var k = 0; k < vm.allQuestionnaireData.length; k++) {
+                            if (vm.allQuestionnaireData[k]['page'] == vm.nowPage) {
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].title = $('#edit_checkbox_question_title').val();
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].options = newOption;
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].required = required;
+                                break;
                             }
                         }
-                    }
-                },
-                OnOK: function () {
 
-                    var index = $(dom).attr('data-index');
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+                        if (typeof (target.options) !== 'undefined') {
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    if (option.val == title) {
+                                        option.jumpLogic = null;
+                                    }
+                                }
+                            });
 
-                    //是否必填
-                    var required = $('input[type="radio"][name="edit_radio2"]:checked').val();
+                            //顯示跳題選項數目
+                            //顯示跳題提示
 
-                    //儲存新選項
-                    var newOption = [];
+                            //顯示設定跳題選項數目
+                            var optionsLogic = [];
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    optionsLogic.push(option.jumpLogic);
+                                }
+                            });
 
-                    var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_checkbox .edit_editCheckbox_input');
+                            target.showLogicCount = optionsLogic;
 
-                    for (var j = 0; j < nodeList.length; j++) {
-                        newOption.push({
-                            id: _uuid(),
-                            val: nodeList[j].value,
-                            jumpLogic: null,
-                        });
-                    }
-
-
-
-                    //更新問題
-
-                    var jumpToQuestion = vm.tempLogicSetting.jumpTo !== '' ? $.extend(true, {}, vm.tempLogicSetting) : [];
-                    for (var k = 0; k < vm.allQuestionnaireData.length; k++) {
-                        if (vm.allQuestionnaireData[k]['page'] == vm.nowPage) {
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].title = $('#edit_checkbox_question_title').val();
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].options = newOption;
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].required = required;
-                            break;
-                        }
-                    }
-
-                    //跳題題號重新排序
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            if (question.options) {
-                                question.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                    option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
+                            //跳題題號重新排序
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    if (question.options) {
+                                        question.options.forEach(function (option) {
+                                            if (option.jumpLogic !== null) {
+                                                vm.allQuestionnaireData.forEach(function (data) {
+                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                        }
+                                                    });
+                                                });
+                                            }
                                         });
                                     }
+
+
+                                    question.showLogicCount.forEach(function (logic) {
+                                        if (logic !== null) {
+                                            vm.allQuestionnaireData.forEach(function (data) {
+                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                    if (item.id == logic.jumpTo.id[0]) {
+                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+
                                 });
-                            }
-                        });
-                    });
+                            });
+
+                        }
+
+                        //跳題題號重新排序
+                        //vm.allQuestionnaireData.forEach(function (page) {
+                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                        //        if (question.options) {
+                        //            question.options.forEach(function (option) {
+                        //                if (option.jumpLogic !== null) {
+                        //                    vm.allQuestionnaireData.forEach(function (data) {
+                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                        //                            }
+                        //                        });
+                        //                    });
+                        //                }
+                        //            });
+                        //        }
+                        //    });
+                        //});
 
 
-                }
-            });
+                    }
+                });
+            }
         }
 
-    };
+        if (type === 'pulldown') {
 
-    //編輯下拉題
-    editPulldown = function (event, status, dom) {
+            if (status === 'add') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增下拉題',
+                    OutsideStyle: 'max-width:770px',
+                    Html: $('#editPulldown'),
+                    OnClose: function (Type) {
+                        if (Type == 'ok') {
+                            //存每個選項的值
+                            var options = [];
+                            $('.showEditOptions_pulldown .input_area input').each(function (index) {
+                                options.push({
+                                    id: _uuid(),
+                                    val: $(this).val(),
+                                    jumpLogic: null
+                                });
+                            });
 
-        if (status === 'add') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增下拉題',
-                OutsideStyle: 'max-width:770px',
-                Html: $('#editPulldown'),
-                OnClose: function (Type) {
-                    if (Type == 'ok') {
+                            //未添加題目的提示
+                            if ($('#pulldown_question_title').val() == '') {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#pulldown_title').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#pulldown_title').hasClass('warning')) {
+                                    $('#pulldown_title').removeClass('warning');
+                                }
+                            }
+
+                            //未添加選項的提示
+                            if (options.length === 0) {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                    OnOK: function () {
+                                        $('#pulldown_options').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#pulldown_options').hasClass('warning')) {
+                                    $('#pulldown_options').removeClass('warning');
+                                }
+                            }
+
+                            //重複選項的提示
+                            var repeatResult = {};
+                            options.forEach(function (option) {
+                                repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
+                            });
+
+                            for (var i in repeatResult) {
+                                if (repeatResult[i] > 1) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+                        }
+
+                        return true;
+                    },
+                    OnOK: function () {
+
+                        //是否必填
+                        var required = $('input[type="radio"][name="radio3"]:checked').val();
+
                         //存每個選項的值
                         var options = [];
                         $('.showEditOptions_pulldown .input_area input').each(function (index) {
                             options.push({
                                 id: _uuid(),
                                 val: $(this).val(),
-                                jumpLogic: null
+                                jumpLogic: null,
                             });
                         });
 
-                        //重複選項的提示
-                        var repeatResult = {};
-                        options.forEach(function (option) {
-                            repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
-                        });
+                        if (vm.nowPage === 1) {
+                            //初始第一頁
+                            vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
+                                type: 'pulldown',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#pulldown_question_title').val(),
+                                options: options,
+                                required: required,
+                                showLogicCount: [],
+                                isSelect: ''
+                            });
 
-                        for (var i in repeatResult) {
-                            if (repeatResult[i] > 1) {
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        } else {
+                            vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
+                                type: 'pulldown',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#pulldown_question_title').val(),
+                                options: options,
+                                required: required,
+                                showLogicCount: [],
+                                isSelect: ''
+                            });
+
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+
+            if (status === 'edit') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯下拉題',
+                    OutsideStyle: 'max-width:770px',
+                    Html: $('#edit_editPulldown'),
+                    OnReady: function (Code) {
+
+                        if (status == 'edit') {
+
+                            var index = $(dom).attr('data-index');
+                            //存問題index
+                            $('#edit_eidtPulldown_del').html(index);
+                            $('#edit_eidtPulldown_copy').html(index);
+
+                            var data = {};
+                            for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
+                                if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
+                                    data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
+                                    break;
+                                }
+                            }
+
+                            //更新必填
+                            var requires = $('input[type="radio"][name="edit_radio3"]');
+                            for (var n = 0; n < requires.length; n++) {
+                                if (data.required === requires[n].value) {
+                                    requires[n].checked = 'checked';
+                                }
+                            }
+
+                            $('#edit_pulldown_question_title').val(data['title']);
+
+                            //存題號
+                            //抓當前DOM父層的問題題號標題
+                            var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
+                            $('#quesitonNum').html(questionTitle);
+
+                            var option = $('.editOptions_wrap#edit_editOptions_wrap_pulldown').html();
+
+
+                            $('.editOptions_wrap#edit_editOptions_wrap_pulldown').empty();
+
+                            for (var j = 0; j < data['options'].length; j++) {
+                                $('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(option);
+                            }
+
+                            for (var k = 0; k < data['options'].length; k++) {
+                                $('.editOptions_wrap#edit_editOptions_wrap_pulldown').find('.edit_editPulldown_input')[k].value = data['options'][k].val;
+                            }
+
+                        }
+
+                    },
+                    OnClose: function (Type) {
+                        if (Type == 'ok') {
+                            //儲存新選項
+                            var newOption = [];
+
+                            var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_pulldown .edit_editPulldown_input');
+
+
+                            for (var j = 0; j < nodeList.length; j++) {
+                                newOption.push({
+                                    id: _uuid(),
+                                    val: nodeList[j].value,
+                                    jumpLogic: null
+                                });
+                            }
+
+                            //未添加題目的提示
+                            if ($('#edit_pulldown_question_title').val() == '') {
                                 alertBox({
                                     Mode: 'A',
-                                    Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#edit_pulldown_title').addClass('warning');
+                                    }
                                 });
                                 return false;
+                            } else {
+                                if ($('#edit_pulldown_title').hasClass('warning')) {
+                                    $('#edit_pulldown_title').removeClass('warning');
+                                }
+                            }
+
+                            //未添加選項的提示
+                            if (newOption.length === 0) {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                    OnOK: function () {
+                                        $('#edit_pulldown_options').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#edit_pulldown_options').hasClass('warning')) {
+                                    $('#edit_pulldown_options').removeClass('warning');
+                                }
+                            }
+
+                            //重複選項的提示
+                            var repeatResult = {};
+                            newOption.forEach(function (option) {
+                                repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
+                            });
+
+
+                            for (var i in repeatResult) {
+                                if (repeatResult[i] > 1) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
                             }
                         }
-                    }
-
-                    return true;
-                },
-                OnOK: function () {
-
-                    //是否必填
-                    var required = $('input[type="radio"][name="radio3"]:checked').val();
-
-                    //存每個選項的值
-                    var options = [];
-                    $('.showEditOptions_pulldown .input_area input').each(function (index) {
-                        options.push({
-                            id: _uuid(),
-                            val: $(this).val(),
-                            jumpLogic: null,
-                        });
-                    });
-
-                    if (vm.nowPage === 1) {
-                        //初始第一頁
-                        vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
-                            type: 'pulldown',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#pulldown_question_title').val(),
-                            options: options,
-                            required: required,
-                            showLogicCount: [],
-                            isSelect: ''
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    } else {
-                        vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
-                            type: 'pulldown',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#pulldown_question_title').val(),
-                            options: options,
-                            required: required,
-                            showLogicCount: [],
-                            isSelect: ''
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    }
-                }
-            });
-        }
-
-        if (status === 'edit') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯下拉題',
-                OutsideStyle: 'max-width:770px',
-                Html: $('#edit_editPulldown'),
-                OnReady: function (Code) {
-
-                    if (status == 'edit') {
+                    },
+                    OnOK: function () {
 
                         var index = $(dom).attr('data-index');
-                        //存問題index
-                        $('#edit_eidtPulldown_del').html(index);
-                        $('#edit_eidtPulldown_copy').html(index);
 
-                        var data = {};
-                        for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-                            if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-                                data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
-                                break;
-                            }
-                        }
+                        //是否必填
+                        var required = $('input[type="radio"][name="edit_radio3"]:checked').val();
 
-                        //更新必填
-                        var requires = $('input[type="radio"][name="edit_radio3"]');
-                        for (var n = 0; n < requires.length; n++) {
-                            if (data.required === requires[n].value) {
-                                requires[n].checked = 'checked';
-                            }
-                        }
-
-                        $('#edit_pulldown_question_title').val(data['title']);
-
-                        //存題號
-                        //抓當前DOM父層的問題題號標題
-                        var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
-                        $('#quesitonNum').html(questionTitle);
-
-                        var option = $('.editOptions_wrap#edit_editOptions_wrap_pulldown').html();
-
-
-                        $('.editOptions_wrap#edit_editOptions_wrap_pulldown').empty();
-
-                        for (var j = 0; j < data['options'].length; j++) {
-                            $('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(option);
-                        }
-
-                        for (var k = 0; k < data['options'].length; k++) {
-                            $('.editOptions_wrap#edit_editOptions_wrap_pulldown').find('.edit_editPulldown_input')[k].value = data['options'][k].val;
-                        }
-
-                    }
-
-                },
-                OnClose: function (Type) {
-                    if (Type == 'ok') {
                         //儲存新選項
                         var newOption = [];
 
@@ -707,238 +1053,355 @@
                             newOption.push({
                                 id: _uuid(),
                                 val: nodeList[j].value,
-                                jumpLogic: null
+                                jumpLogic: null,
                             });
                         }
 
-                        //重複選項的提示
-                        var repeatResult = {};
-                        newOption.forEach(function (option) {
-                            repeatResult[option.val] = repeatResult[option.val] ? repeatResult[option.val] + 1 : 1;
-                        });
 
 
-                        for (var i in repeatResult) {
-                            if (repeatResult[i] > 1) {
-                                alertBox({
-                                    Mode: 'A',
-                                    Html: '<p style="color:#FF6A00">選項重複設定!</p>'
-                                });
-                                return false;
+                        //更新問題
+                        var jumpToQuestion = vm.tempLogicSetting.jumpTo !== '' ? $.extend(true, {}, vm.tempLogicSetting) : [];
+                        for (var k = 0; k < vm.allQuestionnaireData.length; k++) {
+                            if (vm.allQuestionnaireData[k]['page'] == vm.nowPage) {
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].title = $('#edit_pulldown_question_title').val();
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].options = newOption;
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].required = required;
+                                vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].jumpToQuestion = jumpToQuestion;
+                                break;
                             }
                         }
-                    }
-                },
-                OnOK: function () {
 
-                    var index = $(dom).attr('data-index');
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+                        if (typeof (target.options) !== 'undefined') {
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    if (option.val == title) {
+                                        option.jumpLogic = null;
+                                    }
+                                }
+                            });
 
-                    //是否必填
-                    var required = $('input[type="radio"][name="edit_radio3"]:checked').val();
+                            //顯示跳題選項數目
+                            //顯示跳題提示
 
-                    //儲存新選項
-                    var newOption = [];
+                            //顯示設定跳題選項數目
+                            var optionsLogic = [];
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    optionsLogic.push(option.jumpLogic);
+                                }
+                            });
 
-                    var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_pulldown .edit_editPulldown_input');
+                            target.showLogicCount = optionsLogic;
 
-
-                    for (var j = 0; j < nodeList.length; j++) {
-                        newOption.push({
-                            id: _uuid(),
-                            val: nodeList[j].value,
-                            jumpLogic: null,
-                        });
-                    }
-
-
-
-                    //更新問題
-                    var jumpToQuestion = vm.tempLogicSetting.jumpTo !== '' ? $.extend(true, {}, vm.tempLogicSetting) : [];
-                    for (var k = 0; k < vm.allQuestionnaireData.length; k++) {
-                        if (vm.allQuestionnaireData[k]['page'] == vm.nowPage) {
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].title = $('#edit_pulldown_question_title').val();
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].options = newOption;
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].required = required;
-                            vm.allQuestionnaireData[k].questionDataPerPage["pageQuestionData"][index].jumpToQuestion = jumpToQuestion;
-                            break;
-                        }
-                    }
-
-                    //跳題題號重新排序
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            if (question.options) {
-                                question.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                    option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
+                            //跳題題號重新排序
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    if (question.options) {
+                                        question.options.forEach(function (option) {
+                                            if (option.jumpLogic !== null) {
+                                                vm.allQuestionnaireData.forEach(function (data) {
+                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                        }
+                                                    });
+                                                });
+                                            }
                                         });
                                     }
-                                });
-                            }
-                        });
-                    });
 
-                }
-            });
+
+                                    question.showLogicCount.forEach(function (logic) {
+                                        if (logic !== null) {
+                                            vm.allQuestionnaireData.forEach(function (data) {
+                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                    if (item.id == logic.jumpTo.id[0]) {
+                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+
+                                });
+                            });
+
+                        }
+
+                        //跳題題號重新排序
+                        //vm.allQuestionnaireData.forEach(function (page) {
+                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                        //        if (question.options) {
+                        //            question.options.forEach(function (option) {
+                        //                if (option.jumpLogic !== null) {
+                        //                    vm.allQuestionnaireData.forEach(function (data) {
+                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                        //                            }
+                        //                        });
+                        //                    });
+                        //                }
+                        //            });
+                        //        }
+                        //    });
+                        //});
+
+                    }
+                });
+            }
         }
 
-    };
+        if (type === 'textarea') {
 
-    //編輯文本題
-    editTextarea = function (event, status, dom) {
-        if (status === 'add') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增文本題',
-                OutsideStyle: 'max-width:700px',
-                Html: $('#editTextarea'),
-                OnOK: function () {
-                    //過場loading
+            if (status === 'add') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增文本題',
+                    OutsideStyle: 'max-width:700px',
+                    Html: $('#editTextarea'),
+                    OnClose: function () {
+                        //未添加題目的提示
+                        if ($('#textarea_question_title').val() == '') {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                OnOK: function () {
+                                    $('#textarea_title').addClass('warning');
+                                }
+                            });
+                            return false;
+                        } else {
+                            if ($('#textarea_title').hasClass('warning')) {
+                                $('#textarea_title').removeClass('warning');
+                            }
+                        }
+                    },
+                    OnOK: function () {
+                        //過場loading
 
-                    if (vm.nowPage === 1) {
+                        if (vm.nowPage === 1) {
+
+                            //是否必填
+                            var required = $('input[type="radio"][name="radio4"]:checked').val();
+
+                            //初始第一頁
+                            vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
+                                type: 'textarea',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#textarea_question_title').val(),
+                                required: required,
+                                showLogicCount: [],
+                                answerVal: ''
+                            });
+
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        } else {
+
+                            //是否必填
+                            var required = $('input[type="radio"][name="radio4"]:checked').val();
+
+                            vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
+                                type: 'textarea',
+                                id: _uuid(),
+                                questionNum: '',
+                                title: $('#textarea_question_title').val(),
+                                required: required,
+                                showLogicCount: [],
+                                answerVal: ''
+                            });
+
+                            //題號重新排序
+                            var newIndex = 1;
+
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    question.questionNum = newIndex;
+                                    newIndex++;
+                                });
+                            });
+                        }
+
+                    }
+                });
+            }
+
+            if (status === 'edit') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯文本題',
+                    OutsideStyle: 'max-width:700px',
+                    Html: $('#edit_editTextarea'),
+                    OnClose: function () {
+                        //未添加題目的提示
+                        if ($('#edit_textarea_question_title').val() == '') {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                OnOK: function () {
+                                    $('#edit_textarea_title').addClass('warning');
+                                }
+                            });
+                            return false;
+                        } else {
+                            if ($('#edit_textarea_title').hasClass('warning')) {
+                                $('#edit_textarea_title').removeClass('warning');
+                            }
+                        }
+                    },
+                    OnReady: function () {
+                        //過場loading
+                        var index = $(dom).attr('data-index');
+                        var data = {};
+
+                        for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
+
+                            if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
+
+                                data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
+                                break;
+                            }
+
+                        }
+
+                        //更新必填
+                        var requires = $('input[type="radio"][name="radio4"]');
+                        for (var j = 0; j < requires.length; j++) {
+                            if (data.required === requires[j].value) {
+                                requires[j].checked = 'checked';
+                            }
+                        }
+
+                        //插入題目
+                        $('#edit_textarea_question_title').val(data['title']);
+
+
+                        //存題號
+                        //抓當前DOM父層的問題題號標題
+                        var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
+                        $('#quesitonNum').html(questionTitle);
+
+                    },
+                    OnOK: function () {
 
                         //是否必填
                         var required = $('input[type="radio"][name="radio4"]:checked').val();
 
-                        //初始第一頁
-                        vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
-                            type: 'textarea',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#textarea_question_title').val(),
-                            required: required,
-                            showLogicCount: [],
-                            answerVal: ''
-                        });
+                        var newTitle = $('#edit_textarea_question_title').val();
 
-                        //題號重新排序
-                        var newIndex = 1;
+                        var index = $(dom).attr('data-index');
 
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    } else {
+                        for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
 
-                        //是否必填
-                        var required = $('input[type="radio"][name="radio4"]:checked').val();
+                            if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
 
-                        vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
-                            type: 'textarea',
-                            id: _uuid(),
-                            questionNum: '',
-                            title: $('#textarea_question_title').val(),
-                            required: required,
-                            showLogicCount: [],
-                            answerVal: ''
-                        });
-
-                        //題號重新排序
-                        var newIndex = 1;
-
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                question.questionNum = newIndex;
-                                newIndex++;
-                            });
-                        });
-                    }
-
-                }
-            });
-        }
-
-        if (status === 'edit') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯文本題',
-                OutsideStyle: 'max-width:700px',
-                Html: $('#edit_editTextarea'),
-                OnReady: function () {
-                    //過場loading
-                    var index = $(dom).attr('data-index');
-                    var data = {};
-
-                    for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-
-                        if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-
-                            data = vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index];
-                            break;
-                        }
-
-                    }
-
-                    //更新必填
-                    var requires = $('input[type="radio"][name="radio4"]');
-                    for (var j = 0; j < requires.length; j++) {
-                        if (data.required === requires[j].value) {
-                            requires[j].checked = 'checked';
-                        }
-                    }
-
-                    //插入題目
-                    $('#edit_textarea_question_title').val(data['title']);
-
-
-                    //存題號
-                    //抓當前DOM父層的問題題號標題
-                    var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
-                    $('#quesitonNum').html(questionTitle);
-
-                },
-                OnOK: function () {
-
-                    //是否必填
-                    var required = $('input[type="radio"][name="radio4"]:checked').val();
-
-                    var newTitle = $('#edit_textarea_question_title').val();
-
-                    var index = $(dom).attr('data-index');
-
-                    for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-
-                        if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-
-                            vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index].title = newTitle;
-                            vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index].required = required;
-                            break;
-                        }
-
-                    }
-
-                    //跳題題號重新排序
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            if (question.options) {
-                                question.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                    option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
-                                        });
-                                    }
-                                });
+                                vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index].title = newTitle;
+                                vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index].required = required;
+                                break;
                             }
 
-                        });
-                    });
+                        }
 
-                }
-            });
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+                        if (typeof (target.options) !== 'undefined') {
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    if (option.val == title) {
+                                        option.jumpLogic = null;
+                                    }
+                                }
+                            });
+
+                            //顯示跳題選項數目
+                            //顯示跳題提示
+
+                            //顯示設定跳題選項數目
+                            var optionsLogic = [];
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    optionsLogic.push(option.jumpLogic);
+                                }
+                            });
+
+                            target.showLogicCount = optionsLogic;
+
+                            //跳題題號重新排序
+                            vm.allQuestionnaireData.forEach(function (page) {
+                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                                    if (question.options) {
+                                        question.options.forEach(function (option) {
+                                            if (option.jumpLogic !== null) {
+                                                vm.allQuestionnaireData.forEach(function (data) {
+                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                        }
+                                                    });
+                                                });
+                                            }
+                                        });
+                                    }
+
+
+                                    question.showLogicCount.forEach(function (logic) {
+                                        if (logic !== null) {
+                                            vm.allQuestionnaireData.forEach(function (data) {
+                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                                    if (item.id == logic.jumpTo.id[0]) {
+                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                                    }
+                                                });
+                                            });
+                                        }
+                                    });
+
+                                });
+                            });
+
+                        }
+
+
+
+                        //跳題題號重新排序
+                        //vm.allQuestionnaireData.forEach(function (page) {
+                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                        //        if (question.options) {
+                        //            question.options.forEach(function (option) {
+                        //                if (option.jumpLogic !== null) {
+                        //                    vm.allQuestionnaireData.forEach(function (data) {
+                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                        //                            }
+                        //                        });
+                        //                    });
+                        //                }
+                        //            });
+                        //        }
+
+                        //    });
+                        //});
+
+                    }
+                });
+            }
         }
 
+
     };
+
+
+
 
     //編輯頁面說明
     editPageDesc = function (e, status, dom) {
@@ -1362,66 +1825,10 @@
                         var title = $(e.target).parents('.editOptions').find('.edit_editPulldown_input').val();
                     }
 
+                    $(e.target).parents('.editOptions').remove();
                     //刪除跳題邏輯
                     //取移除選項的值，比對若有設置跳題則刪除
-                    var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
-                    if (typeof (target.options) !== 'undefined') {
-                        target.options.forEach(function (option) {
-                            if (option.jumpLogic !== null) {
-                                if (option.val == title) {
-                                    option.jumpLogic = null;
-                                }
-                            }
-                        });
 
-                        //顯示跳題選項數目
-                        //顯示跳題提示
-
-                        //顯示設定跳題選項數目
-                        var optionsLogic = [];
-                        target.options.forEach(function (option) {
-                            if (option.jumpLogic !== null) {
-                                optionsLogic.push(option.jumpLogic);
-                            }
-                        });
-
-                        target.showLogicCount = optionsLogic;
-
-                        //跳題題號重新排序
-                        vm.allQuestionnaireData.forEach(function (page) {
-                            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                if (question.options) {
-                                    question.options.forEach(function (option) {
-                                        if (option.jumpLogic !== null) {
-                                            vm.allQuestionnaireData.forEach(function (data) {
-                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                    if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                        option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                    }
-                                                });
-                                            });
-                                        }
-                                    });
-                                }
-
-
-                                question.showLogicCount.forEach(function (logic) {
-                                    if (logic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == logic.jumpTo.id[0]) {
-                                                    logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
-                                        });
-                                    }
-                                });
-
-                            });
-                        });
-
-                        $(e.target).parents('.editOptions').remove();
-                    }
 
                 }
             }
@@ -1436,7 +1843,7 @@
     };
 
     //刪除問題
-    deleteQuestion = function (e,dom) {
+    deleteQuestion = function (e, dom) {
 
         alertBox({
             Mode: 'C',
@@ -1824,7 +2231,6 @@
 
                     DropListSetting({
                         ID: 'selected_option',
-                        Type: 'multiple',
                         Data: [{ Optgroup: '', Option: options }],
                         Search: true,
                         ButtonText: '請選擇選項',
@@ -1901,6 +2307,7 @@
             },
             OnOK: function () {
 
+                var type = $(dom).attr('data-type');
                 //var result = '<i class="fa fa-code-fork"></i>&nbsp;若本題選擇【' + vm.tempLogicSetting.triggerOption.val + '】，則跳至第&nbsp;' + vm.tempLogicSetting.jumpTo.val + '&nbsp;題';
 
                 if (type === 'radio') {

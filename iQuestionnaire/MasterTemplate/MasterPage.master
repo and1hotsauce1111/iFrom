@@ -82,7 +82,8 @@
             { id: '/iQuestion/QuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '問卷管理' },
             { id: '/iQuestion/AnswerQuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '我的問卷' },
             { id: '/iQuestion/AddQuestionnire.aspx', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
-            { id: '/iQuestion/Answer.aspx', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' }
+            { id: '/iQuestion/Answer.aspx', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' },
+            { id: '/iQuestion/MyAnnounce.aspx', pid: '/iQuestion/Default.aspx', name: '公告消息' }
         ];
 
         var homeIcon = '<i class="fa fa-home"></i>';

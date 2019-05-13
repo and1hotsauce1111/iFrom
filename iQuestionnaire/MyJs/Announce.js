@@ -21,7 +21,7 @@
 
         });
 
-        listBuild();
+        announceListBuild();
     });
 
     //新增公告
@@ -150,28 +150,30 @@
 
     //刪除公告
     deleteAnnounce = function () {
-        alertBox({
-            Mode: 'C',
-            Title: '<i class="fa fa-trash-o" style="padding-right:3px"></i>刪除公告',
-            Html: '<p style="font-size:18px;color:#ff6a00">確定刪除公告 ?</p>',
-            OnOK: function () {
-                var array = TableListGetCheck('列表元件');
-                if (array.length === 0) {
-                    alertBox({
-                        Mode: 'C',
-                        Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
-                        OutsideStyle: 'max-width:500px',
-                        Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇公告 !</p>',
-                    });
-                } else {
+        var array = TableListGetCheck('列表元件');
+        if (array.length === 0) {
+            alertBox({
+                Mode: 'C',
+                Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
+                OutsideStyle: 'max-width:500px',
+                Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇公告 !</p>',
+            });
+        } else {
+            alertBox({
+                Mode: 'C',
+                Title: '<i class="fa fa-trash-o" style="padding-right:3px"></i>刪除公告',
+                Html: '<p style="font-size:18px;color:#ff6a00">確定刪除公告 ?</p>',
+                OnOK: function () {
                     //目前只能先刪除一筆
                     var targetId = array[0].id;
                     axios.delete('http://localhost:5566/announce/' + targetId).then(function (res) {
                         window.location.reload();
                     });
                 }
-            }
-        });
+            });
+
+        }
+
     };
 
     //複製公告
@@ -203,20 +205,20 @@
 
 
 
-    var listBuild = function () {
+    var announceListBuild = function () {
         TableListBuild({
             Name: '列表元件',
             Recover: true,
             GetSearch: function (ReSearch) {
                 //開啟 Recover 功能時需要將記錄的資料套用回介面上的物件
                 if (ReSearch) {
-                    $('#keyword').val(ReSearch.keyword);
-                    $('#keyword2').val(ReSearch.keyword2);
+                    //$('#announce_keyword').val(ReSearch.keyword);
+                    //$('#announce_keyword2').val(ReSearch.keyword2);
                 }
                 //讀取介面上的物件數值傳送到 Search 變數之中
                 var Search = {
-                    keyword: $('#keyword').val(),
-                    keyword2: $('#keyword2').val(),
+                    keyword: $('#announce_keyword').val(),
+                    keyword2: $('#announce_keyword2').val(),
                     keyword3: $('input[name="radio"]:checked').val(),
                     keyword4: $('input[name="radio2"]:checked').val()
                 }
@@ -336,9 +338,9 @@
 
     TableListClear = function () {
 
-        $('#keyword').val('');
-        $('#keyword2').val('');
-        $('input[type="radio"][name="radio"][value="全部查詢"]').prop("checked",true);
+        $('#announce_keyword').val('');
+        $('#announce_keyword2').val('');
+        $('input[type="radio"][name="radio"][value="全部查詢"]').prop("checked", true);
         $('input[type="radio"][name="radio2"][value="全部查詢"]').prop("checked", true);
 
         TableListRun('列表元件');
@@ -350,7 +352,7 @@
         el: '#app',
         data: function () {
             return {
-                renderData:null
+                renderData: null
             }
         },
         created: function () {

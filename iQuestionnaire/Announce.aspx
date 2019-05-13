@@ -44,7 +44,7 @@
                     <th>公告標題</th>
                     <td>
                         <div>
-                            <input id="keyword" type="text" value="" placeholder="輸入..." />
+                            <input id="announce_keyword" type="text" value="" placeholder="輸入..." />
                             <div class="inputLine"></div>
                         </div>
                     </td>
@@ -71,7 +71,7 @@
                     <th>發佈人</th>
                     <td>
                         <div>
-                            <input id="keyword2" type="text" value="" placeholder="輸入..." />
+                            <input id="announce_keyword2" type="text" value="" placeholder="輸入..." />
                             <div class="inputLine"></div>
                         </div>
                     </td>
