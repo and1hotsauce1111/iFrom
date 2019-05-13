@@ -34,9 +34,9 @@
                             <span class="label_text">一般公告</span>
                         </label>
                         <label class="label_radio">
-                            <input type="radio" value="置頂消息(TOP)" name="radio" />
+                            <input type="radio" value="置頂消息" name="radio" />
                             <span class="label_icon"></span>
-                            <span class="label_text">置頂消息(TOP)</span>
+                            <span class="label_text">置頂消息</span>
                         </label>
                     </td>
                 </tr>
@@ -160,9 +160,9 @@
                             <span class="label_text">一般公告</span>
                         </label>
                         <label class="label_radio">
-                            <input type="radio" name="radio3" id="new_announce" value="置頂消息(TOP)" />
+                            <input type="radio" name="radio3" id="new_announce" value="置頂消息" />
                             <span class="label_icon"></span>
-                            <span class="label_text">置頂消息(TOP)</span>
+                            <span class="label_text">置頂消息</span>
                         </label>
                     </td>
                 </tr>

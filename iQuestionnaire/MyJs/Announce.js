@@ -15,9 +15,10 @@
                 id: item.id,
                 name: item.title,
                 date: item.time,
-                type: item.type == undefined ? '<span style="color:#FF6A00">一般公告</span>' : '<span style="color:#FF6A00">' + item.type + '</span>',
-                status: item.status == '啟用' || item.status == undefined ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                type: '<span style="color:#FF6A00">' + item.type + '</span>',
+                status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
             });
+
         });
 
         listBuild();
@@ -216,8 +217,9 @@
                 var Search = {
                     keyword: $('#keyword').val(),
                     keyword2: $('#keyword2').val(),
+                    keyword3: $('input[name="radio"]:checked').val(),
+                    keyword4: $('input[name="radio2"]:checked').val()
                 }
-
 
                 return Search;
             },
@@ -239,6 +241,7 @@
                     var checkA = false;
                     var checkB = false;
                     var checkC = false;
+                    var checkD = false;
 
                     if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
                         checkA = true;
@@ -246,13 +249,22 @@
                     if (Option.Search['keyword2'] == '' || test[i]['date'].match(Option.Search['keyword2'])) {
                         checkB = true;
                     }
-                    
+                    if (Option.Search['keyword3'] == '全部查詢' || test[i]['type'].match(Option.Search['keyword3'])) {
+                        checkC = true;
+                    }
+                    if (Option.Search['keyword4'] == '全部查詢' || test[i]['status'].match(Option.Search['keyword4'])) {
+                        checkD = true;
+                    }
 
-                    if (checkA && checkB) {
+                    console.log(Option.Search['keyword3']);
+
+                    if (checkA && checkB && checkC && checkD) {
                         tempA.push(test[i]);
                     }
 
                 }
+
+                console.log(tempA);
 
                 return tempA.length;
             },
@@ -276,6 +288,7 @@
                     var checkA = false;
                     var checkB = false;
                     var checkC = false;
+                    var checkD = false;
 
                     //未輸入搜尋條件默認為true
                     if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
@@ -284,9 +297,14 @@
                     if (Option.Search['keyword2'] == '' || test[i]['date'].match(Option.Search['keyword2'])) {
                         checkB = true;
                     }
-                    
+                    if (Option.Search['keyword3'] == '全部查詢' || test[i]['type'].match(Option.Search['keyword3'])) {
+                        checkC = true;
+                    }
+                    if (Option.Search['keyword4'] == '全部查詢' || test[i]['status'].match(Option.Search['keyword4'])) {
+                        checkD = true;
+                    }
 
-                    if (checkA && checkB) {
+                    if (checkA && checkB && checkC && checkD) {
                         tempA.push(test[i]);
                     }
 
@@ -320,6 +338,8 @@
 
         $('#keyword').val('');
         $('#keyword2').val('');
+        $('input[type="radio"][name="radio"][value="全部查詢"]').prop("checked",true);
+        $('input[type="radio"][name="radio2"][value="全部查詢"]').prop("checked", true);
 
         TableListRun('列表元件');
     };
