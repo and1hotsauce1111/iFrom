@@ -313,7 +313,8 @@
                     }
 
                     //呼叫TableListRun重新建立列表
-                    TableListRun('列表元件');
+                    //TableListRun('列表元件');
+                    window.location.reload();
 
                 }
             });
@@ -382,7 +383,8 @@
             }
 
             //呼叫TableListRun重新建立列表
-            TableListRun('列表元件');
+            //TableListRun('列表元件');
+            window.location.reload();
         }
 
 

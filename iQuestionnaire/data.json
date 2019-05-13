@@ -40,7 +40,7 @@
                           "ea5147a4-89e5-4b19-a526-edd43529cc4d"
                         ],
                         "val": [
-                          "Q13 電話"
+                          "Q15 電話"
                         ]
                       },
                       "noSkip": {
@@ -76,7 +76,7 @@
                         "ea5147a4-89e5-4b19-a526-edd43529cc4d"
                       ],
                       "val": [
-                        "Q13 電話"
+                        "Q15 電話"
                       ]
                     },
                     "noSkip": {
@@ -521,6 +521,527 @@
         }
       ],
       "repeatAnswer": true
+    },
+    {
+      "id": "46574f1e-0b50-4c68-88f7-ad1ff1b1f426",
+      "questionnaireTitle": "桃園九年級學習特質問卷 - 副本",
+      "questionnaireDesc": "請依提示填答",
+      "questionnaireDeadline": "2019-05-20 15:00",
+      "questionnaireStartTime": "2019-05-13 00:00",
+      "allQuestionnaireData": [
+        {
+          "page": 1,
+          "questionDataPerPage": {
+            "pageDesc": "page1",
+            "pageQuestionData": [
+              {
+                "type": "radio",
+                "id": "d74caf12-3191-40fd-93c1-9122de2d88ad",
+                "questionNum": 1,
+                "title": "對於國語課程中的基本概念我可以理解。",
+                "options": [
+                  {
+                    "id": "5160abbe-b912-4428-b26a-3dbd0fb3faaa",
+                    "val": "不太像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "bd5067e3-f2c1-4b22-92da-1f100112bef2",
+                    "val": "有點像我",
+                    "jumpLogic": {
+                      "triggerOption": {
+                        "id": [
+                          "bd5067e3-f2c1-4b22-92da-1f100112bef2"
+                        ],
+                        "val": [
+                          "有點像我"
+                        ]
+                      },
+                      "jumpTo": {
+                        "id": [
+                          "ea5147a4-89e5-4b19-a526-edd43529cc4d"
+                        ],
+                        "val": [
+                          "Q15 電話"
+                        ]
+                      },
+                      "noSkip": {
+                        "id": "",
+                        "val": ""
+                      },
+                      "allJump": []
+                    }
+                  },
+                  {
+                    "id": "329c151d-4b04-4b4c-a8a2-ac9098a64034",
+                    "val": "很像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "66350868-2db2-40f7-b7d6-f69456a39f0d",
+                    "val": "非常像我",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [
+                  {
+                    "triggerOption": {
+                      "id": [
+                        "bd5067e3-f2c1-4b22-92da-1f100112bef2"
+                      ],
+                      "val": [
+                        "有點像我"
+                      ]
+                    },
+                    "jumpTo": {
+                      "id": [
+                        "ea5147a4-89e5-4b19-a526-edd43529cc4d"
+                      ],
+                      "val": [
+                        "Q15 電話"
+                      ]
+                    },
+                    "noSkip": {
+                      "id": "",
+                      "val": ""
+                    },
+                    "allJump": []
+                  }
+                ],
+                "isSelect": "",
+                "required": "true"
+              },
+              {
+                "type": "radio",
+                "id": "54754ea6-5361-491a-b12e-28541c65c1e6",
+                "questionNum": 2,
+                "title": "我覺得我能在國語考試中得到好成績。",
+                "options": [
+                  {
+                    "id": "3f016f8e-8dd9-4d4b-8041-0864fe23cb55",
+                    "val": "不太像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "a173da0d-c124-455c-8714-94f4989d7e13",
+                    "val": "有點像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "f3d98bf2-447b-4158-84c0-199d7ecc86f1",
+                    "val": "很像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "7a8cdecc-9270-4eaf-a5ed-23f787fa4741",
+                    "val": "非常像我",
+                    "jumpLogic": null
+                  }
+                ],
+                "required": "false",
+                "showLogicCount": [],
+                "isSelect": ""
+              },
+              {
+                "type": "radio",
+                "id": "73a382cc-40c5-46ad-bc0f-f557307c93e6",
+                "questionNum": 3,
+                "title": "我在分組學習中會積極參與討論。",
+                "options": [
+                  {
+                    "id": "2041785e-7605-4535-aa0b-90948f2133c1",
+                    "val": "不太像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "242fe40e-be85-48c9-8c60-19d3c023b77c",
+                    "val": "有點像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "b07d280b-c813-40af-97f0-5d0be5e0468c",
+                    "val": "很像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "ab16e423-97c9-4e6b-86a8-3bf46333223b",
+                    "val": "非常像我",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": ""
+              },
+              {
+                "type": "radio",
+                "id": "0ed17f1b-a1c2-4ce4-82c5-ba7c3d70a5fd",
+                "questionNum": 4,
+                "title": "除了老師上課的內容，我還會閱讀其他相關補充教材。",
+                "options": [
+                  {
+                    "id": "c7cdc650-befa-4d4e-aeb3-4e0f4e5ce406",
+                    "val": "不太像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "8a6720e2-295b-4609-8d88-5c4c4ad2cbbb",
+                    "val": "有點像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "328aeed9-c2fd-4094-aa86-3679855e1dee",
+                    "val": "很像我",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "fcc7be12-bf33-4f85-815a-bf2943792e70",
+                    "val": "非常像我",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": ""
+              }
+            ]
+          }
+        },
+        {
+          "page": 2,
+          "questionDataPerPage": {
+            "pageDesc": "page2",
+            "pageQuestionData": [
+              {
+                "type": "checkbox",
+                "id": "1389cde2-c17d-40dc-b006-b1a777a9b005",
+                "questionNum": 5,
+                "title": "你爸爸的工作狀況？",
+                "options": [
+                  {
+                    "id": "29460661-2efb-4abc-ab13-718724b1ddaa",
+                    "val": "老闆 ",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "f3798220-fa6c-41ee-b1ef-907570746087",
+                    "val": "主管 ",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "8bc62f20-8aa4-445d-ae78-d1b510276a25",
+                    "val": "全職人員",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "f9660760-a951-4a9a-a503-005c77b1d892",
+                    "val": "兼職人員",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "dc161a22-b85e-4b5a-b4e5-160e4d770ed5",
+                    "val": "求職中",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "a424e1a4-cc71-496f-99e2-f89f88b62eeb",
+                    "val": "其他(如退休或家管)",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": []
+              },
+              {
+                "type": "checkbox",
+                "id": "032b033b-a5d1-4e15-99aa-55c99a100c70",
+                "questionNum": 6,
+                "title": "你媽媽的工作狀況？",
+                "options": [
+                  {
+                    "id": "1e83de74-430a-47a9-aa2c-cc28ee1c76df",
+                    "val": "老闆 ",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "eb4e6f63-0c1f-49c0-b2ea-57d5cfb74cc8",
+                    "val": "主管 ",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "f261a659-9cb6-42a0-b79f-bf5bd211715a",
+                    "val": "全職人員",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "b669b748-e2ee-46c0-be71-7c67d3608bd8",
+                    "val": "兼職人員",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "5f971003-709d-4f71-ada1-093d39a1c493",
+                    "val": "求職中",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "9d9fb58c-95d5-4e3d-8f19-134fba04553a",
+                    "val": "其他(如退休或家管)",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": []
+              },
+              {
+                "type": "checkbox",
+                "id": "f34fa1fe-1583-495b-bb48-8d4e533fe3e0",
+                "questionNum": 7,
+                "title": "你爸爸的工作狀況？",
+                "options": [
+                  {
+                    "id": "f5e4ac40-99e1-4dbb-9fca-890949b5a949",
+                    "val": "國小畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "f69c320b-dab0-4f45-83b9-1b95783cf08f",
+                    "val": "國中畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "59d3f565-a87a-41f1-baa4-e3eadc4aebd8",
+                    "val": "高中職畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "7139e922-c4ec-4984-9db8-1a23c1a95905",
+                    "val": "大專畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "90889eb2-d6b8-4553-aea9-6d840270ec1a",
+                    "val": "碩士畢業 ",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "a5fc115a-510f-498e-a7bc-71d226eda01e",
+                    "val": "博士畢業",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": []
+              },
+              {
+                "type": "checkbox",
+                "id": "7cd3df02-d7e4-4d7a-bc30-5ce29e3df4c4",
+                "questionNum": 8,
+                "title": "你媽媽的最高學歷？",
+                "options": [
+                  {
+                    "id": "05fc3f14-69ca-4e40-966c-ad009c292630",
+                    "val": "國小畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "748f7e1e-6832-4370-b971-101f61a25e7c",
+                    "val": "國中畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "93d21557-da07-4ae4-ac9f-b2b8fabbca7a",
+                    "val": "高中職畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "f7a751f9-cd18-48f9-a38c-6a29d8bf777a",
+                    "val": "大專畢業",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "4cfd4409-8d68-43c8-b08b-6f0e9fdd6766",
+                    "val": "碩士畢業 ",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "0dbea453-7266-4193-b8e0-7766d6b14fe6",
+                    "val": "博士畢業",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": []
+              }
+            ]
+          }
+        },
+        {
+          "page": 3,
+          "questionDataPerPage": {
+            "pageDesc": "",
+            "pageQuestionData": [
+              {
+                "type": "pulldown",
+                "id": "1d88bbf2-0d66-495d-a4c6-17a006c42dd6",
+                "questionNum": 9,
+                "title": "爸媽或(外)祖父母會和我討論或教導我學校功課。",
+                "options": [
+                  {
+                    "id": "9bd1ddd1-1d46-4f5b-9bb7-429f4dc141cc",
+                    "val": "幾乎沒有",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "5ff9dc51-e760-4c9c-807f-1bab94e9580b",
+                    "val": "一個月1、2次",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "8f7bf96d-98c9-4fe1-9733-342bb3e2c9ee",
+                    "val": "一周1、2次",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "0554c75e-9520-4c5d-ac52-59326d5f7a10",
+                    "val": "每天",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": ""
+              },
+              {
+                "type": "pulldown",
+                "id": "9f28f79f-5997-4aea-9eab-39b94a3b992d",
+                "questionNum": 10,
+                "title": "爸媽或(外)祖父母會參加我班上或學校的活動。",
+                "options": [
+                  {
+                    "id": "1645931c-d790-482e-ad4d-e9858c4836a9",
+                    "val": "幾乎沒有",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "4366003b-f3df-4a0d-88d8-79f5393e3a1b",
+                    "val": "一個月1、2次",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "88e0c7ff-c1a5-4ad7-9766-f0178623b6d9",
+                    "val": "一周1、2次",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "12351d58-3da3-403a-a07a-258334670a59",
+                    "val": "每天",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": "",
+                "jumpToQuestion": {
+                  "triggerOption": {
+                    "id": "",
+                    "val": ""
+                  },
+                  "jumpTo": {
+                    "id": "",
+                    "val": ""
+                  },
+                  "noSkip": {
+                    "id": "",
+                    "val": ""
+                  },
+                  "allJump": []
+                }
+              },
+              {
+                "type": "pulldown",
+                "id": "4e46269c-565b-4644-b379-55356b8e0db8",
+                "questionNum": 11,
+                "title": "爸媽或(外)祖父母會聽我分享學校的事情。",
+                "options": [
+                  {
+                    "id": "a0811241-7a92-43ea-929b-528cd4da3f41",
+                    "val": "幾乎沒有",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "bb9b8eec-2636-4dc9-b615-07f89571616a",
+                    "val": "一個月1、2次",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "3bfce2fb-e136-4065-8fe9-80bf6af40bdc",
+                    "val": "一周1、2次",
+                    "jumpLogic": null
+                  },
+                  {
+                    "id": "9c83775c-c7f5-44b4-b246-3254db8e0d4a",
+                    "val": "每天",
+                    "jumpLogic": null
+                  }
+                ],
+                "showLogicCount": [],
+                "isSelect": "",
+                "jumpToQuestion": {
+                  "triggerOption": {
+                    "id": "",
+                    "val": ""
+                  },
+                  "jumpTo": {
+                    "id": "",
+                    "val": ""
+                  },
+                  "noSkip": {
+                    "id": "",
+                    "val": ""
+                  },
+                  "allJump": []
+                }
+              },
+              {
+                "type": "textarea",
+                "id": "14f87bc3-8f5f-4148-963b-508a5e391b42",
+                "questionNum": 12,
+                "title": "trest",
+                "showLogicCount": [],
+                "answerVal": ""
+              },
+              {
+                "type": "textarea",
+                "id": "51b5912e-f3ac-40eb-bbc1-3febcfa4c504",
+                "questionNum": 13,
+                "title": "15",
+                "showLogicCount": [],
+                "answerVal": ""
+              }
+            ]
+          }
+        },
+        {
+          "page": 4,
+          "questionDataPerPage": {
+            "pageDesc": "",
+            "pageQuestionData": [
+              {
+                "type": "textarea",
+                "id": "3051e0e4-edca-4b50-a7b2-a185ee1f2a27",
+                "questionNum": 14,
+                "title": "未來的夢想",
+                "showLogicCount": [],
+                "answerVal": ""
+              },
+              {
+                "type": "textarea",
+                "id": "ea5147a4-89e5-4b19-a526-edd43529cc4d",
+                "questionNum": 15,
+                "title": "電話",
+                "showLogicCount": [],
+                "answerVal": ""
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }
