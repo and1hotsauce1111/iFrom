@@ -4,26 +4,36 @@
 .question_title_checkbox.warn,
 .question_title_pulldown.warn,
 .question_title_textarea.warn {
-    padding:5px;
+    padding: 5px;
     border: 2px solid #f00;
     border-radius: 3px;
 }
 
-    .question_title, .question_wrap {
-        padding: 10px;
-    }
+.question_title, .question_wrap {
+    padding: 10px;
+}
+
+.mobile_title,
+.mobile_radio_title,
+.mobile_checkbox_title,
+.mobile_pulldown_title,
+.mobile_textarea_title {
+    display: none;
+}
+
 
 .question_content_radio,
 .question_content_checkbox,
 .question_content_pulldown {
-    padding-bottom:10px;
+    padding-bottom: 10px;
 }
 
 .page_desc {
-    border: 1px solid #555;
+    border: 1px dashed #A18533;
     border-radius: 2px;
     padding: 10px;
-    word-wrap: break-word;
+    margin-top: 20px;
+    background-color: #FFF3CD;
 }
 
 .change_page {
@@ -32,8 +42,8 @@
 }
 
 .extra_blank {
-    width:100%;
-    height:60px;
+    width: 100%;
+    height: 60px;
 }
 
 /* loading完成前先隱藏列表 */
@@ -46,4 +56,74 @@
     top: 30vh;
     text-align: center;
     padding: 50px 0;
+}
+
+
+/* RWD */
+
+@media screen and (max-width:375px) {
+    .extra_blank {
+        height: 20px;
+    }
+
+    /* 問題間距 */
+    .question_type {
+        margin-bottom: 20px;
+    }
+
+    /* 問卷題目 */
+    .mobile_title {
+        display: block;
+    }
+
+    /* 單選題/多選題題目顯示 */
+    .question_title h3.title {
+        display: none;
+    }
+
+    .question_title_radio h4,
+    .question_title_checkbox h4,
+    .question_title_pulldown h4, 
+    .question_title_textarea h4 {
+        padding-left: 10px;
+    }
+
+    .radio_title,
+    .checkbox_title,
+    .pulldown_title,
+    .textarea_title {
+        display: none;
+    }
+
+    .mobile_radio_title,
+    .mobile_checkbox_title,
+    .mobile_pulldown_title,
+    .mobile_textarea_title {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+        .mobile_radio_title h4,
+        .mobile_checkbox_title h4,
+        .mobile_pulldown_title h4,
+        .mobile_textarea_title h4 {
+            margin: 0;
+        }
+
+    .question_content_radio,
+    .question_content_checkbox {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+        .question_content_radio label.label_radio,
+        .question_content_checkbox label.label_checkbox,
+        .question_content_pulldown label.label_pulldown,
+        .question_content_textarea label.label_textarea {
+            display: block;
+            padding: 10px;
+        }
+
 }

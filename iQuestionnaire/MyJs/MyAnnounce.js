@@ -15,8 +15,10 @@
 
         temp = res.data;
 
+        var arr = [];
         res.data.forEach(function (item) {
-            test.push({
+            
+            arr.push({
                 id: item.id,
                 name: item.type == '置頂消息' ? '<div><span style="display: inline-block;;width:40px;background-color:#F6A800;border-radius:7px 7px 7px 7px;color:#fff;font-size:14px;text-align:center">TOP</span>&nbsp;' + item.title + '</div>' : item.title,
                 date: item.time,
@@ -27,8 +29,23 @@
 
         });
 
+        var top = arr.filter(function (item) {
+            return item.type == '<span style="color:#FF6A00">置頂消息</span>';
+        });
+
+        var normal = arr.filter(function (item) {
+            return item.type == '<span style="color:#FF6A00">一般公告</span>';
+        });
+
+        test = top.concat(normal);
+
+        console.log(test);
+
+
         myAnnounceListBuild();
     });
+
+    //重新排序test
 
     var myAnnounceListBuild = function () {
         TableListBuild({

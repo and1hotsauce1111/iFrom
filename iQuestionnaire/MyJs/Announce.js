@@ -34,6 +34,8 @@
             OnRun: function () {
                 //彈窗的物件build起來再呼叫CKEditor
                 CKEDITOR.replace('editor1');
+                $('#LoadingBox2').hide();
+                $('.tableDisplayNone2').show();
             },
             OnOK: function () {
 

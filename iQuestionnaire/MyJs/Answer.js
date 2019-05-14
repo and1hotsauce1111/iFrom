@@ -227,22 +227,26 @@
 
                                     if (data[i].type === 'radio') {
                                         $('#q-' + data[i].questionNum).find('input[type="radio"]').removeAttr('disabled');
+                                        data[i].isSelect = '';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
                                     }
 
                                     if (data[i].type === 'checkbox') {
                                         $('#q-' + data[i].questionNum).find('input[type="checkbox"]').removeAttr('disabled');
+                                        data[i].isSelect = [];
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
                                     }
 
                                     if (data[i].type === 'pulldown') {
                                         $('#q-' + data[i].questionNum).find('button').removeAttr('disabled');
+                                        data[i].isSelect = '';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
 
                                     }
 
                                     if (data[i].type === 'textarea') {
                                         $('#q-' + data[i].questionNum).find('textarea').removeAttr('disabled');
+                                        data[i].isSelect = '';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
 
                                     }
