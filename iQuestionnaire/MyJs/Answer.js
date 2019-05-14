@@ -72,6 +72,11 @@
                             }
                         });
                     });
+
+                    $('.answerDisplayNone').show();
+                    $('#LoadingBox').hide();
+
+
                 });
             },
             prevPage: function () {

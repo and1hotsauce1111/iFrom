@@ -666,7 +666,12 @@
 
         <div class="clear"></div>
 
-        <div class="ContentBoxHtml">
+        <%-- loading --%>
+        <div id="LoadingBox">
+            <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
+        </div>
+
+        <div class="ContentBoxHtml tableDisplayNone">
             <div class="ContentBoxHeader">問卷設置</div>
             <table class="table">
                 <tr>
@@ -710,13 +715,14 @@
                     </td>
                 </tr>
             </table>
+            
         </div>
 
         <%-- 渲染頁面資料 --%>
-        <div class="ContentBoxHtml" id="show_question">
+        <div class="ContentBoxHtml questionDisplayNone" id="show_question">
 
 
-            <template v-for="(page,i) in allQuestionnaireData">
+            <div v-for="(page,i) in allQuestionnaireData">
 
                 <template v-if="page.page === nowPage">                         
                         <div class="ContentBoxHeader" style="display:flex;justify-content:space-between;align-items:center">
@@ -901,10 +907,11 @@
                         </div>
                 </template>
 
-            </template>
+            </div>
 
         </div>
 
+        
 
 
         <%-- 頁面編輯side tools --%>

@@ -172,6 +172,8 @@
                 //完成查詢時所執行之回調函數放此處
                 //結束讀取動畫 (範例)
                 //NProgress.done();
+                $('.tableDisplayNone').show();
+                $('#LoadingBox').hide();
             },
         });
 

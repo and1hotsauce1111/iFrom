@@ -2805,6 +2805,7 @@
             }
         },
         created: function () {
+            //隱藏顯示區塊
             //取得網址id
             getUrlVars();
             var surveyId = $.getUrlVar('surveyId');
@@ -2816,6 +2817,7 @@
             getData: function (id) {
                 //取得問卷資料
                 //非同步調用this會指向window，改用vm
+
                 axios.get('http://localhost:3000/questionnaire/' + id + '').then(function (res) {
                     vm.allQuestionnaireData = res.data.allQuestionnaireData;
                     vm.questionnaireTitle = res.data.questionnaireTitle;
@@ -2833,6 +2835,11 @@
                             Val: page.page
                         });
                     });
+
+                    $('.tableDisplayNone').show();
+                    $('.questionDisplayNone').show();
+                    $('#LoadingBox').hide();
+                    $('#LoadingBox2').hide();
 
                 });
             },

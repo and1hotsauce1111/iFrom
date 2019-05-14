@@ -82,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div style="margin-bottom: 20px">
+        <div class="tableDisplayNone" style="margin-bottom: 20px">
             總共查詢到&nbsp;<span tbl-build="列表元件-Count"></span>&nbsp;筆&emsp;<div tbl-build="列表元件-PageDrop"></div>
             <div tbl-build="列表元件-PerDrop"></div>
         </div>
@@ -92,7 +92,7 @@
         <%-- 列表式template --%>
         <%-- 最外面多一層，塞DOM比較方便 --%>
         <div id="listType">
-            <div class="table_shadow  table_shadowNoLine">
+            <div class="table_shadow  table_shadowNoLine tableDisplayNone">
                 <table class="table">
                     <tr>
                         <th style="width: 60px">
@@ -129,6 +129,11 @@
                     </tr>
                 </table>
             </div>
+        </div>
+
+        <%-- loading --%>
+        <div id="LoadingBox">
+            <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
         </div>
 
         <%-- 方塊式template --%>

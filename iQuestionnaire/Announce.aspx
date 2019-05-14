@@ -24,7 +24,7 @@
                     <th>公告類型</th>
                     <td colspan="4">
                         <label class="label_radio">
-                            <input type="radio" name="radio" value="全部查詢" checked="checked"/>
+                            <input type="radio" name="radio" value="全部查詢" checked="checked" />
                             <span class="label_icon"></span>
                             <span class="label_text">全部查詢</span>
                         </label>
@@ -51,7 +51,7 @@
                     <th>啟用狀態</th>
                     <td>
                         <label class="label_radio">
-                            <input type="radio" name="radio2" value="全部查詢" checked="checked"/>
+                            <input type="radio" name="radio2" value="全部查詢" checked="checked" />
                             <span class="label_icon"></span>
                             <span class="label_text">全部查詢</span>
                         </label>
@@ -96,7 +96,7 @@
         <div class="ContentBoxHtml">
             <div class="ContentBoxHeader">查詢結果</div>
             <%--<div class="noSearch"><span>尚未輸入搜尋條件</span></div>--%>
-            <div style="margin: 5px 0">
+            <div class="tableDisplayNone" style="margin: 5px 0">
                 <table class="table">
                     <tr>
                         <td>總共查詢到<span tbl-build="列表元件-Count"></span>筆&emsp;<div tbl-build="列表元件-PageDrop"></div>
@@ -105,7 +105,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="table_shadow table_shadowNoLine">
+            <div class="table_shadow table_shadowNoLine tableDisplayNone">
                 <table class="table">
                     <tr>
                         <th style="width: 60px">
@@ -115,12 +115,12 @@
                                 <span class="label_text">全選</span>
                             </label>
                         </th>
-                        <th class="textL" style="font-weight:bold;font-size:16px">公告標題</th>
-                        <th style="font-weight:bold;font-size:16px">更新日期</th>
-                        <th style="font-weight:bold;font-size:16px">公告類型</th>
-                        <th style="font-weight:bold;font-size:16px">公告狀態</th>
-                        <th style="font-weight:bold;font-size:16px">發佈人</th>
-                        <th style="font-weight:bold;font-size:16px">操作功能</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">公告標題</th>
+                        <th style="font-weight: bold; font-size: 16px">更新日期</th>
+                        <th style="font-weight: bold; font-size: 16px">公告類型</th>
+                        <th style="font-weight: bold; font-size: 16px">公告狀態</th>
+                        <th style="font-weight: bold; font-size: 16px">發佈人</th>
+                        <th style="font-weight: bold; font-size: 16px">操作功能</th>
                     </tr>
                     <tr tbl-repeat="列表元件" class="trHover textC">
                         <td>
@@ -145,12 +145,22 @@
                     </tr>
                 </table>
             </div>
+
+            <%-- loading --%>
+            <div id="LoadingBox">
+                <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
+            </div>
+
         </div>
+
+
+
+
 
 
         <%-- 新增公告模板 --%>
         <div id="add_new_announce" style="display: none">
-            <table class="table">
+            <table class="table tableDisplayNone2">
                 <tr>
                     <th style="text-align: center"><span style="color: #f00">*</span>公告狀態</th>
                     <td>
@@ -207,6 +217,10 @@
                     </td>
                 </tr>
             </table>
+
+            <div id="LoadingBox2">
+                <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
+            </div>
         </div>
 
     </div>

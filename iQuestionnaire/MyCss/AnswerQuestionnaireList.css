@@ -171,3 +171,20 @@
                 .question_list_square .show_questionnaire .show_questionnaire_tools_options .show_questionnaire_tools_options_close:hover {
                     background-color: #d3d3d3;
                 }
+
+
+
+
+
+
+
+
+/* loading完成前先隱藏列表 */
+.tableDisplayNone {
+    display: none;
+}
+
+#LoadingBox {
+    text-align:center;
+    padding:50px 0;
+}

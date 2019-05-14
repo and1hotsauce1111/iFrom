@@ -46,7 +46,7 @@
         </table>
 
         <%--<div class="noSearch"><span>尚未輸入搜尋條件</span></div>--%>
-        <div style="margin: 5px 0">
+        <div class="tableDisplayNone" style="margin: 5px 0">
             <table class="table">
                 <tr>
                     <td>總共查詢到<span tbl-build="列表元件-Count"></span>筆&emsp;<div tbl-build="列表元件-PageDrop"></div>
@@ -55,7 +55,7 @@
                 </tr>
             </table>
         </div>
-        <div class="table_shadow  table_shadowNoLine">
+        <div class="table_shadow  table_shadowNoLine tableDisplayNone">
             <table class="table">
                 <tr>
                     <th></th>
@@ -77,6 +77,12 @@
                 </tr>
             </table>
         </div>
+
+        <%-- loading --%>
+        <div id="LoadingBox">
+            <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
+        </div>
+
 
         <%-- 顯示公告模板 --%>
         <div id="show_announce" style="display: none">

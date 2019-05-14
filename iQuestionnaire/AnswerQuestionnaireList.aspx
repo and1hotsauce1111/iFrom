@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div style="margin-bottom: 20px">
+        <div class="tableDisplayNone" style="margin-bottom: 20px">
             總共查詢到&nbsp;<span tbl-build="列表元件-Count"></span>&nbsp;筆&emsp;<div tbl-build="列表元件-PageDrop"></div>
             <div tbl-build="列表元件-PerDrop"></div>
         </div>
@@ -88,7 +88,7 @@
         <%-- 列表式template --%>
         <%-- 最外面多一層，塞DOM比較方便 --%>
         <div id="listType">
-            <div class="table_shadow  table_shadowNoLine">
+            <div class="table_shadow  table_shadowNoLine tableDisplayNone">
                 <table class="table">
                     <tr>
                         <th style="width: 60px">
@@ -118,12 +118,16 @@
                             <button type="button" data-index="@id" class="button btn_white_o" onclick="answerQuestion($(this))"><i class="fa fa-pencil-square-o" style="color: #F6A800; padding-right: 3px"></i>填答</button>
                         </td>
                     </tr>
-                    <tr tbl-build="列表元件-NoData">
+                    <tr tbl-build="列表元件-NoData" class="tableDisplayNone">
                         <td colspan="4">查無資料</td>
                     </tr>
                 </table>
             </div>
         </div>
+
+        <div id="LoadingBox">
+            <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
+        </div> 
 
         <%-- 方塊式template --%>
         <div id="squareType">

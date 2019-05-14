@@ -47,7 +47,7 @@
             <div id="HeaderBoxInset">
                 <table>
                     <tr>
-                        <td style="display: none">
+                        <td>
                             <i class="fa fa-bars HeaderBoxMenuBtn" onclick="LeftMenuViewToggle()"></i>
                         </td>
                         <td>

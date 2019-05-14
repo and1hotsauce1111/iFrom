@@ -20,7 +20,12 @@
 
         <div class="extra_blank"></div>
 
-        <div class="ContentBoxHtml">
+        <%-- loading --%>
+        <div id="LoadingBox">
+            <div class="fa fa-spinner fa-spin fa-3x fa-fw" style="color:#0960A6"></div>
+        </div>
+
+        <div class="ContentBoxHtml answerDisplayNone">
 
             <div class="question_title">
                 <h3>{{ questionnaireTitle }}&nbsp;(共 {{ nowPage }} / {{ allQuestionnaireData.length }} 頁)</h3>

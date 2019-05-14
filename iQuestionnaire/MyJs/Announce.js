@@ -31,7 +31,7 @@
             Title: '<i class="fa fa-plus" style="padding-right:3px"></i>新增公告',
             OutsideStyle: 'max-width:850px',
             Html: $('#add_new_announce'),
-            OnReady: function () {
+            OnRun: function () {
                 //彈窗的物件build起來再呼叫CKEditor
                 CKEDITOR.replace('editor1');
             },
@@ -104,6 +104,10 @@
                 $('textarea#editor1').val(vm.renderData[index].content);
 
             },
+            OnReady: function () {
+                $('#LoadingBox2').hide();
+                $('.tableDisplayNone2').show();
+            },
             OnOK: function () {
 
                 var id = $(dom).attr('data-id');
@@ -134,9 +138,10 @@
                 };
 
                 axios.patch('http://localhost:5566/announce/' + id, announceData).then(function (res) {
-
                     test[index] = announceData;
                 });
+
+              
 
                 window.location.reload();
 
@@ -331,6 +336,8 @@
                 //完成查詢時所執行之回調函數放此處
                 //結束讀取動畫 (範例)
                 //NProgress.done();
+                $('.tableDisplayNone').show();
+                $('#LoadingBox').hide();
             },
         });
 

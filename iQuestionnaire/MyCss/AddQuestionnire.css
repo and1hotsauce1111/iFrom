@@ -469,3 +469,17 @@
         .editOptions_tools ul.editOptions_tools_list li {
             cursor: pointer;
         }
+
+
+/* loading完成前先隱藏列表 */
+.tableDisplayNone,
+.questionDisplayNone {
+    display: none;
+}
+
+#LoadingBox,
+#LoadingBox2 {
+    text-align: center;
+    padding:50px 0;
+}
+
