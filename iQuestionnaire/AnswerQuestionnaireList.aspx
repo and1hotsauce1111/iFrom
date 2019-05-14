@@ -98,7 +98,7 @@
                                 <span class="label_text">全選</span>
                             </label>
                         </th>
-                        <th>問卷名稱</th>
+                        <th class="textL">問卷名稱</th>
                         <th>問卷截止日期</th>
                         <th>問卷填答設置</th>
                         <th>操作功能</th>
@@ -111,7 +111,7 @@
                                 <span class="label_text">@row</span>
                             </label>
                         </td>
-                        <td>@name</td>
+                        <td class="textL">@name</td>
                         <td>@end</td>
                         <td>@repeat</td>
                         <td>

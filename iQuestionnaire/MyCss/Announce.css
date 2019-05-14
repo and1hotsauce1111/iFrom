@@ -14,3 +14,19 @@
     .manipulate_btn button {
         margin-right:5px;
     }
+
+
+
+/* RWD */
+
+@media screen and (max-width: 1280px)  {
+    .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(2) {
+        width: 170px;
+    }
+    .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(3) {
+        width: 175px;
+    }
+    .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(6) {
+        width: 180px;
+    }
+}

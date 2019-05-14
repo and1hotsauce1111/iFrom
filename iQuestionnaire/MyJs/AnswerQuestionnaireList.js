@@ -61,12 +61,7 @@
             Recover: true,
             GetSearch: function (ReSearch) {
                 //開啟 Recover 功能時需要將記錄的資料套用回介面上的物件
-                if (ReSearch) {
-                    $('#keyword').val(ReSearch.keyword);
-                    $('#keyword2').val(ReSearch.keyword2);
-                    $('#keyword3').val(ReSearch.keyword3);
-                    $('#keyword4').val(ReSearch.keyword4);
-                }
+
                 //讀取介面上的物件數值傳送到 Search 變數之中
                 var Search = {
                     keyword: $('#keyword').val(),

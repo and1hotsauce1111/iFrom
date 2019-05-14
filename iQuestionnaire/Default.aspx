@@ -50,7 +50,7 @@
 
                     <button onclick="document.location.href = 'QuestionnaireList.aspx?user=admin'" type="button" class="button btn_miku" style="width: 100%; height: 40px">管理者</button><br />
                     <br />
-                    <button onclick="document.location.href = 'AnswerQuestionnaireList.aspx?user=user'" type="button" class="button btn_miku" style="width: 100%; height: 40px">使用者</button><br />
+                    <button onclick="document.location.href = 'MyAnnounce.aspx?user=user'" type="button" class="button btn_miku" style="width: 100%; height: 40px">使用者</button><br />
                     <br />
 
 

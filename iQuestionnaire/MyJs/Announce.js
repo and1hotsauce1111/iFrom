@@ -49,9 +49,10 @@
                 var hour = ('0' + TimeNow.getHours()).substr(-2);
                 var minute = ('0' + TimeNow.getMinutes()).substr(-2);
 
+                console.log(month);
                 //顯示現在時間
                 var now = '' + year + '年' + month + '月' + date + '日' + ' ' + hour + ':' + minute;
-
+                console.log(now);
                 var announceData = {
                     id: _uuid(),
                     type: type,
@@ -114,7 +115,7 @@
 
                 var TimeNow = new Date();
                 var year = TimeNow.getFullYear();
-                var month = ('0' + TimeNow.getMonth()).substr(-2);
+                var month = ('0' + (TimeNow.getMonth() + 1)).substr(-2);
                 var date = ('0' + TimeNow.getDate()).substr(-2);
                 var hour = ('0' + TimeNow.getHours()).substr(-2);
                 var minute = ('0' + TimeNow.getMinutes()).substr(-2);

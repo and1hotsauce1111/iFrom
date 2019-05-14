@@ -105,7 +105,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="table_shadow  table_shadowNoLine">
+            <div class="table_shadow table_shadowNoLine">
                 <table class="table">
                     <tr>
                         <th style="width: 60px">
@@ -115,12 +115,12 @@
                                 <span class="label_text">全選</span>
                             </label>
                         </th>
-                        <th>公告標題</th>
-                        <th>更新日期</th>
-                        <th>公告類型</th>
-                        <th>公告狀態</th>
-                        <th style="width: 200px">發佈人</th>
-                        <th>操作功能</th>
+                        <th class="textL" style="font-weight:bold;font-size:16px">公告標題</th>
+                        <th style="font-weight:bold;font-size:16px">更新日期</th>
+                        <th style="font-weight:bold;font-size:16px">公告類型</th>
+                        <th style="font-weight:bold;font-size:16px">公告狀態</th>
+                        <th style="font-weight:bold;font-size:16px">發佈人</th>
+                        <th style="font-weight:bold;font-size:16px">操作功能</th>
                     </tr>
                     <tr tbl-repeat="列表元件" class="trHover textC">
                         <td>
@@ -130,7 +130,7 @@
                                 <span class="label_text">@row</span>
                             </label>
                         </td>
-                        <td>@name</td>
+                        <td class="textL">@name</td>
                         <td>@date</td>
                         <td>@type</td>
                         <td>@status</td>

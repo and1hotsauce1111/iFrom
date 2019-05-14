@@ -23,7 +23,7 @@
         <div class="ContentBoxHtml">
 
             <div class="question_title">
-                <h3>{{ questionnaireTitle }}&nbsp;(共 {{ allQuestionnaireData.length }} 頁)</h3>
+                <h3>{{ questionnaireTitle }}&nbsp;(共 {{ nowPage }} / {{ allQuestionnaireData.length }} 頁)</h3>
                 <p>{{ questionnaireDesc }}</p>
                 <span style="display: inline-block; width: 100%; height: 2px; background-color: #3388FF"></span>
             </div>
