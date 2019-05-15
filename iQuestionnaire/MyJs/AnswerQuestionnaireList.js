@@ -65,9 +65,6 @@
                 //讀取介面上的物件數值傳送到 Search 變數之中
                 var Search = {
                     keyword: $('#keyword').val(),
-                    keyword2: $('#keyword2').val(),
-                    keyword3: $('#keyword3').val(),
-                    keyword4: $('#keyword4').val(),
                 }
                 return Search;
             },
@@ -86,25 +83,16 @@
                 for (var i = 0; i < test.length; i++) {
 
                     var checkA = false;
-                    var checkB = false;
-                    var checkC = false;
-                    var checkD = false;
 
-                    if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
+                    if (Option.Search['keyword'] == '' ||
+                        test[i]['name'].match(Option.Search['keyword']) ||
+                        test[i]['end'].match(Option.Search['keyword']) ||
+                        test[i]['repeat'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
-                    if (Option.Search['keyword2'] == '' || test[i]['start'].match(Option.Search['keyword2'])) {
-                        checkB = true;
-                    }
-                    if (Option.Search['keyword3'] == '' || test[i]['end'].match(Option.Search['keyword3'])) {
-                        checkC = true;
-                    }
-                    if (Option.Search['keyword4'] == '' || test[i]['repeat'].match(Option.Search['keyword4'])) {
-                        checkD = true;
-                    }
 
 
-                    if (checkA && checkB && checkC && checkD) {
+                    if (checkA) {
                         tempA.push(test[i]);
                     }
 
@@ -130,25 +118,16 @@
 
                     //驗證的開關
                     var checkA = false;
-                    var checkB = false;
-                    var checkC = false;
-                    var checkD = false;
 
                     //未輸入搜尋條件默認為true
-                    if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
+                    if (Option.Search['keyword'] == '' ||
+                        test[i]['name'].match(Option.Search['keyword']) ||
+                        test[i]['end'].match(Option.Search['keyword']) ||
+                        test[i]['repeat'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
-                    if (Option.Search['keyword2'] == '' || test[i]['start'].match(Option.Search['keyword2'])) {
-                        checkB = true;
-                    }
-                    if (Option.Search['keyword3'] == '' || test[i]['end'].match(Option.Search['keyword3'])) {
-                        checkC = true;
-                    }
-                    if (Option.Search['keyword4'] == '' || test[i]['repeat'].match(Option.Search['keyword4'])) {
-                        checkD = true;
-                    }
 
-                    if (checkA && checkB && checkC && checkD) {
+                    if (checkA) {
                         tempA.push(test[i]);
                     }
 

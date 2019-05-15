@@ -22,33 +22,14 @@
         <div style="margin: 5px 0">
             <table class="table">
                 <tr>
-                    <th>問卷名稱</th>
+                    <th style="width:15%">關鍵字</th>
                     <td>
-                        <input id="keyword" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入問卷名稱..." />
+                        <input id="keyword" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入問卷名稱/起始日期/截止日期/填答設置..." />
                         <div class="inputLine"></div>
                     </td>
-                    <th>問卷起始日期</th>
-                    <td>
-                        <input id="keyword2" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入起始日期..." />
-                        <div class="inputLine"></div>
-                    </td>
-                    <td class="textC">
+                    <td class="textC" style="width:100px;white-space:nowrap">
                         <button onclick="TableListClear()" type="button" class="button btn_white">清空</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th>問卷截止日期</th>
-                    <td>
-                        <input id="keyword3" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入截止日期..." />
-                        <div class="inputLine"></div>
-                    </td>
-                    <th>問卷填答設置</th>
-                    <td>
-                        <input id="keyword4" tbl-keep="列表元件-Enter" type="text" value="" placeholder="輸入問卷填答設置..." />
-                        <div class="inputLine"></div>
-                    </td>
-                    <td class="textC">
-                        <button tbl-build="列表元件-RunBtn" type="button" class="button btn_miku">查詢</button>
+                        <button tbl-build="列表元件-RunBtn" type="button" class="button btn_blue">查詢</button>
                     </td>
                 </tr>
             </table>

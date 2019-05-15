@@ -5,8 +5,12 @@
     //本機
     //var path = window.location.pathname;
     //IIS
-    var path = window.location.pathname == '/iQuestion/' ? '/iQuestion/Default.aspx' : window.location.pathname;
-    $('#DeputyBoxInset .breadCrumbs').html(breadCrumbs(path));
+    getUrlVars();
+    var surveyId = $.getUrlVar('surveyId'); //取得問卷uid
+    var url = surveyId !== undefined ? window.location.pathname + '?surveyId=' + surveyId : window.location.pathname; //有call api帶uid
+    var path = window.location.pathname == '/iQuestion/' ? '/iQuestion/Default.aspx' : url; //產生路徑
+
+    $('#DeputyBoxInset .breadCrumbs').html(breadCrumbs(path)); //遞歸跑麵包屑
 
     //本機
     //if (window.location.pathname == 'AddQuestionnire.aspx') {

@@ -21,24 +21,14 @@
 
         <table class="table">
             <tr>
-                <th>公告標題</th>
-                <td colspan="4">
+                <th style="width:15%">關鍵字</th>
+                <td>
                     <div>
-                        <input id="my_announce_keyword" type="text" value="" placeholder="輸入..." />
+                        <input id="my_announce_keyword" type="text" value="" placeholder="標題/發佈人/發佈日期..." />
                         <div class="inputLine"></div>
                     </div>
                 </td>
-            </tr>
-            <tr>
-                <th>發佈人</th>
-                <td>
-                    <div>
-                        <input id="my_announce_keyword2" type="text" value="" placeholder="輸入..." />
-                        <div class="inputLine"></div>
-                    </div>
-                </td>
-                <th>操作</th>
-                <td>
+                <td style="width: 100px;white-space: nowrap">
                     <button onclick="TableListClear()" type="button" class="button btn_white">重設</button>
                     <button tbl-build="列表元件-RunBtn" type="button" class="button btn_blue">查詢</button>
                 </td>
@@ -59,7 +49,7 @@
             <table class="table">
                 <tr>
                     <th></th>
-                    <th class="textL" style="font-weight: bold; font-size: 18px">公告標題</th>
+                    <th class="textL" style="font-weight: bold; font-size: 18px">關鍵字</th>
                     <th style="font-weight: bold; font-size: 18px">發佈人</th>
                     <th style="font-weight: bold; font-size: 18px">發佈日期</th>
                 </tr>

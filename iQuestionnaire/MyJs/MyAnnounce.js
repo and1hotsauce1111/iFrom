@@ -53,14 +53,13 @@
             Recover: true,
             GetSearch: function (ReSearch) {
                 //開啟 Recover 功能時需要將記錄的資料套用回介面上的物件
-                if (ReSearch) {
-                    //$('#announce_keyword').val(ReSearch.keyword);
-                    //$('#announce_keyword2').val(ReSearch.keyword2);
-                }
+                //if (ReSearch) {
+                //    //$('#announce_keyword').val(ReSearch.keyword);
+                //    //$('#announce_keyword2').val(ReSearch.keyword2);
+                //}
                 //讀取介面上的物件數值傳送到 Search 變數之中
                 var Search = {
-                    keyword: $('#my_announce_keyword').val(),
-                    keyword2: $('#my_announce_keyword2').val(),
+                    keyword: $('#my_announce_keyword').val()
                 }
 
                 return Search;
@@ -81,18 +80,16 @@
                 for (var i = 0; i < test.length; i++) {
 
                     var checkA = false;
-                    var checkB = false;
 
-                    if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
+                    if (Option.Search['keyword'] == '' ||
+                        test[i]['name'].match(Option.Search['keyword']) ||
+                        test[i]['id'].match(Option.Search['keyword']) ||
+                        test[i]['date'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
-                    if (Option.Search['keyword2'] == '' || test[i]['date'].match(Option.Search['keyword2'])) {
-                        checkB = true;
-                    }
 
 
-
-                    if (checkA && checkB) {
+                    if (checkA) {
                         tempA.push(test[i]);
                     }
 
@@ -119,18 +116,17 @@
 
                     //驗證的開關
                     var checkA = false;
-                    var checkB = false;
 
                     //未輸入搜尋條件默認為true
-                    if (Option.Search['keyword'] == '' || test[i]['name'].match(Option.Search['keyword'])) {
+                    if (Option.Search['keyword'] == '' ||
+                        test[i]['name'].match(Option.Search['keyword']) ||
+                        test[i]['id'].match(Option.Search['keyword']) ||
+                        test[i]['date'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
-                    if (Option.Search['keyword2'] == '' || test[i]['date'].match(Option.Search['keyword2'])) {
-                        checkB = true;
-                    }
 
 
-                    if (checkA && checkB) {
+                    if (checkA) {
                         tempA.push(test[i]);
                     }
 

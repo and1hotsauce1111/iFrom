@@ -50,6 +50,7 @@
         },
         methods: {
             getData: function (id) {
+
                 //取得問卷資料
                 //非同步調用this會指向window，改用vm
                 axios.get('http://localhost:3000/questionnaire/' + id + '').then(function (res) {
@@ -146,10 +147,6 @@
 
                     }
                 }
-                //if ($('#q-' + number).hasClass('warn')) {
-                //    console.log('cancel');
-                //    $('#q-' + number).removeClass('warn');
-                //}
 
                 var logicSetting = this.allQuestionnaireData[this.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
 
@@ -159,12 +156,17 @@
                     //跳至該題的num
                     var jumpId = logicSetting[0].jumpTo.id[0];
                     var jumpNum;
+                    var jumpToPage; //要跳至的頁面
 
                     vm.allQuestionnaireData.forEach(function (page) {
                         page.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                            if (item.id == jumpId) jumpNum = item.questionNum;
+                            if (item.id == jumpId) {
+                                jumpNum = item.questionNum;
+                                jumpToPage = page.page;
+                            }
                         });
                     });
+
 
                     if (optionId == logicSetting[0].triggerOption.id[0]) { //選到跳題選項
                         console.log('trigger');
@@ -213,6 +215,18 @@
                             }
                         });
 
+                        //跳至跳題頁
+                        vm.nowPage = jumpToPage;
+                        window.setTimeout(function () {
+                            var top = document.querySelector('#q-' + jumpNum).offsetTop;
+                            $('document').animate({ scrollTop: top }, 500);
+                            //Highlight動畫
+                            $('#q-' + jumpNum).removeClass('highlight');
+                        }, 800);
+
+                        //先加class, setTimeout後取消
+                        $('#q-' + jumpNum).addClass('highlight');
+
                     } else { //選到非跳題選項
 
                         //恢復必填題的提示
@@ -227,18 +241,21 @@
 
                                     if (data[i].type === 'radio') {
                                         $('#q-' + data[i].questionNum).find('input[type="radio"]').removeAttr('disabled');
+                                        $('#q-' + data[i].questionNum).removeClass('highlight');
                                         data[i].isSelect = '';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
                                     }
 
                                     if (data[i].type === 'checkbox') {
                                         $('#q-' + data[i].questionNum).find('input[type="checkbox"]').removeAttr('disabled');
+                                        $('#q-' + data[i].questionNum).removeClass('highlight');
                                         data[i].isSelect = [];
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
                                     }
 
                                     if (data[i].type === 'pulldown') {
                                         $('#q-' + data[i].questionNum).find('button').removeAttr('disabled');
+                                        $('#q-' + data[i].questionNum).removeClass('highlight');
                                         data[i].isSelect = '';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
 
@@ -246,6 +263,7 @@
 
                                     if (data[i].type === 'textarea') {
                                         $('#q-' + data[i].questionNum).find('textarea').removeAttr('disabled');
+                                        $('#q-' + data[i].questionNum).removeClass('highlight');
                                         data[i].isSelect = '';
                                         $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
 

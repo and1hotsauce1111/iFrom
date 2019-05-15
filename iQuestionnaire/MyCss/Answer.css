@@ -1,13 +1,20 @@
 ﻿/* 問題樣式 */
-
-.question_title_radio.warn,
-.question_title_checkbox.warn,
-.question_title_pulldown.warn,
-.question_title_textarea.warn {
-    padding: 5px;
-    border: 2px solid #f00;
-    border-radius: 3px;
+.question_title_radio,
+.question_title_checkbox,
+.question_title_pulldown,
+.question_title_textarea {
+    box-sizing: border-box;
+    padding: 10px;
 }
+
+
+    .question_title_radio.warn,
+    .question_title_checkbox.warn,
+    .question_title_pulldown.warn,
+    .question_title_textarea.warn {
+        border-radius: 3px;
+        box-shadow: 0 0 0 3px #f00 inset;
+    }
 
 .question_title, .question_wrap {
     padding: 10px;
@@ -53,15 +60,37 @@
 
 #LoadingBox {
     position: relative;
-    top: 30vh;
+    top: 20vh;
     text-align: center;
     padding: 50px 0;
+}
+
+/* 跳轉hightlight問題 */
+.highlight {
+    transition: all 0.5s;
+    animation: fade linear 1s;
+}
+
+@keyframes fade {
+    0% {
+        border-radius: 3px;
+        box-shadow: 0 0 0 3px #87CEFA inset;
+    }
+
+    50% {
+        border-radius: 3px;
+        box-shadow: 0 0 0 3px #3388FF inset;
+    }
+
+    100% {
+        box-shadow: none;
+    }
 }
 
 
 /* RWD */
 
-@media screen and (max-width:375px) {
+@media screen and (max-width:768px) {
     .extra_blank {
         height: 20px;
     }
@@ -69,6 +98,28 @@
     /* 問題間距 */
     .question_type {
         margin-bottom: 20px;
+    }
+
+    /* 跳轉hightlight問題 */
+    .highlight {
+        transition: all 0.5s;
+        animation: fade linear 1s;
+    }
+
+    @keyframes fade {
+        0% {
+            border-radius: 3px;
+            box-shadow: 0 0 0 3px #87CEFA inset;
+        }
+
+        50% {
+            border-radius: 3px;
+            box-shadow: 0 0 0 3px #3388FF inset;
+        }
+
+        100% {
+            box-shadow: none;
+        }
     }
 
     /* 問卷題目 */
@@ -83,7 +134,7 @@
 
     .question_title_radio h4,
     .question_title_checkbox h4,
-    .question_title_pulldown h4, 
+    .question_title_pulldown h4,
     .question_title_textarea h4 {
         padding-left: 10px;
     }
@@ -125,5 +176,4 @@
             display: block;
             padding: 10px;
         }
-
 }

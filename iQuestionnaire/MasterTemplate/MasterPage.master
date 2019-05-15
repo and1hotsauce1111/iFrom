@@ -74,6 +74,8 @@
         //    { id: '/QuestionnaireList.aspx', pid: '/Default.aspx', name: '問卷管理' },
         //    { id: '/AddQuestionnire.aspx', pid: '/QuestionnaireList.aspx', name: '編輯問卷' },
         //];
+        getUrlVars();
+        var surveyId = $.getUrlVar('surveyId');
 
         //IIS
         var nav = [
@@ -81,8 +83,8 @@
             { id: '/iQuestion/Announce.aspx', pid: '/iQuestion/Default.aspx', name: '公告管理' },
             { id: '/iQuestion/QuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '問卷管理' },
             { id: '/iQuestion/AnswerQuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '我的問卷' },
-            { id: '/iQuestion/AddQuestionnire.aspx', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
-            { id: '/iQuestion/Answer.aspx', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' },
+            { id: '/iQuestion/AddQuestionnire.aspx?surveyId='+ surveyId +'', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
+            { id: '/iQuestion/Answer.aspx?surveyId='+ surveyId +'', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' },
             { id: '/iQuestion/MyAnnounce.aspx', pid: '/iQuestion/Default.aspx', name: '公告消息' }
         ];
 
