@@ -39,7 +39,7 @@
         <table class="table search_mobile">
             <tr>
                 <th style="width:21%;font-size:10px">關鍵字</th>
-                <td style="width:177px">
+                <td class="mobile_search_width">
                     <div>
                         <input style="font-size:10px" id="my_announce_keyword_mobile" type="text" value="" placeholder="標題/發佈人/發佈日期..." />
                         <div class="inputLine"></div>

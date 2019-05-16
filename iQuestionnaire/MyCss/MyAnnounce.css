@@ -54,30 +54,56 @@
 
 
 /* RWD */
-/* iphone5 */
-@media screen and (max-width:320px) {
+
+/* ipad */
+@media screen and (max-width:768px) {
     #ContentBoxInset .ContentBoxHtml {
-        width: 290px !important;
+        width: 735px !important;
     }
 
     /* 手機板ui樣式 */
     .AlertBoxDivContent {
-        width:90% !important;
+        width: 90% !important;
     }
+
     .AlertBoxDivHtml.adjust {
         overflow-y: auto;
         max-height: 400px;
     }
+
+    .mobile_width {
+        width: 430px;
+    }
+}
+
+/* iphone6,7,8 plus */
+@media screen and (max-width:415px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 385px !important;
+    }
+
+    /* 手機板ui樣式 */
+    .AlertBoxDivContent {
+        width: 90% !important;
+    }
+
     .mobile_displayNone {
         display: none;
     }
+
     .mobile_text {
-        font-size:12px !important;
-        top:6px !important;
+        font-size: 12px !important;
+        top: 6px !important;
     }
+
+    .mobile_search_width {
+        width: 252px;
+    }
+
     .mobile_width {
-        width: 140px;
+        width: 225px;
     }
+
     .button {
         font-size: 10px;
     }
@@ -97,5 +123,45 @@
 
     #reset_mobile_btn {
         display: none;
+    }
+}
+
+/* iphone6,7,8 */
+@media screen and (max-width:376px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 345px !important;
+    }
+
+    /* 手機板ui樣式 */
+    .AlertBoxDivContent {
+        width: 90% !important;
+    }
+
+    .mobile_search_width {
+        width: 220px;
+    }
+
+    .mobile_width {
+        width: 200px;
+    }
+}
+
+/* iphone5 */
+@media screen and (max-width:320px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 290px !important;
+    }
+
+    /* 手機板ui樣式 */
+    .AlertBoxDivContent {
+        width: 90% !important;
+    }
+
+    .mobile_search_width {
+        width:177px;
+    }
+
+    .mobile_width {
+        width: 140px;
     }
 }
