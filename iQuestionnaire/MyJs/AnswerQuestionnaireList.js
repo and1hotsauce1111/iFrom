@@ -64,7 +64,7 @@
 
                 //讀取介面上的物件數值傳送到 Search 變數之中
                 var Search = {
-                    keyword: $('#keyword').val(),
+                    keyword: $('#keyword').val() || $('#keyword_mobile').val()
                 }
                 return Search;
             },
@@ -158,13 +158,21 @@
 
     };
 
+    //監聽mobile search event
+    $('#search_mobile_btn').click(function () {
+        $(this).hide();
+        $('#reset_mobile_btn').show();
+    })
+
     //清空查詢列
     TableListClear = function () {
 
         $('#keyword').val('');
-        $('#keyword2').val('');
-        $('#keyword3').val('');
-        $('#keyword4').val('');
+        $('#keyword_mobile').val('');
+
+        //隱藏/顯示mobile btn
+        $('#reset_mobile_btn').hide();
+        $('#search_mobile_btn').show();
 
         TableListRun('列表元件');
     };
@@ -185,6 +193,24 @@
     answerQuestion = function (dom) {
         var id = $(dom).attr('data-index');
         window.location.href = 'Answer.aspx?surveyId=' + id + '';
+    };
+
+    //手機板問卷資訊
+    mobileInfo = function (dom) {
+        alertBox({
+            Mode: 'A',
+            Title: '<i class="fa fa-exclamation-circle"></i>&nbsp;問卷資訊',
+            Html: $('#mobile_info'),
+            OnRun: function () {
+                var id = $(dom).attr('data-index');
+                var target = test.filter(function (item) {
+                    return item.id == id;
+                });
+
+                $('#deadline').html('截止日期: ' + target[0].end);
+                $('#repeat').html('問卷設置: ' + target[0].repeat);
+            }
+        });
     };
 
 

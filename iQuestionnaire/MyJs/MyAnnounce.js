@@ -20,7 +20,7 @@
             
             arr.push({
                 id: item.id,
-                name: item.type == '置頂消息' ? '<div><span style="display: inline-block;;width:40px;background-color:#F6A800;border-radius:7px 7px 7px 7px;color:#fff;font-size:14px;text-align:center">TOP</span>&nbsp;' + item.title + '</div>' : item.title,
+                name: item.type == '置頂消息' ? '<div><span class="mobile_text" style="display: inline-block;;width:40px;background-color:#F6A800;border-radius:7px 7px 7px 7px;color:#fff;font-size:14px;text-align:center">TOP</span>&nbsp;' + item.title + '</div>' : item.title,
                 date: item.time,
                 type: '<span style="color:#FF6A00">' + item.type + '</span>',
                 status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>',
@@ -59,7 +59,7 @@
                 //}
                 //讀取介面上的物件數值傳送到 Search 變數之中
                 var Search = {
-                    keyword: $('#my_announce_keyword').val()
+                    keyword: $('#my_announce_keyword').val() || $('#my_announce_keyword_mobile').val()
                 }
 
                 return Search;
@@ -152,16 +152,27 @@
                 //NProgress.done();
                 $('.tableDisplayNone').show();
                 $('#LoadingBox').hide();
-            },
+
+            }
         });
 
     };
+
+    //監聽mobile search event
+    $('#search_mobile_btn').click(function () {
+        $(this).hide();
+        $('#reset_mobile_btn').show();
+    });
 
     //清除查詢
     TableListClear = function () {
 
         $('#my_announce_keyword').val('');
-        $('#my_announce_keyword2').val('');
+        $('#my_announce_keyword_mobile').val('');
+
+        //隱藏/顯示mobile btn
+        $('#reset_mobile_btn').hide();
+        $('#search_mobile_btn').show();
 
         TableListRun('列表元件');
     };

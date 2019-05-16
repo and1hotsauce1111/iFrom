@@ -10,11 +10,36 @@
     border-bottom: 2px solid #0098a1;
 }
 
+/* 隱藏手機板search */
+/* 隱藏手機板search result */
+/* 隱藏手機板顯示列表 */
+.table.search_mobile,
+.show_search_mobile {
+    display: none;
+}
+
 .search_btn {
     text-align:right;
     margin-top:15px;
 }
+.mobile_answer_btn {
+    display: none;
+}
+.mobile_info {
+    display:none;
+}
 
+/* 手機板問卷資訊 */
+.infoDesc {
+    font-size:12px;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #FFF3CD;
+    color: #A18533;
+    border: 1px dashed #A18533;
+}
+
+/* 切換列表顯示 */
 #listType, #squareType {
     display: none;
 }
@@ -173,12 +198,6 @@
                 }
 
 
-
-
-
-
-
-
 /* loading完成前先隱藏列表 */
 .tableDisplayNone {
     display: none;
@@ -187,4 +206,89 @@
 #LoadingBox {
     text-align:center;
     padding:50px 0;
+}
+
+/* 表格樣式 */
+.table_shadow {
+    box-shadow: none !important;
+}
+
+.table.showlist tr {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+    .table.showlist tr th {
+        background-color: transparent;
+    }
+
+    .table.showlist tr:last-child {
+        border: none;
+    }
+
+/* RWD */
+@media screen and (max-width:320px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 290px !important;
+    }
+
+    /* 手機板ui樣式 */
+    .AlertBoxDivContent {
+        width: 90% !important;
+    }
+
+    .AlertBoxDivHtml.adjust {
+        overflow-y: auto;
+        max-height: 400px;
+    }
+
+    .mobile_displayNone {
+        display: none;
+    }
+    .mobile_displayBlock {
+        display: block;
+    }
+
+    .mobile_text {
+        font-size: 14px !important;
+        top: 6px !important;
+    }
+
+    .mobile_width {
+        width: 160px;
+    }
+
+    .button {
+        font-size: 10px;
+    }
+
+    /* 顯示手機板search */
+    /* 顯示手機板search result */
+    /* 顯示手機板顯示列表 */
+    .table.search,
+    .table.search_result {
+        display: none;
+    }
+
+    .table.search_mobile,
+    .show_search_mobile {
+        display: block;
+    }
+
+    #reset_mobile_btn {
+        display: none;
+    }
+
+    /* 切換列表顯示方式 */
+    .list_tools {
+        display:none;
+    }
+
+    .answer_btn {
+        display: none;
+    }
+    .mobile_answer_btn {
+        padding:10px;
+        display: block;
+    }
+
 }
