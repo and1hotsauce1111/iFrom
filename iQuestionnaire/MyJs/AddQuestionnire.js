@@ -52,12 +52,20 @@
                                     Html: '<p style="color:#FF6A00">未添加題目</p>',
                                     OnOK: function () {
                                         $('#radio_title').addClass('warning');
+                                        if ($('#radio_options').hasClass('warning')) {
+                                            $('#radio_options').removeClass('warning');
+                                        }
                                     }
                                 });
                                 return false;
                             } else {
                                 if ($('#radio_title').hasClass('warning')) {
                                     $('#radio_title').removeClass('warning');
+                                }
+
+                                //因為彈窗後會先return false，會忽略掉data的判斷
+                                if ($('#radio_options').hasClass('warning')) {
+                                    $('#radio_options').removeClass('warning');
                                 }
                             }
 
@@ -240,12 +248,15 @@
 
                             //未添加題目的提示
                             if ($('#edit_radio_question_title').val() == '') {
-                                console.log('title');
                                 alertBox({
                                     Mode: 'A',
                                     Html: '<p style="color:#FF6A00">未添加題目</p>',
                                     OnOK: function () {
                                         $('#edit_radio_title').addClass('warning');
+
+                                        if ($('#edit_radio_options').hasClass('warning')) {
+                                            $('#edit_radio_options').removeClass('warning');
+                                        }
                                     }
                                 });
                                 return false;
@@ -253,6 +264,11 @@
                                 if ($('#edit_radio_title').hasClass('warning')) {
                                     $('#edit_radio_title').removeClass('warning');
                                 }
+
+                                if ($('#edit_radio_options').hasClass('warning')) {
+                                    $('#edit_radio_options').removeClass('warning');
+                                }
+
                             }
 
                             //未添加選項的提示
@@ -433,13 +449,21 @@
                                     Html: '<p style="color:#FF6A00">未添加題目</p>',
                                     OnOK: function () {
                                         $('#checkbox_title').addClass('warning');
+                                        if ($('#checkbox_options').hasClass('warning')) {
+                                            $('#checkbox_options').removeClass('warning');
+                                        }
                                     }
                                 });
                                 return false;
                             } else {
+
                                 if ($('#checkbox_title').hasClass('warning')) {
                                     $('#checkbox_title').removeClass('warning');
                                 }
+                                if ($('#checkbox_options').hasClass('warning')) {
+                                    $('#checkbox_options').removeClass('warning');
+                                }
+
                             }
 
                             //未添加選項的提示
@@ -622,12 +646,19 @@
                                     Html: '<p style="color:#FF6A00">未添加題目</p>',
                                     OnOK: function () {
                                         $('#edit_checkbox_title').addClass('warning');
+                                        if ($('#edit_checkbox_options').hasClass('warning')) {
+                                            $('#edit_checkbox_options').removeClass('warning');
+                                        }
                                     }
                                 });
                                 return false;
                             } else {
                                 if ($('#edit_checkbox_title').hasClass('warning')) {
                                     $('#edit_checkbox_title').removeClass('warning');
+                                }
+
+                                if ($('#edit_checkbox_options').hasClass('warning')) {
+                                    $('#edit_checkbox_options').removeClass('warning');
                                 }
                             }
 
@@ -809,12 +840,18 @@
                                     Html: '<p style="color:#FF6A00">未添加題目</p>',
                                     OnOK: function () {
                                         $('#pulldown_title').addClass('warning');
+                                        if ($('#pulldown_options').hasClass('warning')) {
+                                            $('#pulldown_options').removeClass('warning');
+                                        }
                                     }
                                 });
                                 return false;
                             } else {
                                 if ($('#pulldown_title').hasClass('warning')) {
                                     $('#pulldown_title').removeClass('warning');
+                                }
+                                if ($('#pulldown_options').hasClass('warning')) {
+                                    $('#pulldown_options').removeClass('warning');
                                 }
                             }
 
@@ -993,12 +1030,18 @@
                                     Html: '<p style="color:#FF6A00">未添加題目</p>',
                                     OnOK: function () {
                                         $('#edit_pulldown_title').addClass('warning');
+                                        if ($('#edit_pulldown_options').hasClass('warning')) {
+                                            $('#edit_pulldown_options').removeClass('warning');
+                                        }
                                     }
                                 });
                                 return false;
                             } else {
                                 if ($('#edit_pulldown_title').hasClass('warning')) {
                                     $('#edit_pulldown_title').removeClass('warning');
+                                }
+                                if ($('#edit_pulldown_options').hasClass('warning')) {
+                                    $('#edit_pulldown_options').removeClass('warning');
                                 }
                             }
 
@@ -1161,20 +1204,22 @@
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增文本題',
                     OutsideStyle: 'max-width:700px',
                     Html: $('#editTextarea'),
-                    OnClose: function () {
-                        //未添加題目的提示
-                        if ($('#textarea_question_title').val() == '') {
-                            alertBox({
-                                Mode: 'A',
-                                Html: '<p style="color:#FF6A00">未添加題目</p>',
-                                OnOK: function () {
-                                    $('#textarea_title').addClass('warning');
+                    OnClose: function (Type) {
+                        if (Type === 'ok') {
+                            //未添加題目的提示
+                            if ($('#textarea_question_title').val() == '') {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#textarea_title').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#textarea_title').hasClass('warning')) {
+                                    $('#textarea_title').removeClass('warning');
                                 }
-                            });
-                            return false;
-                        } else {
-                            if ($('#textarea_title').hasClass('warning')) {
-                                $('#textarea_title').removeClass('warning');
                             }
                         }
                     },
@@ -1242,20 +1287,22 @@
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯文本題',
                     OutsideStyle: 'max-width:700px',
                     Html: $('#edit_editTextarea'),
-                    OnClose: function () {
-                        //未添加題目的提示
-                        if ($('#edit_textarea_question_title').val() == '') {
-                            alertBox({
-                                Mode: 'A',
-                                Html: '<p style="color:#FF6A00">未添加題目</p>',
-                                OnOK: function () {
-                                    $('#edit_textarea_title').addClass('warning');
+                    OnClose: function (Type) {
+                        if (Type === 'ok') {
+                            //未添加題目的提示
+                            if ($('#edit_textarea_question_title').val() == '') {
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">未添加題目</p>',
+                                    OnOK: function () {
+                                        $('#edit_textarea_title').addClass('warning');
+                                    }
+                                });
+                                return false;
+                            } else {
+                                if ($('#edit_textarea_title').hasClass('warning')) {
+                                    $('#edit_textarea_title').removeClass('warning');
                                 }
-                            });
-                            return false;
-                        } else {
-                            if ($('#edit_textarea_title').hasClass('warning')) {
-                                $('#edit_textarea_title').removeClass('warning');
                             }
                         }
                     },
@@ -1399,9 +1446,6 @@
 
 
     };
-
-
-
 
     //編輯頁面說明
     editPageDesc = function (e, status, dom) {
@@ -2809,9 +2853,15 @@
             //取得網址id
             getUrlVars();
             var surveyId = $.getUrlVar('surveyId');
-            if (surveyId !== undefined) {
-                this.getData(surveyId);
+
+            if (surveyId === '0' || surveyId == undefined) {// 新增問卷
+                $('.tableDisplayNone').show();
+                $('.questionDisplayNone').show();
+                $('#LoadingBox').hide();
+                $('#LoadingBox2').hide();
+                return;
             }
+            this.getData(surveyId);
         },
         methods: {
             getData: function (id) {

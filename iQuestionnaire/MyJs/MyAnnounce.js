@@ -20,10 +20,12 @@
             
             arr.push({
                 id: item.id,
-                name: item.type == '置頂消息' ? '<div><span class="mobile_text" style="display: inline-block;;width:40px;background-color:#F6A800;border-radius:7px 7px 7px 7px;color:#fff;font-size:14px;text-align:center">TOP</span>&nbsp;' + item.title + '</div>' : item.title,
+                name: item.type == '置頂消息' ? '<div><span class="mobile_text top_news">TOP</span>&nbsp;' + item.title + '</div>'
+                                              : '<div><span class="mobile_text normal_news">New</span>&nbsp;' + item.title + '</div>',
                 date: item.time,
                 type: '<span style="color:#FF6A00">' + item.type + '</span>',
-                status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>',
+                status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>'
+                                              : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>',
                 content:item.content
             });
 
@@ -38,9 +40,6 @@
         });
 
         test = top.concat(normal);
-
-        console.log(test);
-
 
         myAnnounceListBuild();
     });
@@ -179,7 +178,7 @@
 
 
     //顯示公告內容
-    showAnnounce = function (index) {
+    showAnnounce = function (e,index) {
         alertBox({
             Mode: 'A',
             Title: '<i class="fa fa-rss" style="padding-right:3px"></i>公告消息',
@@ -193,9 +192,5 @@
             }
         });
     };
-
-
-
-
 
 });

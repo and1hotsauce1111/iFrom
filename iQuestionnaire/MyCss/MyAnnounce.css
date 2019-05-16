@@ -52,9 +52,28 @@
         border: none;
     }
 
+/* 公告類型樣式 */
+.top_news {
+    display: inline-block;
+    width: 40px;
+    /*background-color: #F6A800;*/
+    background-color: #f00;
+    border-radius: 7px 7px 7px 7px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+}
+.normal_news {
+    display: inline-block;
+    width: 40px;
+    background-color: #0960A6;
+    border-radius: 7px 7px 7px 7px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center
+}
 
 /* RWD */
-
 /* ipad */
 @media screen and (max-width:768px) {
     #ContentBoxInset .ContentBoxHtml {
@@ -74,6 +93,39 @@
     .mobile_width {
         width: 430px;
     }
+}
+
+/* iphone6,7,8 plus 手機翻轉 */
+@media screen and (max-width:736px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 700px !important;
+    }
+    .mobile_width {
+        width: 325px;
+    }
+}
+
+/* iphone6,7,8 手機翻轉 */
+@media screen and (max-width:667px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 635px !important;
+    }
+
+    .mobile_width {
+        width: 300px;
+    }
+}
+
+/* iphone6,7,8 手機翻轉 */
+@media screen and (max-width:568px) {
+    #ContentBoxInset .ContentBoxHtml {
+        width: 540px !important;
+    }
+
+    .mobile_width {
+        width: 225px;
+    }
+
 }
 
 /* iphone6,7,8 plus */

@@ -88,7 +88,7 @@
                     <th class="textL"><span class="mobile_text" style="position:relative;top:4px;font-size:16px;border-bottom:2px solid #0072C4;padding:5px 0">發佈人</span></th>
                     <th class="textL mobile_displayNone"><span class="mobile_text" style="position:relative;top:4px;font-size:16px;border-bottom:2px solid #0072C4;padding:5px 0">發佈日期</span></th>
                 </tr>
-                <tr tbl-repeat="列表元件" class="trHover textC" onclick="showAnnounce(@index)" style="cursor: pointer">
+                <tr tbl-repeat="列表元件" class="trHover textC" onclick="showAnnounce(event,@index)" style="cursor: pointer">
                     <td>
                         <span class="label_text">@row</span>
                     </td>

@@ -116,11 +116,11 @@
                             </label>
                         </th>
                         <th class="textL" style="font-weight: bold; font-size: 16px">公告標題</th>
-                        <th style="font-weight: bold; font-size: 16px">更新日期</th>
-                        <th style="font-weight: bold; font-size: 16px">公告類型</th>
-                        <th style="font-weight: bold; font-size: 16px">公告狀態</th>
-                        <th style="font-weight: bold; font-size: 16px">發佈人</th>
-                        <th style="font-weight: bold; font-size: 16px">操作功能</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">更新日期</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">公告類型</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">公告狀態</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">發佈人</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">操作功能</th>
                     </tr>
                     <tr tbl-repeat="列表元件" class="trHover textC">
                         <td>
@@ -131,12 +131,12 @@
                             </label>
                         </td>
                         <td class="textL">@name</td>
-                        <td>@date</td>
-                        <td>@type</td>
-                        <td>@status</td>
-                        <td class="textC">招生委員會
+                        <td class="textL">@date</td>
+                        <td class="textL">@type</td>
+                        <td class="textL">@status</td>
+                        <td class="textL">招生委員會
                         </td>
-                        <td>
+                        <td class="textL">
                             <button type="button" data-id="@id" class="button btn_white" onclick="editAnnounce(@index,$(this))"><i class="fa fa-pencil-square-o" style="color: #F6A800; padding-right: 3px"></i>編輯公告</button>
                         </td>
                     </tr>
@@ -162,7 +162,7 @@
         <div id="add_new_announce" style="display: none">
             <table class="table tableDisplayNone2">
                 <tr>
-                    <th style="text-align: center"><span style="color: #f00">*</span>公告狀態</th>
+                    <th class="textC" id="announce_type"><span style="color: #f00">*</span>公告類型</th>
                     <td>
                         <label class="label_radio">
                             <input type="radio" name="radio3" id="normal_announce" value="一般公告" />
@@ -177,7 +177,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="text-align: center"><span style="color: #f00">*</span>公告狀態</th>
+                    <th class="textC" id="announce_status"><span style="color: #f00">*</span>公告狀態</th>
                     <td>
                         <label class="label_radio">
                             <input type="radio" name="radio4" id="active_announce" value="啟用" />
@@ -192,16 +192,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="text-align: center"><span style="color: #f00">*</span>標題</th>
+                    <th class="textC" id="announce_title"><span style="color: #f00">*</span>標題</th>
                     <td>
                         <div>
-                            <input type="text" value="" placeholder="輸入..." id="announce_title" />
+                            <input type="text" value="" placeholder="輸入..." id="title_input" />
                             <div class="inputLine"></div>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <th style="text-align: center"><span style="color: #f00">*</span>內容</th>
+                    <th class="textC" id="announce_content"><span style="color: #f00">*</span>內容</th>
                     <td>
                         <div style="font-size: 0">
                             <textarea rows="6" placeholder="輸入內容..." name="editor1" id="editor1"></textarea>
@@ -209,7 +209,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="text-align: center">附加文件</th>
+                    <th class="textC">附加文件</th>
                     <td>
                         <form>
                             <input type="file" id="file-uploader" data-target="file-uploader" multiple="multiple" />

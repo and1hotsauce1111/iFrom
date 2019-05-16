@@ -29,13 +29,19 @@
     padding: 50px 0;
 }
 
+/* 編輯問題模板提示樣式 */
+.textC.warning {
+    color: #f00;
+    box-shadow: 0 0 0 3px #f00 inset
+}
+
 
 
 /* RWD */
 
 @media screen and (max-width: 1280px) {
     .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(2) {
-        width: 170px;
+        width: 210px;
     }
 
     .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(3) {
@@ -43,6 +49,6 @@
     }
 
     .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(6) {
-        width: 180px;
+        width: 150px;
     }
 }

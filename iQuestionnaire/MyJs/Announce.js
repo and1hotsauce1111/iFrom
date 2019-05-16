@@ -31,6 +31,90 @@
             Title: '<i class="fa fa-plus" style="padding-right:3px"></i>新增公告',
             OutsideStyle: 'max-width:850px',
             Html: $('#add_new_announce'),
+            OnClose: function (Type) {
+
+                var title = $('#title_input').val();
+                var data = CKEDITOR.instances.editor1.getData();
+                var type = $('input[type="radio"][name="radio3"]:checked').val();
+                var status = $('input[type="radio"][name="radio4"]:checked').val();
+
+                if (Type === 'ok') {
+
+                    //未添加公告類型的提示
+                    if (type === undefined) {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告類型</p>',
+                            OnOK: function () {
+                                $('#announce_type').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_type').hasClass('warning')) {
+                            $('#announce_type').removeClass('warning');
+                        }
+
+                        //因為彈窗後會先return false，會忽略掉data的判斷
+                        if ($('#announce_content').hasClass('warning')) {
+                            $('#announce_content').removeClass('warning');
+                        }
+                    }
+
+                    //未添加公告狀態的提示
+                    if (status === undefined) {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告狀態</p>',
+                            OnOK: function () {
+                                $('#announce_status').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_status').hasClass('warning')) {
+                            $('#announce_status').removeClass('warning');
+                        }
+                    }
+
+                    //未添加公告標題的提示
+                    if (title === '') {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加標題</p>',
+                            OnOK: function () {
+                                $('#announce_title').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_title').hasClass('warning')) {
+                            $('#announce_title').removeClass('warning');
+                        }
+                    }
+
+
+                    //未添加公告內容的提示
+                    console.log(data);
+                    if (data === '') {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告內容</p>',
+                            OnOK: function () {
+                                $('#announce_content').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {                     
+                        if ($('#announce_content').hasClass('warning')) {
+                            $('#announce_content').removeClass('warning');
+                        }
+                    }
+
+                }
+
+                return true;
+            },
             OnRun: function () {
                 //彈窗的物件build起來再呼叫CKEditor
                 CKEDITOR.replace('editor1');
@@ -39,7 +123,7 @@
             },
             OnOK: function () {
 
-                var title = $('#announce_title').val();
+                var title = $('#title_input').val();
                 var data = CKEDITOR.instances.editor1.getData();
                 var type = $('input[type="radio"][name="radio3"]:checked').val();
                 var status = $('input[type="radio"][name="radio4"]:checked').val();
@@ -51,10 +135,8 @@
                 var hour = ('0' + TimeNow.getHours()).substr(-2);
                 var minute = ('0' + TimeNow.getMinutes()).substr(-2);
 
-                console.log(month);
                 //顯示現在時間
                 var now = '' + year + '年' + month + '月' + date + '日' + ' ' + hour + ':' + minute;
-                console.log(now);
                 var announceData = {
                     id: _uuid(),
                     type: type,
@@ -68,6 +150,8 @@
                 //上傳的資料
                 var form = new FormData();
                 var upload = $('#file-uploader')[0].files;
+
+
 
                 axios.post('http://localhost:5566/announce', announceData).then(function (res) {
 
@@ -94,13 +178,97 @@
             Title: '<i class="fa fa-pencil-square-o" style="padding-right:3px"></i>編輯公告',
             OutsideStyle: 'max-width:850px',
             Html: $('#add_new_announce'),
+            OnClose: function (Type) {
+
+                var title = $('#title_input').val();
+                var data = CKEDITOR.instances.editor1.getData();
+                var type = $('input[type="radio"][name="radio3"]:checked').val();
+                var status = $('input[type="radio"][name="radio4"]:checked').val();
+
+                if (Type === 'ok') {
+
+                    //未添加公告類型的提示
+                    if (type === undefined) {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告類型</p>',
+                            OnOK: function () {
+                                $('#announce_type').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_type').hasClass('warning')) {
+                            $('#announce_type').removeClass('warning');
+                        }
+
+                        //因為彈窗後會先return false，會忽略掉data的判斷
+                        if ($('#announce_content').hasClass('warning')) {
+                            $('#announce_content').removeClass('warning');
+                        }
+                    }
+
+                    //未添加公告狀態的提示
+                    if (status === undefined) {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告狀態</p>',
+                            OnOK: function () {
+                                $('#announce_status').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_status').hasClass('warning')) {
+                            $('#announce_status').removeClass('warning');
+                        }
+                    }
+
+                    //未添加公告標題的提示
+                    if (title === '') {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加標題</p>',
+                            OnOK: function () {
+                                $('#announce_title').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_title').hasClass('warning')) {
+                            $('#announce_title').removeClass('warning');
+                        }
+                    }
+
+
+                    //未添加公告內容的提示
+                    console.log(data);
+                    if (data === '') {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告內容</p>',
+                            OnOK: function () {
+                                $('#announce_content').addClass('warning');
+                            }
+                        });
+                        return false;
+                    } else {
+                        if ($('#announce_content').hasClass('warning')) {
+                            $('#announce_content').removeClass('warning');
+                        }
+                    }
+
+                }
+
+                return true;
+            },
             OnRun: function () {
 
 
                 //彈窗的物件build起來再呼叫CKEditor
                 CKEDITOR.replace('editor1');
 
-                $('#announce_title').val(vm.renderData[index].title);
+                $('#title_input').val(vm.renderData[index].title);
                 $('input[type="radio"][name="radio3"][value="' + vm.renderData[index].type + '"]').prop("checked", true);
                 $('input[type="radio"][name="radio4"][value="' + vm.renderData[index].status + '"]').prop("checked", true);
                 $('textarea#editor1').val(vm.renderData[index].content);
@@ -113,7 +281,7 @@
             OnOK: function () {
 
                 var id = $(dom).attr('data-id');
-                var title = $('#announce_title').val();
+                var title = $('#title_input').val();
                 var data = CKEDITOR.instances.editor1.getData();
                 var type = $('input[type="radio"][name="radio3"]:checked').val();
                 var status = $('input[type="radio"][name="radio4"]:checked').val();
@@ -143,7 +311,7 @@
                     test[index] = announceData;
                 });
 
-              
+
 
                 window.location.reload();
 
@@ -266,7 +434,6 @@
                         checkD = true;
                     }
 
-                    console.log(Option.Search['keyword3']);
 
                     if (checkA && checkB && checkC && checkD) {
                         tempA.push(test[i]);
@@ -274,7 +441,6 @@
 
                 }
 
-                console.log(tempA);
 
                 return tempA.length;
             },

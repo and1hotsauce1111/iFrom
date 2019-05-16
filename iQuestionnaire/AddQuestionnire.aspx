@@ -750,7 +750,7 @@
                                     </div>                             
                                 </div>
 
-                                <div class="showQuestions_unit_tools_pageDesc">
+                                <div class="showQuestions_unit_tools_pageDesc" v-if="page.questionDataPerPage.pageDesc !== ''">
                                     <ul class="showQuestions_unit_tools_list">
                                         <li>
                                             <span title="編輯" onclick="editPageDesc(event,'edit',$(this))" :data-index="i">
@@ -758,7 +758,7 @@
                                             </span>
                                         </li>
                                         <li>
-                                            <span title="刪除" onclick="deleteQuestion(event,'pageDesc',$(this))" :data-index="i">
+                                            <span title="刪除" onclick="deleteQuestion(event,$(this))" :data-index="i" data-type="pageDesc">
                                                 <i class="fa fa-trash-o"></i>
                                             </span>
                                         </li>
