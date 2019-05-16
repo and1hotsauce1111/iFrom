@@ -276,13 +276,18 @@
                 Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;刪除問卷',
                 OutsideStyle: 'max-width:500px',
                 Html: '<p style="font-size:18px;color:#ff6a00">確定刪除問卷 ?</p>',
+                OnClose: function (Type) {
+                    if (Type === 'ok') {
+                        $('#LoadingBox').show();
+                    }
+                },
                 OnOK: function () {
 
                     var array = TableListGetCheck('列表元件');
 
                     for (var i = 0; i < array.length; i++) {
                         axios.delete('http://localhost:3000/questionnaire/' + array[i].id + '').then(function (res) {
-                            console.log(res.data);
+                            $('#LoadingBox').hide();
                         });
 
                         //刪除test資料
@@ -316,58 +321,74 @@
                 Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>',
             });
         } else {
-            for (var i = 0; i < array.length; i++) {
-                for (var j = 0; j < test.length; j++) {
 
-                    if (test[j].id == array[i].id) {
-                        //重新設定問卷id和問題id
-                        test[j].id = _uuid();
-                        for (var k = 0; k < test[j].allQuestionnaireData.length; k++) {
-                            for (var m = 0; m < test[j].allQuestionnaireData[k].questionDataPerPage.length; m++) {
-                                for (var n = 0; n < test[j].allQuestionnaireData[k].questionDataPerPage[m].pageQuestionData.length; n++) {
-                                    test[j].allQuestionnaireData[k].questionDataPerPage[m].pageQuestionData[n].id = _uuid();
+            alertBox({
+                Mode: 'C',
+                Title: '<i class="fa fa-clone"></i>&nbsp;複製問卷',
+                OutsideStyle: 'max-width:500px',
+                Html: '<p style="font-size:18px;color:#ff6a00">是否確定複製問卷</p>',
+                OnClose: function (Type) {
+                    if (Type === 'ok') {
+                        $('#LoadingBox').show();
+                    }
+                },
+                OnOK: function () {
+                    for (var i = 0; i < array.length; i++) {
+                        for (var j = 0; j < test.length; j++) {
+
+                            if (test[j].id == array[i].id) {
+                                //重新設定問卷id和問題id
+                                test[j].id = _uuid();
+                                for (var k = 0; k < test[j].allQuestionnaireData.length; k++) {
+                                    for (var m = 0; m < test[j].allQuestionnaireData[k].questionDataPerPage.length; m++) {
+                                        for (var n = 0; n < test[j].allQuestionnaireData[k].questionDataPerPage[m].pageQuestionData.length; n++) {
+                                            test[j].allQuestionnaireData[k].questionDataPerPage[m].pageQuestionData[n].id = _uuid();
+                                        }
+                                    }
                                 }
+
+                                //更新資料庫
+                                var copy = {
+                                    id: test[j].id,
+                                    questionnaireTitle: test[j].name + ' - 副本',
+                                    questionnaireDesc: test[j].questionnaireDesc,
+                                    questionnaireDeadline: test[j].end,
+                                    questionnaireStartTime: test[j].start,
+                                    repeatAnswer: test[j].repeatAnswer,
+                                    allQuestionnaireData: test[j].allQuestionnaireData,
+                                };
+
+                                //更新列表
+                                var newListData = {
+                                    id: test[j].id,
+                                    name: test[j].name + ' - 副本',
+                                    repeat: test[j].repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>',
+                                    questionnaireDesc: test[j].questionnaireDesc,
+                                    allQuestionnaireData: test[j].allQuestionnaireData,
+                                    start: test[j].start || '<span style="color:#f00">未設定起始日期</span>',
+                                    end: test[j].end || '<span style="color:#f00">未設定截止日期</span>',
+                                };
+
+                                //更新到資料庫
+                                axios.post('http://localhost:3000/questionnaire/', copy).then(function (res) {
+                                    $('#LoadingBox').hide();
+                                });
+
+                                //更新test資料
+                                test.push(newListData);
+
+                                break;
                             }
                         }
-
-                        //更新資料庫
-                        var copy = {
-                            id: test[j].id,
-                            questionnaireTitle: test[j].name + ' - 副本',
-                            questionnaireDesc: test[j].questionnaireDesc,
-                            questionnaireDeadline: test[j].end,
-                            questionnaireStartTime: test[j].start,
-                            repeatAnswer: test[j].repeatAnswer,
-                            allQuestionnaireData: test[j].allQuestionnaireData,
-                        };
-
-                        //更新列表
-                        var newListData = {
-                            id: test[j].id,
-                            name: test[j].name + ' - 副本',
-                            repeat: test[j].repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>',
-                            questionnaireDesc: test[j].questionnaireDesc,
-                            allQuestionnaireData: test[j].allQuestionnaireData,
-                            start: test[j].start || '<span style="color:#f00">未設定起始日期</span>',
-                            end: test[j].end || '<span style="color:#f00">未設定截止日期</span>',
-                        };
-
-                        //更新到資料庫
-                        axios.post('http://localhost:3000/questionnaire/', copy).then(function (res) {
-                            console.log(res.data);
-                        });
-
-                        //更新test資料
-                        test.push(newListData);
-
-                        break;
                     }
-                }
-            }
 
-            //呼叫TableListRun重新建立列表
-            //TableListRun('列表元件');
-            window.location.reload();
+                    //呼叫TableListRun重新建立列表
+                    //TableListRun('列表元件');
+                    window.location.reload();
+                }
+            });
+
+
         }
 
 

@@ -746,7 +746,7 @@
                             <div class="showQuestions_pageDesc_wrap">
                                 <div class="showQuestions_pageDesc" v-if="page.questionDataPerPage.pageDesc !== ''">
                                     <div style="font-size: 0">
-                                        <textarea rows="3" placeholder="輸入內容..." class="show_page_desc" :data-index="i" disabled="disabled">{{ page.questionDataPerPage.pageDesc }}</textarea>
+                                        <textarea style="width:97% !important;padding:10px" rows="3" placeholder="輸入內容..." class="show_page_desc" :data-index="i" disabled="disabled">{{ page.questionDataPerPage.pageDesc }}</textarea>
                                     </div>                             
                                 </div>
 
