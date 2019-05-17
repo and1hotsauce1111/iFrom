@@ -9,7 +9,9 @@
 
     //渲染列表data
     var test = [];
+    var renderData = [];
     axios.get('http://localhost:5566/announce').then(function (res) {
+        renderData = res.data;
         res.data.forEach(function (item) {
             test.push({
                 id: item.id,
@@ -104,7 +106,7 @@
                             }
                         });
                         return false;
-                    } else {                     
+                    } else {
                         if ($('#announce_content').hasClass('warning')) {
                             $('#announce_content').removeClass('warning');
                         }
@@ -158,18 +160,28 @@
 
 
                 axios.post('http://localhost:5566/announce', announceData).then(function (res) {
-                    $('#LoadingBox').hide();
+                    test = [];
+                    renderData = [];
+                    axios.get('http://localhost:5566/announce').then(function (res2) {
+                        renderData = res2.data;
+                        res2.data.forEach(function (item) {
+                            test.push({
+                                id: item.id,
+                                name: item.title,
+                                date: item.time,
+                                type: '<span style="color:#FF6A00">' + item.type + '</span>',
+                                status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                            });
+
+                        });
+
+                        TableListRun('列表元件');
+                        $('#LoadingBox').hide();
+
+                    });
                 });
 
-                test.push({
-                    id: announceData.id,
-                    name: announceData.title,
-                    date: announceData.time,
-                    type: '<span style="color:#FF6A00">' + announceData.type + '</span>',
-                    status: announceData.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
-                });
-
-                TableListRun('列表元件');
+                
                 //window.location.reload();
 
             }
@@ -185,87 +197,90 @@
             Html: $('#add_new_announce'),
             OnClose: function (Type) {
 
-                var title = $('#title_input').val();
-                var data = CKEDITOR.instances.editor1.getData();
-                var type = $('input[type="radio"][name="radio3"]:checked').val();
-                var status = $('input[type="radio"][name="radio4"]:checked').val();
-
                 if (Type === 'ok') {
+                    $('#LoadingBox').show();
 
-                    //未添加公告類型的提示
-                    if (type === undefined) {
-                        alertBox({
-                            Mode: 'A',
-                            Html: '<p style="color:#FF6A00">未添加公告類型</p>',
-                            OnOK: function () {
-                                $('#announce_type').addClass('warning');
+                    var title = $('#title_input').val();
+                    var data = CKEDITOR.instances.editor1.getData();
+                    var type = $('input[type="radio"][name="radio3"]:checked').val();
+                    var status = $('input[type="radio"][name="radio4"]:checked').val();
+
+                    if (Type === 'ok') {
+
+                        //未添加公告類型的提示
+                        if (type === undefined) {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加公告類型</p>',
+                                OnOK: function () {
+                                    $('#announce_type').addClass('warning');
+                                }
+                            });
+                            return false;
+                        } else {
+                            if ($('#announce_type').hasClass('warning')) {
+                                $('#announce_type').removeClass('warning');
                             }
-                        });
-                        return false;
-                    } else {
-                        if ($('#announce_type').hasClass('warning')) {
-                            $('#announce_type').removeClass('warning');
+
+                            //因為彈窗後會先return false，會忽略掉data的判斷
+                            if ($('#announce_content').hasClass('warning')) {
+                                $('#announce_content').removeClass('warning');
+                            }
                         }
 
-                        //因為彈窗後會先return false，會忽略掉data的判斷
-                        if ($('#announce_content').hasClass('warning')) {
-                            $('#announce_content').removeClass('warning');
+                        //未添加公告狀態的提示
+                        if (status === undefined) {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加公告狀態</p>',
+                                OnOK: function () {
+                                    $('#announce_status').addClass('warning');
+                                }
+                            });
+                            return false;
+                        } else {
+                            if ($('#announce_status').hasClass('warning')) {
+                                $('#announce_status').removeClass('warning');
+                            }
                         }
+
+                        //未添加公告標題的提示
+                        if (title === '') {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加標題</p>',
+                                OnOK: function () {
+                                    $('#announce_title').addClass('warning');
+                                }
+                            });
+                            return false;
+                        } else {
+                            if ($('#announce_title').hasClass('warning')) {
+                                $('#announce_title').removeClass('warning');
+                            }
+                        }
+
+
+                        //未添加公告內容的提示
+                        if (data === '') {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加公告內容</p>',
+                                OnOK: function () {
+                                    $('#announce_content').addClass('warning');
+                                }
+                            });
+                            return false;
+                        } else {
+                            if ($('#announce_content').hasClass('warning')) {
+                                $('#announce_content').removeClass('warning');
+                            }
+                        }
+
                     }
 
-                    //未添加公告狀態的提示
-                    if (status === undefined) {
-                        alertBox({
-                            Mode: 'A',
-                            Html: '<p style="color:#FF6A00">未添加公告狀態</p>',
-                            OnOK: function () {
-                                $('#announce_status').addClass('warning');
-                            }
-                        });
-                        return false;
-                    } else {
-                        if ($('#announce_status').hasClass('warning')) {
-                            $('#announce_status').removeClass('warning');
-                        }
-                    }
-
-                    //未添加公告標題的提示
-                    if (title === '') {
-                        alertBox({
-                            Mode: 'A',
-                            Html: '<p style="color:#FF6A00">未添加標題</p>',
-                            OnOK: function () {
-                                $('#announce_title').addClass('warning');
-                            }
-                        });
-                        return false;
-                    } else {
-                        if ($('#announce_title').hasClass('warning')) {
-                            $('#announce_title').removeClass('warning');
-                        }
-                    }
-
-
-                    //未添加公告內容的提示
-                    console.log(data);
-                    if (data === '') {
-                        alertBox({
-                            Mode: 'A',
-                            Html: '<p style="color:#FF6A00">未添加公告內容</p>',
-                            OnOK: function () {
-                                $('#announce_content').addClass('warning');
-                            }
-                        });
-                        return false;
-                    } else {
-                        if ($('#announce_content').hasClass('warning')) {
-                            $('#announce_content').removeClass('warning');
-                        }
-                    }
-
+                    return true;
                 }
-
-                return true;
             },
             OnRun: function () {
 
@@ -273,10 +288,10 @@
                 //彈窗的物件build起來再呼叫CKEditor
                 CKEDITOR.replace('editor1');
 
-                $('#title_input').val(vm.renderData[index].title);
-                $('input[type="radio"][name="radio3"][value="' + vm.renderData[index].type + '"]').prop("checked", true);
-                $('input[type="radio"][name="radio4"][value="' + vm.renderData[index].status + '"]').prop("checked", true);
-                $('textarea#editor1').val(vm.renderData[index].content);
+                $('#title_input').val(renderData[index].title);
+                $('input[type="radio"][name="radio3"][value="' + renderData[index].type + '"]').prop("checked", true);
+                $('input[type="radio"][name="radio4"][value="' + renderData[index].status + '"]').prop("checked", true);
+                $('textarea#editor1').val(renderData[index].content);
 
             },
             OnReady: function () {
@@ -313,12 +328,30 @@
                 };
 
                 axios.patch('http://localhost:5566/announce/' + id, announceData).then(function (res) {
-                    test[index] = announceData;
+                    test = [];
+                    renderData = [];
+                    axios.get('http://localhost:5566/announce').then(function (res2) {
+                        renderData = res2.data;
+                        res2.data.forEach(function (item) {
+                            test.push({
+                                id: item.id,
+                                name: item.title,
+                                date: item.time,
+                                type: '<span style="color:#FF6A00">' + item.type + '</span>',
+                                status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                            });
+
+                        });
+
+                        TableListRun('列表元件');
+                        $('#LoadingBox').hide();
+
+                    });
                 });
 
 
 
-                window.location.reload();
+                //window.location.reload();
 
 
                 //上傳的資料
@@ -396,7 +429,7 @@
             //目前只能先複製一筆
             var targetId = array[0].id;
             var temp;
-            vm.renderData.forEach(function (data) {
+            renderData.forEach(function (data) {
                 if (data.id == targetId) {
                     temp = data;
                 }
@@ -552,40 +585,6 @@
 
         TableListRun('列表元件');
     };
-
-
-
-    var vm = new Vue({
-        el: '#app',
-        data: function () {
-            return {
-                renderData: null
-            }
-        },
-        created: function () {
-            this.getData();
-        },
-        watch: {
-            renderData: function (value) {
-                this.getData();
-            }
-        },
-        methods: {
-            getData: function () {
-                //取得問卷資料
-                //非同步調用this會指向window，改用vm
-                axios.get('http://localhost:5566/announce').then(function (res) {
-                    vm.renderData = res.data;
-                });
-            },
-        }
-
-
-    });
-
-
-
-
 
 
 });

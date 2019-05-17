@@ -186,9 +186,9 @@
             Html: $('#show_announce'),
             OnRun: function () {
                 $('.AlertBoxDivHtml').addClass('adjust');
-                $('#announce_title').html(temp[index].title);
-                $('#announce_publish_time').html('發佈日期: ' + temp[index].time);
-                $('#annoucne_content').append(temp[index].content);
+                $('#announce_title').html(test[index].name);
+                $('#announce_publish_time').html('發佈日期: ' + test[index].date);
+                $('#annoucne_content').append(test[index].content);
             }
         });
     };
