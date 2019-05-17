@@ -95,7 +95,6 @@
 
 
                     //未添加公告內容的提示
-                    console.log(data);
                     if (data === '') {
                         alertBox({
                             Mode: 'A',
@@ -120,6 +119,11 @@
                 CKEDITOR.replace('editor1');
                 $('#LoadingBox2').hide();
                 $('.tableDisplayNone2').show();
+            },
+            OnClose: function (Type) {
+                if (Type === 'ok') {
+                    $('#LoadingBox').show();
+                }
             },
             OnOK: function () {
 
@@ -154,18 +158,19 @@
 
 
                 axios.post('http://localhost:5566/announce', announceData).then(function (res) {
-
-                    test.push({
-                        id: res.data.id,
-                        name: res.data.title,
-                        date: res.data.time,
-                        type: '<span style="color:#FF6A00">' + res.data.type + '</span>',
-                        status: res.data.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
-                    });
-
+                    $('#LoadingBox').hide();
                 });
 
-                window.location.reload();
+                test.push({
+                    id: announceData.id,
+                    name: announceData.title,
+                    date: announceData.time,
+                    type: '<span style="color:#FF6A00">' + announceData.type + '</span>',
+                    status: announceData.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                });
+
+                TableListRun('列表元件');
+                //window.location.reload();
 
             }
         });
@@ -339,12 +344,37 @@
                 Mode: 'C',
                 Title: '<i class="fa fa-trash-o" style="padding-right:3px"></i>刪除公告',
                 Html: '<p style="font-size:18px;color:#ff6a00">確定刪除公告 ?</p>',
+                OnClose: function (Type) {
+                    if (Type === 'ok') {
+                        $('#LoadingBox').show();
+                    }
+                },
                 OnOK: function () {
                     //目前只能先刪除一筆
                     var targetId = array[0].id;
-                    axios.delete('http://localhost:5566/announce/' + targetId).then(function (res) {
-                        window.location.reload();
+
+                    axios.delete('http://localhost:5566/announce/' + targetId).then(function (res1) {
+                        test = [];
+                        axios.get('http://localhost:5566/announce').then(function (res2) {
+                            console.log(test);
+                            res2.data.forEach(function (item) {
+                                test.push({
+                                    id: item.id,
+                                    name: item.title,
+                                    date: item.time,
+                                    type: '<span style="color:#FF6A00">' + item.type + '</span>',
+                                    status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                                });
+                            });
+
+                            //建立列表
+                            //announceListBuild(); //default以列表顯示
+                            TableListRun('列表元件');
+                            $('#LoadingBox').hide();
+
+                        });
                     });
+
                 }
             });
 
@@ -374,7 +404,8 @@
             var copy = _(temp).cloneDeep();
             copy.id = _uuid();
             axios.post('http://localhost:5566/announce/', copy).then(function (res) {
-                window.location.reload();
+                TableListRun('列表元件');
+                //window.location.reload();
             });
         }
     };

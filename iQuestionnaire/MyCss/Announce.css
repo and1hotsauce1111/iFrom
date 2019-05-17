@@ -23,7 +23,13 @@
     display: none;
 }
 
-#LoadingBox,
+#LoadingBox {
+    position: fixed;
+    top: 55vh;
+    left: 55vw;
+    text-align: center;
+    z-index: 6500;
+}
 #LoadingBox2 {
     text-align: center;
     padding: 50px 0;

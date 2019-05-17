@@ -1776,8 +1776,6 @@
         } else {
 
             //判斷問卷開放時間是否有誤
-            console.log(startTimeVal);
-            console.log(deadlineVal);
             if (startTimeVal > deadlineVal) {
                 alertBox({
                     Mode: 'A',
@@ -2845,7 +2843,7 @@
 
 
 
-
+    //跳離頁面或刷新的提示
     window.onbeforeunload = function (event) {
         var event = event || window.event;
         if (event) {

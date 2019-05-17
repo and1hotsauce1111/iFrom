@@ -223,45 +223,11 @@
     editQuestionnaire = function (dom) {
         var id = $(dom).attr('data-index');
         window.location.href = 'AddQuestionnire.aspx?surveyId=' + id + '';
-        //var id = '';
-        ////找到相對應問卷id
-        //for (var i = 0; i < test.length; i++) {
-        //    if (test[i].id == array[0].id) {
-        //        id = test[i].id;
-        //        break;
-        //    }
-        //}
-        //var array = TableListGetCheck('列表元件');
-        //if (array.length === 0) {
-        //    //不可同時編輯超過1筆
-        //    alertBox({
-        //        Mode: 'A',
-        //        Title: '<i class="fa fa-times"></i>&nbsp;錯誤提示',
-        //        Html: '<p style="font-size:18px;color:#ff6a00">尚未選擇問卷 !</p>'
-        //    });
-        //} else if (array.length > 1) {
-        //    //不可同時編輯超過1筆
-        //    alertBox({
-        //        Mode: 'A',
-        //        Title: '錯誤提示',
-        //        Html: '<p style="font-size:18px;color:#ff6a00">不可同時編輯超過一筆!</p>'
-        //    });
-        //} else {
-        //    var id = '';
-        //    //找到相對應問卷id
-        //    for (var i = 0; i < test.length; i++) {
-        //        if (test[i].id == array[0].id) {
-        //            id = test[i].id;
-        //            break;
-        //        }
-        //    }
-
-        //    window.location.href = 'AddQuestionnire.aspx?surveyId=' + id + '';
-        //}
     };
 
     //刪除問卷
     delQuestionnaire = function (index) {
+
         var array = TableListGetCheck('列表元件');
         if (array.length === 0) {
             alertBox({
@@ -283,26 +249,28 @@
                 },
                 OnOK: function () {
 
-                    var array = TableListGetCheck('列表元件');
+                    var targetId = array[0].id;
 
-                    for (var i = 0; i < array.length; i++) {
-                        axios.delete('http://localhost:3000/questionnaire/' + array[i].id + '').then(function (res) {
+                    axios.delete('http://localhost:3000/questionnaire/' + targetId).then(function (res1) {
+                        test = [];
+                        axios.get('http://localhost:3000/questionnaire').then(function (res2) {
+                            res2.data.forEach(function (item) {
+                                test.push({
+                                    id: item.id,
+                                    questionnaireDesc: item.questionnaireDesc,
+                                    allQuestionnaireData: item.allQuestionnaireData,
+                                    name: item.questionnaireTitle,
+                                    start: item.questionnaireStartTime || '<span style="color:#f00">未設定起始日期</span>',
+                                    end: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
+                                    repeat: item.repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>'
+                                });
+                            });
+
+                            //建立列表
+                            TableListRun('列表元件');
                             $('#LoadingBox').hide();
                         });
-
-                        //刪除test資料
-                        for (var j = 0; j < test.length; j++) {
-                            if (test[j].id == array[i].id) {
-                                test.splice(j, 1);
-                                break;
-                            }
-                        }
-
-                    }
-
-                    //呼叫TableListRun重新建立列表
-                    //TableListRun('列表元件');
-                    window.location.reload();
+                    });
 
                 }
             });
@@ -383,8 +351,8 @@
                     }
 
                     //呼叫TableListRun重新建立列表
-                    //TableListRun('列表元件');
-                    window.location.reload();
+                    TableListRun('列表元件');
+                    //window.location.reload();
                 }
             });
 
