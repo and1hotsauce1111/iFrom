@@ -53,7 +53,7 @@
 
                 //取得問卷資料
                 //非同步調用this會指向window，改用vm
-                axios.get('http://localhost:3000/questionnaire/' + id + '').then(function (res) {
+                axios.get(getQuestionnaire + id + '').then(function (res) {
                     vm.allQuestionnaireData = res.data.allQuestionnaireData;
                     vm.questionnaireTitle = res.data.questionnaireTitle;
                     vm.questionnaireDesc = res.data.questionnaireDesc;
@@ -306,7 +306,7 @@
                 });
 
 
-                axios.post('http://localhost:53000/answer', answer).then(function (res) {
+                axios.post(postAnswer, answer).then(function (res) {
                     console.log('success');
                     window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
                 });

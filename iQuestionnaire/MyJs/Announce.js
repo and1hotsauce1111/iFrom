@@ -10,13 +10,15 @@
     //渲染列表data
     var test = [];
     var renderData = [];
-    axios.get('http://localhost:5566/announce').then(function (res) {
+    axios.get(getAnnounce).then(function (res) {
         renderData = res.data;
         res.data.forEach(function (item) {
             test.push({
                 id: item.id,
                 name: item.title,
                 date: item.time,
+                startTime: item.startTime,
+                deadline: item.deadline,
                 type: '<span style="color:#FF6A00">' + item.type + '</span>',
                 status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
             });
@@ -34,14 +36,14 @@
             OutsideStyle: 'max-width:850px',
             Html: $('#add_new_announce'),
             OnClose: function (Type) {
-
                 var title = $('#title_input').val();
                 var data = CKEDITOR.instances.editor1.getData();
                 var type = $('input[type="radio"][name="radio3"]:checked').val();
                 var status = $('input[type="radio"][name="radio4"]:checked').val();
 
                 if (Type === 'ok') {
-
+                    $('#LoadingBox').show();
+                    //要依照順序排列
                     //未添加公告類型的提示
                     if (type === undefined) {
                         alertBox({
@@ -51,6 +53,7 @@
                                 $('#announce_type').addClass('warning');
                             }
                         });
+                        $('#LoadingBox').hide();
                         return false;
                     } else {
                         if ($('#announce_type').hasClass('warning')) {
@@ -72,10 +75,28 @@
                                 $('#announce_status').addClass('warning');
                             }
                         });
+                        $('#LoadingBox').hide();
                         return false;
                     } else {
                         if ($('#announce_status').hasClass('warning')) {
                             $('#announce_status').removeClass('warning');
+                        }
+                    }
+
+                    //未添加公告起訖時間
+                    if (startTime === '' || deadline === '') {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未添加公告起訖時間</p>',
+                            OnOK: function () {
+                                $('#announce_time').addClass('warning');
+                            }
+                        });
+                        $('#LoadingBox').hide();
+                        return false;
+                    } else {
+                        if ($('#announce_time').hasClass('warning')) {
+                            $('#announce_time').removeClass('warning');
                         }
                     }
 
@@ -88,6 +109,7 @@
                                 $('#announce_title').addClass('warning');
                             }
                         });
+                        $('#LoadingBox').hide();
                         return false;
                     } else {
                         if ($('#announce_title').hasClass('warning')) {
@@ -105,6 +127,7 @@
                                 $('#announce_content').addClass('warning');
                             }
                         });
+                        $('#LoadingBox').hide();
                         return false;
                     } else {
                         if ($('#announce_content').hasClass('warning')) {
@@ -112,7 +135,20 @@
                         }
                     }
 
+                    //判斷問卷開放時間是否有誤
+                    if (startTimeVal > deadlineVal) {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#ff6a00">公告結束時間早於開放時間！</p>'
+                        });
+
+                        $('#LoadingBox').hide();
+                        return false;
+                    }
+
                 }
+
+                
 
                 return true;
             },
@@ -122,12 +158,9 @@
                 $('#LoadingBox2').hide();
                 $('.tableDisplayNone2').show();
             },
-            OnClose: function (Type) {
-                if (Type === 'ok') {
-                    $('#LoadingBox').show();
-                }
-            },
             OnOK: function () {
+
+
 
                 var title = $('#title_input').val();
                 var data = CKEDITOR.instances.editor1.getData();
@@ -143,13 +176,18 @@
 
                 //顯示現在時間
                 var now = '' + year + '年' + month + '月' + date + '日' + ' ' + hour + ':' + minute;
+
                 var announceData = {
                     id: _uuid(),
                     type: type,
                     status: status,
                     title: title,
                     content: data,
-                    time: now
+                    time: now,
+                    startTime: startTime,
+                    deadline: deadline,
+                    startTimeVal: startTimeVal,
+                    deadlineVal: deadlineVal
                 };
 
 
@@ -157,18 +195,18 @@
                 var form = new FormData();
                 var upload = $('#file-uploader')[0].files;
 
-
-
-                axios.post('http://localhost:5566/announce', announceData).then(function (res) {
+                axios.post(postAnnounce, announceData).then(function (res) {
                     test = [];
                     renderData = [];
-                    axios.get('http://localhost:5566/announce').then(function (res2) {
+                    axios.get(getAnnounce).then(function (res2) {
                         renderData = res2.data;
                         res2.data.forEach(function (item) {
                             test.push({
                                 id: item.id,
                                 name: item.title,
                                 date: item.time,
+                                startTime: item.startTime,
+                                deadline: item.deadline,
                                 type: '<span style="color:#FF6A00">' + item.type + '</span>',
                                 status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
                             });
@@ -181,7 +219,7 @@
                     });
                 });
 
-                
+
                 //window.location.reload();
 
             }
@@ -216,6 +254,8 @@
                                     $('#announce_type').addClass('warning');
                                 }
                             });
+
+                            $('#LoadingBox').hide();
                             return false;
                         } else {
                             if ($('#announce_type').hasClass('warning')) {
@@ -237,10 +277,29 @@
                                     $('#announce_status').addClass('warning');
                                 }
                             });
+
+                            $('#LoadingBox').hide();
                             return false;
                         } else {
                             if ($('#announce_status').hasClass('warning')) {
                                 $('#announce_status').removeClass('warning');
+                            }
+                        }
+
+                        //未添加公告起訖時間
+                        if (startTime === '' || deadline === '') {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未添加公告起訖時間</p>',
+                                OnOK: function () {
+                                    $('#announce_time').addClass('warning');
+                                }
+                            });
+                            $('#LoadingBox').hide();
+                            return false;
+                        } else {
+                            if ($('#announce_time').hasClass('warning')) {
+                                $('#announce_time').removeClass('warning');
                             }
                         }
 
@@ -253,6 +312,8 @@
                                     $('#announce_title').addClass('warning');
                                 }
                             });
+
+                            $('#LoadingBox').hide();
                             return false;
                         } else {
                             if ($('#announce_title').hasClass('warning')) {
@@ -270,12 +331,26 @@
                                     $('#announce_content').addClass('warning');
                                 }
                             });
+
+                            $('#LoadingBox').hide();
                             return false;
                         } else {
                             if ($('#announce_content').hasClass('warning')) {
                                 $('#announce_content').removeClass('warning');
                             }
                         }
+
+                        //判斷問卷開放時間是否有誤
+                        if (startTimeVal > deadlineVal) {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#ff6a00">公告結束時間早於開放時間！</p>'
+                            });
+
+                            $('#LoadingBox').hide();
+                            return false;
+                        }
+
 
                     }
 
@@ -288,9 +363,25 @@
                 //彈窗的物件build起來再呼叫CKEditor
                 CKEDITOR.replace('editor1');
 
+                if (renderData[index].startTime) {
+                    $('#startTime').hide();
+                    $('#startTimeVal').show();
+                    startTime = renderData[index].startTime;
+                    startTimeVal = renderData[index].startTimeVal;
+                }
+
+                if (renderData[index].deadline) {
+                    $('#deadline').hide();
+                    $('#deadlineVal').show();
+                    deadline = renderData[index].deadline;
+                    deadlineVal = renderData[index].deadlineVal;
+                }
+
                 $('#title_input').val(renderData[index].title);
                 $('input[type="radio"][name="radio3"][value="' + renderData[index].type + '"]').prop("checked", true);
                 $('input[type="radio"][name="radio4"][value="' + renderData[index].status + '"]').prop("checked", true);
+                $('#startTimeVal').html('' + renderData[index].startTime + '&emsp;<button type="button" class="button btn_blue" onclick="resetTime($(this))" data-status="start">重新設定</button>');
+                $('#deadlineVal').html('' + renderData[index].deadline + '&emsp;<button type="button" class="button btn_blue" onclick="resetTime($(this))" data-status="end">重新設定</button>');
                 $('textarea#editor1').val(renderData[index].content);
 
             },
@@ -324,19 +415,25 @@
                     status: status,
                     title: title,
                     content: data,
-                    time: now
+                    time: now,
+                    startTime: startTime,
+                    startVal: startTimeVal,
+                    deadline: deadline,
+                    deadlineVal: deadlineVal
                 };
 
-                axios.patch('http://localhost:5566/announce/' + id, announceData).then(function (res) {
+                axios.patch(getAnnounce + id, announceData).then(function (res) {
                     test = [];
                     renderData = [];
-                    axios.get('http://localhost:5566/announce').then(function (res2) {
+                    axios.get(getAnnounce).then(function (res2) {
                         renderData = res2.data;
                         res2.data.forEach(function (item) {
                             test.push({
                                 id: item.id,
                                 name: item.title,
                                 date: item.time,
+                                startTime: startTime,
+                                deadline: deadline,
                                 type: '<span style="color:#FF6A00">' + item.type + '</span>',
                                 status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
                             });
@@ -363,7 +460,7 @@
     };
 
     //刪除公告
-    deleteAnnounce = function () {
+    delAnnounce = function () {
         var array = TableListGetCheck('列表元件');
         if (array.length === 0) {
             alertBox({
@@ -384,29 +481,54 @@
                 },
                 OnOK: function () {
                     //目前只能先刪除一筆
-                    var targetId = array[0].id;
-
-                    axios.delete('http://localhost:5566/announce/' + targetId).then(function (res1) {
-                        test = [];
-                        axios.get('http://localhost:5566/announce').then(function (res2) {
-                            console.log(test);
-                            res2.data.forEach(function (item) {
-                                test.push({
-                                    id: item.id,
-                                    name: item.title,
-                                    date: item.time,
-                                    type: '<span style="color:#FF6A00">' + item.type + '</span>',
-                                    status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                    for (var i = 0; i < array.length; i++) {
+                        axios.delete(deleteAnnounce + array[i].id).then(function (res) {
+                            test = [];
+                            axios.get(getAnnounce).then(function (res2) {
+                                res2.data.forEach(function (item) {
+                                    test.push({
+                                        id: item.id,
+                                        name: item.title,
+                                        date: item.time,
+                                        startTime: item.startTime,
+                                        deadline: item.deadline,
+                                        type: '<span style="color:#FF6A00">' + item.type + '</span>',
+                                        status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                                    });
                                 });
+
+
+                                window.location.reload();
+                                //建立列表
+                                //announceListBuild(); //default以列表顯示
+                                //TableListRun('列表元件');
+                                //$('#LoadingBox').hide();
+
                             });
 
-                            //建立列表
-                            //announceListBuild(); //default以列表顯示
-                            TableListRun('列表元件');
-                            $('#LoadingBox').hide();
-
                         });
-                    });
+                    }
+                    //axios.delete(deleteAnnounce + targetId).then(function (res1) {
+                    //    test = [];
+                    //    axios.get(getAnnounce).then(function (res2) {
+                    //        console.log(test);
+                    //        res2.data.forEach(function (item) {
+                    //            test.push({
+                    //                id: item.id,
+                    //                name: item.title,
+                    //                date: item.time,
+                    //                type: '<span style="color:#FF6A00">' + item.type + '</span>',
+                    //                status: item.status == '啟用' ? '<span style="color:#009149"><i class="fa fa-check"></i>啟用</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>停用</span></span>'
+                    //            });
+                    //        });
+
+                    //        //建立列表
+                    //        //announceListBuild(); //default以列表顯示
+                    //        TableListRun('列表元件');
+                    //        $('#LoadingBox').hide();
+
+                    //    });
+                    //});
 
                 }
             });
@@ -436,15 +558,59 @@
             });
             var copy = _(temp).cloneDeep();
             copy.id = _uuid();
-            axios.post('http://localhost:5566/announce/', copy).then(function (res) {
+            axios.post(postAnnounce, copy).then(function (res) {
                 TableListRun('列表元件');
                 //window.location.reload();
             });
         }
     };
 
+    //選取時間
+    var startTime = '';
+    var deadline = '';
+    var startTimeVal; //毫秒
+    var deadlineVal;
+    TimePickSetting({
+        ID: 'deadline',
+        Format: 'yyyy-MM-dd HH:mm',
+        TimePick: true,
+        OnClose: function () {
+            deadlineVal = TimePickGet('deadline').Time;
+            deadline = TimePickGet('deadline').Format;
+        }
+    });
+
+    TimePickSetting({
+        ID: 'startTime',
+        Format: 'yyyy-MM-dd HH:mm',
+        TimePick: true,
+        OnClose: function () {
+            startTimeVal = TimePickGet('startTime').Time;
+            startTime = TimePickGet('startTime').Format;
+        }
+    });
+
+    //重設時間
+    resetTime = function (dom) {
+
+        var status = $(dom).attr('data-status');
+
+        if (status === 'start') {
+
+            $('#startTime').show();
+            $('#startTimeVal').hide();
+
+        }
+
+        if (status === 'end') {
+
+            $('#deadline').show();
+            $('#deadlineVal').hide();
+        }
+    };
 
 
+    //公告查詢
     var announceListBuild = function () {
         TableListBuild({
             Name: '列表元件',
@@ -585,6 +751,9 @@
 
         TableListRun('列表元件');
     };
+
+
+
 
 
 });

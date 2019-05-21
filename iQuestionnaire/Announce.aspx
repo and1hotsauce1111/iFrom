@@ -39,7 +39,7 @@
                             <span class="label_text">置頂消息</span>
                         </label>
                     </td>
-                </tr>
+                </tr>          
                 <tr>
                     <th>公告標題</th>
                     <td>
@@ -88,7 +88,7 @@
             <div class="ContentBoxHeader">操作功能</div>
             <div class="manipulate_btn">
                 <button type="button" class="button btn_white" onclick="addAnnounce()"><i class="fa fa-plus" style="color: #1E9E74; padding-right: 3px"></i>新增公告</button>
-                <button type="button" class="button btn_white" onclick="deleteAnnounce()"><i class="fa fa-trash-o" style="color: #f00; padding-right: 3px"></i>刪除公告</button>
+                <button type="button" class="button btn_white" onclick="delAnnounce()"><i class="fa fa-trash-o" style="color: #f00; padding-right: 3px"></i>刪除公告</button>
                 <%--<button type="button" class="button btn_white" onclick="copyAnnounce()"><i class="fa fa-clone" style="color: #0085E5; padding-right: 3px"></i>複製公告</button>--%>
             </div>
         </div>
@@ -116,7 +116,7 @@
                             </label>
                         </th>
                         <th class="textL" style="font-weight: bold; font-size: 16px">公告標題</th>
-                        <th class="textL" style="font-weight: bold; font-size: 16px">更新日期</th>
+                        <th class="textL" style="font-weight: bold; font-size: 16px">公告日期</th>
                         <th class="textL" style="font-weight: bold; font-size: 16px">公告類型</th>
                         <th class="textL" style="font-weight: bold; font-size: 16px">公告狀態</th>
                         <th class="textL" style="font-weight: bold; font-size: 16px">發佈人</th>
@@ -162,7 +162,7 @@
         <div id="add_new_announce" style="display: none">
             <table class="table tableDisplayNone2">
                 <tr>
-                    <th class="textC" id="announce_type"><span style="color: #f00">*</span>公告類型</th>
+                    <th class="textC" id="announce_type" style="width:15%"><span style="color: #f00">*</span>公告類型</th>
                     <td>
                         <label class="label_radio">
                             <input type="radio" name="radio3" id="normal_announce" value="一般公告" />
@@ -189,6 +189,18 @@
                             <span class="label_icon"></span>
                             <span class="label_text">停用</span>
                         </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="textC" id="announce_time"><span style="color: #f00">*</span>問卷開放期間</th>
+                    <td style="display:flex;align-items:center">
+                        <span style="color:#ff6a00">起:&emsp;</span>
+                        <div id="startTime" style="margin-right:15px"></div>
+                        <div id="startTimeVal"></div>
+
+                        <span style="color:#ff6a00">迄:&emsp;</span>
+                        <div id="deadline" style="margin-right:15px"></div>
+                        <div id="deadlineVal"></div>
                     </td>
                 </tr>
                 <tr>

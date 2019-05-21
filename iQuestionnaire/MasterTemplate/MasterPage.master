@@ -54,6 +54,10 @@
     <!--icon套件-->
     <link href="<%=ResolveClientUrl("~/IncludeCss/font-awesome-4.7.0/css/font-awesome.min.css")%>" rel="stylesheet" />
 
+    <!--拖曳套件-->
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js"></script>
+    <script src="https://npmcdn.com/vue-sortable@latest"></script>--%>
+
 
     <!--頁面設定-->
     <link href="<%=ResolveClientUrl("~/MyCss/MasterPage.css") + version %>" rel="stylesheet" />
@@ -63,6 +67,15 @@
     <style type="text/css">
     </style>
     <script type="text/javascript">
+
+        /* api接口 */
+        var getQuestionnaire = 'http://localhost:3000/questionnaire/';
+        var postQuestionnaire = 'http://localhost:3000/questionnaire/';
+        var deleteQuestionnaire = 'http://localhost:3000/questionnaire/';
+        var getAnnounce = 'http://localhost:5566/announce/';
+        var postAnnounce = 'http://localhost:5566/announce/';
+        var deleteAnnounce = 'http://localhost:5566/announce/';
+        var postAnswer = 'http://localhost:53000/answer';
 
         //麵包屑
         //pid為0代表父層，子層pid = 父層的id
@@ -83,8 +96,8 @@
             { id: '/iQuestion/Announce.aspx', pid: '/iQuestion/Default.aspx', name: '公告管理' },
             { id: '/iQuestion/QuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '問卷管理' },
             { id: '/iQuestion/AnswerQuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '我的問卷' },
-            { id: '/iQuestion/AddQuestionnire.aspx?surveyId='+ surveyId +'', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
-            { id: '/iQuestion/Answer.aspx?surveyId='+ surveyId +'', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' },
+            { id: '/iQuestion/AddQuestionnire.aspx?surveyId=' + surveyId + '', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
+            { id: '/iQuestion/Answer.aspx?surveyId=' + surveyId + '', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' },
             { id: '/iQuestion/MyAnnounce.aspx', pid: '/iQuestion/Default.aspx', name: '公告消息' }
         ];
 

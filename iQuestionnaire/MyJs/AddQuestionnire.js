@@ -135,14 +135,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
 
 
 
@@ -159,14 +152,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         }
 
 
@@ -363,59 +349,9 @@
                             target.showLogicCount = optionsLogic;
 
                             //跳題題號重新排序
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    if (question.options) {
-                                        question.options.forEach(function (option) {
-                                            if (option.jumpLogic !== null) {
-                                                vm.allQuestionnaireData.forEach(function (data) {
-                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                        });
-                                    }
-
-
-                                    question.showLogicCount.forEach(function (logic) {
-                                        if (logic !== null) {
-                                            vm.allQuestionnaireData.forEach(function (data) {
-                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                    if (item.id == logic.jumpTo.id[0]) {
-                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                    }
-                                                });
-                                            });
-                                        }
-                                    });
-
-                                });
-                            });
+                            resetOrder();
 
                         }
-
-                        //跳題題號重新排序
-                        //vm.allQuestionnaireData.forEach(function (page) {
-                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                        //        if (question.options) {
-                        //            question.options.forEach(function (option) {
-                        //                if (option.jumpLogic !== null) {
-                        //                    vm.allQuestionnaireData.forEach(function (data) {
-                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                        //                            }
-                        //                        });
-                        //                    });
-                        //                }
-                        //            });
-                        //        }
-
-                        //    });
-                        //});
 
                     }
                 });
@@ -532,14 +468,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         } else {
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'checkbox',
@@ -553,14 +482,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         }
 
                     }
@@ -754,59 +676,10 @@
                             target.showLogicCount = optionsLogic;
 
                             //跳題題號重新排序
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    if (question.options) {
-                                        question.options.forEach(function (option) {
-                                            if (option.jumpLogic !== null) {
-                                                vm.allQuestionnaireData.forEach(function (data) {
-                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                        });
-                                    }
-
-
-                                    question.showLogicCount.forEach(function (logic) {
-                                        if (logic !== null) {
-                                            vm.allQuestionnaireData.forEach(function (data) {
-                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                    if (item.id == logic.jumpTo.id[0]) {
-                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                    }
-                                                });
-                                            });
-                                        }
-                                    });
-
-                                });
-                            });
+                            resetOrder();
+                            
 
                         }
-
-                        //跳題題號重新排序
-                        //vm.allQuestionnaireData.forEach(function (page) {
-                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                        //        if (question.options) {
-                        //            question.options.forEach(function (option) {
-                        //                if (option.jumpLogic !== null) {
-                        //                    vm.allQuestionnaireData.forEach(function (data) {
-                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                        //                            }
-                        //                        });
-                        //                    });
-                        //                }
-                        //            });
-                        //        }
-                        //    });
-                        //});
-
 
                     }
                 });
@@ -919,14 +792,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         } else {
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'pulldown',
@@ -940,14 +806,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         }
                     }
                 });
@@ -1138,58 +997,9 @@
                             target.showLogicCount = optionsLogic;
 
                             //跳題題號重新排序
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    if (question.options) {
-                                        question.options.forEach(function (option) {
-                                            if (option.jumpLogic !== null) {
-                                                vm.allQuestionnaireData.forEach(function (data) {
-                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                        });
-                                    }
-
-
-                                    question.showLogicCount.forEach(function (logic) {
-                                        if (logic !== null) {
-                                            vm.allQuestionnaireData.forEach(function (data) {
-                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                    if (item.id == logic.jumpTo.id[0]) {
-                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                    }
-                                                });
-                                            });
-                                        }
-                                    });
-
-                                });
-                            });
+                            resetOrder();
 
                         }
-
-                        //跳題題號重新排序
-                        //vm.allQuestionnaireData.forEach(function (page) {
-                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                        //        if (question.options) {
-                        //            question.options.forEach(function (option) {
-                        //                if (option.jumpLogic !== null) {
-                        //                    vm.allQuestionnaireData.forEach(function (data) {
-                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                        //                            }
-                        //                        });
-                        //                    });
-                        //                }
-                        //            });
-                        //        }
-                        //    });
-                        //});
 
                     }
                 });
@@ -1243,14 +1053,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         } else {
 
                             //是否必填
@@ -1267,14 +1070,7 @@
                             });
 
                             //題號重新排序
-                            var newIndex = 1;
-
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    question.questionNum = newIndex;
-                                    newIndex++;
-                                });
-                            });
+                            resetNum();
                         }
 
                     }
@@ -1383,140 +1179,74 @@
                             target.showLogicCount = optionsLogic;
 
                             //跳題題號重新排序
-                            vm.allQuestionnaireData.forEach(function (page) {
-                                page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                                    if (question.options) {
-                                        question.options.forEach(function (option) {
-                                            if (option.jumpLogic !== null) {
-                                                vm.allQuestionnaireData.forEach(function (data) {
-                                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                        if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                            option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                        }
-                                                    });
-                                                });
-                                            }
-                                        });
-                                    }
-
-
-                                    question.showLogicCount.forEach(function (logic) {
-                                        if (logic !== null) {
-                                            vm.allQuestionnaireData.forEach(function (data) {
-                                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                    if (item.id == logic.jumpTo.id[0]) {
-                                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                    }
-                                                });
-                                            });
-                                        }
-                                    });
-
-                                });
-                            });
+                            resetOrder();
 
                         }
-
-
-
-                        //跳題題號重新排序
-                        //vm.allQuestionnaireData.forEach(function (page) {
-                        //    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                        //        if (question.options) {
-                        //            question.options.forEach(function (option) {
-                        //                if (option.jumpLogic !== null) {
-                        //                    vm.allQuestionnaireData.forEach(function (data) {
-                        //                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                        //                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                        //                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                        //                            }
-                        //                        });
-                        //                    });
-                        //                }
-                        //            });
-                        //        }
-
-                        //    });
-                        //});
 
                     }
                 });
             }
         }
 
+        if (type === 'pageDesc') {
+            if (status === 'add') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增頁面說明',
+                    Html: $('#editPageDesc'),
+                    OnOK: function () {
+                        //過場loading
 
-    };
+                        if (vm.nowPage === 1) {
+                            //初始第一頁
+                            vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
+                                type: 'pageDesc',
+                                id: _uuid(),
+                                val: $('#editPageDescVal').val()
+                            });
 
-    //編輯頁面說明
-    editPageDesc = function (e, status, dom) {
-        if (status === 'add') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增頁面說明',
-                Html: $('#editPageDesc'),
-                OnOK: function () {
-                    //過場loading
+                        } else {
+                            vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
+                                type: 'pageDesc',
+                                id: _uuid(),
+                                val: $('#editPageDescVal').val()
+                            });
+                        }
 
-                    if (vm.nowPage === 1) {
-                        //初始第一頁
-                        vm.allQuestionnaireData[0].questionDataPerPage["pageDesc"] = $('#editPageDescVal').val();
-
-                    } else {
-                        vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageDesc"] = $('#editPageDescVal').val();
                     }
+                });
+            }
 
-                }
-            });
-        }
-
-        if (status === 'edit') {
-            alertBox({
-                Mode: 'C',
-                Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯頁面說明',
-                Html: $('#editPageDesc'),
-                OnReady: function () {
-                    //過場loading
-
-                    if (status === 'edit') {
+            if (status === 'edit') {
+                alertBox({
+                    Mode: 'C',
+                    Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯頁面說明',
+                    Html: $('#editPageDesc'),
+                    OnReady: function () {
+                        //過場loading
 
                         var index = $(dom).attr('data-index');
                         var data = {};
 
-                        for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-
-                            if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-
-                                data = vm.allQuestionnaireData[i].questionDataPerPage["pageDesc"];
-                                break;
-                            }
-
-                        }
+                        data = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].val;
 
                         //插入題目
                         $('#editPageDescVal').val(data);
 
-                    }
+                    },
+                    OnOK: function () {
 
-                },
-                OnOK: function () {
+                        var newTitle = $('#editPageDescVal').val();
 
-                    var newTitle = $('#editPageDescVal').val();
+                        var index = $(dom).attr('data-index');
 
-                    var index = $(dom).attr('data-index');
-
-                    for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-
-                        if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-
-                            vm.allQuestionnaireData[i].questionDataPerPage["pageDesc"] = newTitle;
-                            break;
-                        }
+                        vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].val = newTitle;
 
                     }
-
-                }
-            });
+                });
+            }
         }
+
     };
 
     //新增頁面
@@ -1593,7 +1323,10 @@
                                         }
                                     });
                                 } else {
-                                    data.showLogicCount = [];
+                                    if (data.showLogicCount) {
+                                        data.showLogicCount = [];
+                                    }
+
                                 }
 
                             });
@@ -1627,13 +1360,7 @@
 
 
                     //題號重新排序
-                    var newIndex = 1;
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            question.questionNum = newIndex;
-                            newIndex++;
-                        });
-                    });
+                    resetNum();
 
                     //跳轉至上頁
                     if (vm.nowPage === 1) {
@@ -1673,7 +1400,10 @@
                                         }
                                     });
                                 } else {
-                                    data.showLogicCount = [];
+                                    if (data.showLogicCount) {
+                                        data.showLogicCount = [];
+                                    }
+
                                 }
                             });
                         });
@@ -1707,13 +1437,7 @@
 
 
                     //題號重新排序
-                    var newIndex = 1;
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            question.questionNum = newIndex;
-                            newIndex++;
-                        });
-                    });
+                    resetNum();
 
                     //跳轉至上頁
                     if (vm.nowPage === 1) {
@@ -1746,7 +1470,7 @@
         getUrlVars();
         var surveyId = $.getUrlVar('surveyId');
 
-        if (surveyId !== '0') {
+        if (surveyId !== '0') { //編輯問卷
 
             //判斷問卷開放時間是否有誤
             if (startTimeVal > deadlineVal) {
@@ -1754,6 +1478,15 @@
                     Mode: 'A',
                     Html: '<p style="color:#ff6a00">問卷結束時間早於開放時間！</p>'
                 });
+
+                //跳離頁面或刷新的提示
+                window.onbeforeunload = function (event) {
+                    var event = event || window.event;
+                    if (event) {
+                        event.returnValue = "確定要刷新頁面? 資料將不被保存";
+                    }
+                    return '確定要刷新頁面? 資料將不被保存';
+                };
 
                 return false;
             }
@@ -1761,7 +1494,7 @@
             //儲存編輯後問卷資料
             var questionnaire = {
                 id: surveyId,
-                questionnaireTitle: vm.questionnaireTitle,
+                questionnaireTitle: vm.questionnaireTitle || '未設定標題',
                 questionnaireDesc: vm.questionnaireDesc,
                 questionnaireDeadline: deadline || vm.deadline,
                 questionnaireStartTime: startTime || vm.startTime,
@@ -1769,11 +1502,11 @@
                 repeatAnswer: vm.repeat,
             };
 
-            axios.patch('http://localhost:3000/questionnaire/' + surveyId + '', questionnaire).then(function (res) {
+            axios.patch(getQuestionnaire + surveyId + '', questionnaire).then(function (res) {
                 window.location.href = 'QuestionnaireList.aspx?user=admin';
             });
 
-        } else {
+        } else { //新增問卷
 
             //判斷問卷開放時間是否有誤
             if (startTimeVal > deadlineVal) {
@@ -1782,13 +1515,22 @@
                     Html: '<p style="color:#ff6a00">問卷結束時間早於開放時間！</p>'
                 });
 
+                //跳離頁面或刷新的提示
+                window.onbeforeunload = function (event) {
+                    var event = event || window.event;
+                    if (event) {
+                        event.returnValue = "確定要刷新頁面? 資料將不被保存";
+                    }
+                    return '確定要刷新頁面? 資料將不被保存';
+                };
+
                 return false;
             }
 
             //儲存新建問卷
             var questionnaire = {
                 id: _uuid(),
-                questionnaireTitle: vm.questionnaireTitle,
+                questionnaireTitle: vm.questionnaireTitle || '未設定標題',
                 questionnaireDesc: vm.questionnaireDesc,
                 questionnaireDeadline: deadline || '',
                 questionnaireStartTime: startTime || '',
@@ -1797,7 +1539,7 @@
             };
 
 
-            axios.post('http://localhost:3000/questionnaire', questionnaire).then(function (res) {
+            axios.post(postQuestionnaire, questionnaire).then(function (res) {
                 window.location.href = 'QuestionnaireList.aspx?user=admin';
             });
         }
@@ -1901,7 +1643,7 @@
     };
 
     //刪除問題
-    deleteQuestion = function (e, dom) {
+    deleteQuestion = function (e, dom, type) {
 
         alertBox({
             Mode: 'C',
@@ -1948,63 +1690,23 @@
                                 });
                             } else {
                                 //文本題的狀況
+                                if (question.showLogicCount) {
+                                    question.showLogicCount.forEach(function (logic, index) {
+                                        if (logic.jumpTo.id[0] == delId) {
+                                            question.showLogicCount = [];
+                                        }
+                                    });
+                                }
 
-                                question.showLogicCount.forEach(function (logic, index) {
-                                    if (logic.jumpTo.id[0] == delId) {
-                                        question.showLogicCount = [];
-                                    }
-                                });
                             }
                         });
                     });
 
                     //題號重新排序
-                    var newIndex = 1;
-
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        //重排題號
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            question.questionNum = newIndex;
-                            newIndex++;
-                        });
-                    });
+                    resetNum();
 
                     //跳題題號重新排序
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                            if (question.options) {
-                                question.options.forEach(function (option) {
-                                    if (option.jumpLogic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                    option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
-                                        });
-                                    }
-                                });
-
-                            }
-
-                            //若有跳題設定
-                            if (question.showLogicCount.length !== 0) {
-                                question.showLogicCount.forEach(function (logic) {
-                                    if (logic !== null) {
-                                        vm.allQuestionnaireData.forEach(function (data) {
-                                            data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                                if (item.id == logic.jumpTo.id[0]) {
-                                                    logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                                }
-                                            });
-                                        });
-                                    }
-                                });
-                            }
-
-
-                        });
-                    });
+                    resetOrder();
 
                     $('#LoadingBox').hide();
 
@@ -2012,19 +1714,15 @@
 
                 if (type === 'pageDesc') {
                     var index = $(dom).attr('data-index');
+                    vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.splice(index, 1);
 
-                    for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
-                        if (vm.allQuestionnaireData[i]['page'] == vm.nowPage) {
-                            vm.allQuestionnaireData[i].questionDataPerPage["pageDesc"] = '';
-                        }
-                    }
                 }
             }
         });
     };
 
     //複製問題
-    copyQuestion = function (e, dom) {
+    copyQuestion = function (e, dom, type) {
 
         alertBox({
             Mode: 'C',
@@ -2041,7 +1739,6 @@
                     if (vm.allQuestionnaireData[i]["page"] == vm.nowPage) {
 
                         //深拷貝物件
-                        //copyQuestion = $.extend(true, {}, vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index]);
                         var copyQuestion = _.cloneDeep(vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"][index]);
                         //重設問題id
                         copyQuestion["id"] = _uuid();
@@ -2053,54 +1750,19 @@
                             });
                         }
                         //重設跳題提示數目
-                        copyQuestion["showLogicCount"] = [];
+                        if (copyQuestion.showLogicCount) {
+                            copyQuestion["showLogicCount"] = [];
+                        }
                         vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"].push(copyQuestion);
                         //vm.allQuestionnaireData[i].questionDataPerPage["pageQuestionData"].splice(index+1,0,copyQuestion);
                     }
                 }
 
                 //題號重新排序
-                var newIndex = 1;
-
-                vm.allQuestionnaireData.forEach(function (page) {
-                    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                        question.questionNum = newIndex;
-                        newIndex++;
-
-                    });
-                });
+                resetNum();
 
                 //跳題題號重新排序
-                vm.allQuestionnaireData.forEach(function (page) {
-                    page.questionDataPerPage.pageQuestionData.forEach(function (question) {
-                        if (question.options) {
-                            question.options.forEach(function (option) {
-                                if (option.jumpLogic !== null) {
-                                    vm.allQuestionnaireData.forEach(function (data) {
-                                        data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                            if (item.id == option.jumpLogic.jumpTo.id[0]) {
-                                                option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                            }
-                                        });
-                                    });
-                                }
-                            });
-                        }
-
-                        question.showLogicCount.forEach(function (logic) {
-                            if (logic !== null) {
-                                vm.allQuestionnaireData.forEach(function (data) {
-                                    data.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                        if (item.id == logic.jumpTo.id[0]) {
-                                            logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
-                                        }
-                                    });
-                                });
-                            }
-                        });
-
-                    });
-                });
+                resetOrder();
 
                 $('#LoadingBox').hide();
 
@@ -2741,8 +2403,56 @@
         });
     };
 
+    //題號重新排序function
+    resetNum = function () {
+        var newIndex = 1;
+        vm.allQuestionnaireData.forEach(function (page) {
+            for (var i = 0; i < page.questionDataPerPage.pageQuestionData.length; i++) {
+                if (page.questionDataPerPage.pageQuestionData[i].type === 'pageDesc') continue;
+                page.questionDataPerPage.pageQuestionData[i].questionNum = newIndex;
+                newIndex++;
+            }
+        });
+    };
+
+    //跳題題號重新排序function
+    resetOrder = function () {
+
+        vm.allQuestionnaireData.forEach(function (page) {
+            page.questionDataPerPage.pageQuestionData.forEach(function (question) {
+                if (question.options) {
+                    question.options.forEach(function (option) {
+                        if (option.jumpLogic !== null) {
+                            vm.allQuestionnaireData.forEach(function (data) {
+                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                    if (item.id == option.jumpLogic.jumpTo.id[0]) {
+                                        option.jumpLogic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+
+                if (question.showLogicCount) {
+                    question.showLogicCount.forEach(function (logic) {
+                        if (logic !== null) {
+                            vm.allQuestionnaireData.forEach(function (data) {
+                                data.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                    if (item.id == logic.jumpTo.id[0]) {
+                                        logic.jumpTo.val = ['Q' + item.questionNum + ' ' + item.title + ''];
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
 
 
+            });
+        });
+
+    };
 
 
     //上一頁
@@ -2853,10 +2563,47 @@
     };
 
 
+    //拖曳功能
+
+    //Vue.nextTick(function () {
+    //    var dragWrap = document.querySelector('.showQuestions_wrap');
+    //    var dragItems = document.querySelectorAll('.question_wrap');
+    //    console.log(dragItems);
+
+    //});
+
+    //拖曳功能
+
+    //Vue.nextTick(function () {
+
+    //    var el = document.querySelector('.showQuestions_wrap');
+    //    var ids = []; //儲存問題id
+    //    var newData = []; //儲存拖曳後的資料
+
+    //    Sortable.create(el, {
+    //        draggable: '.question_wrap',
+    //        ghostClass: 'ghost',
+    //        forceFallback: true,
+    //        scroll: true,
+    //        scrollSensitivity: 100,
+    //        scrollSpeed: 30,
+    //        bubbleScroll: true,
+    //        onUpdate: function () {
+
+
+    //        },
+    //        onEnd: function (evt) {
+
+
+    //        }
+    //    });
+
+
+    //});
+
 
 
     /* Vue */
-
     var vm = new Vue({
 
         el: '#editQuestion',
@@ -2915,7 +2662,7 @@
                 //取得問卷資料
                 //非同步調用this會指向window，改用vm
 
-                axios.get('http://localhost:3000/questionnaire/' + id + '').then(function (res) {
+                axios.get(getQuestionnaire + id + '').then(function (res) {
                     vm.allQuestionnaireData = res.data.allQuestionnaireData;
                     vm.questionnaireTitle = res.data.questionnaireTitle;
                     vm.questionnaireDesc = res.data.questionnaireDesc;
@@ -2948,8 +2695,11 @@
                 }
 
             }
+        },
+        mounted: function () {
         }
 
     });
+
 
 });

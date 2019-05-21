@@ -40,7 +40,7 @@
                                 <div class="textarea_icon"><i class="fa fa-file-text-o"></i></div>
                                 <div class="textarea_text">文本題</div>
                             </li>
-                            <li onclick="editPageDesc(event,'add')">
+                            <li onclick="editQuestion(event,'add', $(this))" data-type="pageDesc">
                                 <div class="textarea_icon"><i class="fa fa-quote-right"></i></div>
                                 <div class="textarea_text">頁面說明</div>
                             </li>
@@ -80,7 +80,7 @@
                     <li onclick="editQuestion(event,'add',$(this))" data-type="textarea">
                         <div class="textarea_icon" title="文本題"><i class="fa fa-file-text-o"></i></div>
                     </li>
-                    <li onclick="editPageDesc(event,'add')">
+                    <li onclick="editQuestion(event,'add', $(this))" data-type="pageDesc">
                         <div class="textarea_icon" title="頁面說明"><i class="fa fa-quote-right"></i></div>
                     </li>
                     <li onclick="addNewPage(event, 'add')">
@@ -119,7 +119,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="radio1" value="false"/>
+                                <input type="radio" name="radio1" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -178,8 +178,6 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>若未選擇是否為必填題，預設為非必填</span>
                 </div>
 
             </div>
@@ -197,7 +195,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="edit_radio1" value="false"/>
+                                <input type="radio" name="edit_radio1" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -250,8 +248,6 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>若未選擇是否為必填題，預設為非必填</span>
                 </div>
 
             </div>
@@ -268,7 +264,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="radio2" value="false"/>
+                                <input type="radio" name="radio2" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -332,8 +328,6 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>若未選擇是否為必填題，預設為非必填</span>
                 </div>
 
             </div>
@@ -350,7 +344,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="edit_radio2" value="false"/>
+                                <input type="radio" name="edit_radio2" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -407,8 +401,6 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>若未選擇是否為必填題，預設為非必填</span>
                 </div>
 
             </div>
@@ -425,7 +417,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="radio3" value="false"/>
+                                <input type="radio" name="radio3" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -482,8 +474,6 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>若未選擇是否為必填題，預設為非必填</span>
                 </div>
 
             </div>
@@ -500,7 +490,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="edit_radio3" value="false"/>
+                                <input type="radio" name="edit_radio3" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -557,8 +547,6 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>若未選擇是否為必填題，預設為非必填</span>
                 </div>
 
             </div>
@@ -575,7 +563,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="radio4" value="false"/>
+                                <input type="radio" name="radio4" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -608,7 +596,7 @@
                                 <span class="label_text">是</span>
                             </label>
                             <label class="label_radio">
-                                <input type="radio" name="radio4" value="false"/>
+                                <input type="radio" name="radio4" value="false" checked="checked"/>
                                 <span class="label_icon"></span>
                                 <span class="label_text">否</span>
                             </label>
@@ -714,6 +702,29 @@
                         <div v-else>{{ deadline }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('end')">重新設定</button></div>
                     </td>
                 </tr>
+                <tr>
+                   <th style="font-size: 18px">選項題次格式</th>
+                   <td colspan="2">
+
+                       <label class="label_radio">
+                         <input type="radio" name="option"/>
+                         <span class="label_icon"></span>
+                         <span class="label_text">甲、乙、丙...</span>
+                       </label>
+
+                       <label class="label_radio">
+                         <input type="radio" name="option"/>
+                         <span class="label_icon"></span>
+                         <span class="label_text">(1)、(2)、(3)...</span>
+                       </label>
+
+                       <label class="label_radio">
+                         <input type="radio" name="option"/>
+                         <span class="label_icon"></span>
+                         <span class="label_text">a、b、c...</span>
+                       </label>
+                   </td>
+                </tr>
             </table>
             
         </div>
@@ -743,37 +754,19 @@
 
                         <div class="showQuestions_wrap">
 
-                            <div class="showQuestions_pageDesc_wrap">
-                                <div class="showQuestions_pageDesc" v-if="page.questionDataPerPage.pageDesc !== ''">
-                                    <div style="font-size: 0">
-                                        <textarea style="width:97% !important;padding:10px" rows="3" placeholder="輸入內容..." class="show_page_desc" :data-index="i" disabled="disabled">{{ page.questionDataPerPage.pageDesc }}</textarea>
-                                    </div>                             
-                                </div>
-
-                                <div class="showQuestions_unit_tools_pageDesc" v-if="page.questionDataPerPage.pageDesc !== ''">
-                                    <ul class="showQuestions_unit_tools_list">
-                                        <li>
-                                            <span title="編輯" onclick="editPageDesc(event,'edit',$(this))" :data-index="i">
-                                                <i class="fa fa-pencil-square-o"></i>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <span title="刪除" onclick="deleteQuestion(event,$(this))" :data-index="i" data-type="pageDesc">
-                                                <i class="fa fa-trash-o"></i>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-
-
-                            <div class="clear"></div>
+                            <%--<div class="clear"></div>--%>
 
 
                             <%-- 顯示問題區塊 --%>
 
-                            <div class="question_wrap" v-for="(question,index) in page.questionDataPerPage.pageQuestionData">
+                            <div class="question_wrap" v-for="(question,index) in page.questionDataPerPage.pageQuestionData" :data-id="question.id">
+
+                                <%-- 頁面說明 --%>
+                                <div class="showQuestions_unit" v-if="question.type === 'pageDesc'">
+                                    <div class="showQuestions_pageDesc">
+                                        <p class="page_desc">{{ question.val }}</p>
+                                    </div>
+                                </div>
 
                                 <%-- 單選題 --%>
 
@@ -877,7 +870,7 @@
                                 <%-- 題目編輯面板 --%>
                                 <div class="showQuestions_unit_tools">
                                     <ul class="showQuestions_unit_tools_list">
-                                        <li onclick="jumpQuestion(event, $(this))" :data-index="index" :data-type="question.type">
+                                        <li v-if="question.type !== 'pageDesc'" onclick="jumpQuestion(event, $(this))" :data-index="index" :data-type="question.type">
                                             <span title="跳題設定">
                                                 <i class="fa fa-code-fork"></i>
                                             </span>
@@ -887,12 +880,12 @@
                                                 <i class="fa fa-pencil-square-o"></i>
                                             </span>
                                         </li>
-                                        <li onclick="copyQuestion(event,$(this))" :data-index="index">
+                                        <li onclick="copyQuestion(event,$(this),type)" :data-type="question.type" :data-index="index">
                                             <span title="複製">
                                                 <i class="fa fa-clone"></i>
                                             </span>
                                         </li>
-                                        <li onclick="deleteQuestion(event,$(this))" :data-index="index" :data-type="question.type">
+                                        <li onclick="deleteQuestion(event,$(this),type)" :data-index="index" :data-type="question.type">
                                             <span title="刪除">
                                                 <i class="fa fa-trash-o"></i>
                                             </span>

@@ -41,10 +41,14 @@
     box-shadow: 0 0 0 3px #f00 inset
 }
 
+/* 隱藏重設時間按鈕 */
+#startTimeVal, #deadlineVal{
+    display:none;
+    padding-right:15px;
+}
 
 
 /* RWD */
-
 @media screen and (max-width: 1280px) {
     .table_shadow.table_shadowNoLine table.table tr:first-child th:nth-child(2) {
         width: 210px;

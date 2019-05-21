@@ -10,7 +10,7 @@
 
     //取API
     var test = [];
-    axios.get('http://localhost:3000/questionnaire').then(function (res) {
+    axios.get(getQuestionnaire).then(function (res) {
         res.data.forEach(function (item) {
             test.push({
                 id: item.id,
@@ -76,7 +76,6 @@
 
     //建立查詢列表
     var listBuild = function (type) {
-
         //清空渲染列表的容器
         $('#listView').empty();
         if (type == 'list') {
@@ -249,28 +248,28 @@
                 },
                 OnOK: function () {
 
-                    var targetId = array[0].id;
-
-                    axios.delete('http://localhost:3000/questionnaire/' + targetId).then(function (res1) {
-                        test = [];
-                        axios.get('http://localhost:3000/questionnaire').then(function (res2) {
-                            res2.data.forEach(function (item) {
-                                test.push({
-                                    id: item.id,
-                                    questionnaireDesc: item.questionnaireDesc,
-                                    allQuestionnaireData: item.allQuestionnaireData,
-                                    name: item.questionnaireTitle,
-                                    start: item.questionnaireStartTime || '<span style="color:#f00">未設定起始日期</span>',
-                                    end: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
-                                    repeat: item.repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>'
+                    //var targetId = array[0].id;
+                    for (var i = 0; i < array.length; i++) {
+                        axios.delete(deleteQuestionnaire + array[i].id).then(function (res) {
+                            test = [];
+                            axios.get(getQuestionnaire).then(function (res2) {
+                                res2.data.forEach(function (item) {
+                                    test.push({
+                                        id: item.id,
+                                        questionnaireDesc: item.questionnaireDesc,
+                                        allQuestionnaireData: item.allQuestionnaireData,
+                                        name: item.questionnaireTitle,
+                                        start: item.questionnaireStartTime || '<span style="color:#f00">未設定起始日期</span>',
+                                        end: item.questionnaireDeadline || '<span style="color:#f00">未設定截止日期</span>',
+                                        repeat: item.repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>'
+                                    });
                                 });
-                            });
 
-                            //建立列表
-                            TableListRun('列表元件');
-                            $('#LoadingBox').hide();
+                                window.location.reload();
+                            });
+                           
                         });
-                    });
+                    }
 
                 }
             });
@@ -338,7 +337,7 @@
                                 };
 
                                 //更新到資料庫
-                                axios.post('http://localhost:3000/questionnaire/', copy).then(function (res) {
+                                axios.post(postQuestionnaire, copy).then(function (res) {
                                     $('#LoadingBox').hide();
                                 });
 

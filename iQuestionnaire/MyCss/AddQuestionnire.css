@@ -214,6 +214,13 @@
         background-color: #fff;
     }
 
+.question_wrap {
+    user-select:none;
+}
+.ghost {
+    opacity: .5;
+    background: #C8EBFB;
+}
 .question_wrap:hover .showQuestions_unit {
     cursor: pointer;
     border: 1px solid #d3d3d3;
@@ -389,6 +396,14 @@
         background: rgba(0, 0, 0, 0.2);
     }
 
+.page_desc {
+    border: 1px dashed #A18533;
+    border-radius: 2px;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #FFF3CD;
+}
+
 
 .toolsDesc {
     width: 97.6%;
@@ -404,7 +419,10 @@
     box-shadow: 0 0 0 3px #f00 inset
 }
 
-
+.AlertBoxDivContent .AlertBoxDivHtml {
+    max-height: 700px !important;
+    overflow: auto !important;
+}
 /* 顯示跳題設定 */
 .show_logic_setting {
     position: absolute;

@@ -11,7 +11,7 @@
     var test = [];
     //顯示公告用data
     var temp;
-    axios.get('http://localhost:5566/announce').then(function (res) {
+    axios.get(getAnnounce).then(function (res) {
 
         temp = res.data;
 

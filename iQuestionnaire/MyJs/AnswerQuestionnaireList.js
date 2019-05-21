@@ -10,7 +10,7 @@
 
     //取API
     var test = [];
-    axios.get('http://localhost:3000/questionnaire').then(function (res) {
+    axios.get(getQuestionnaire).then(function (res) {
         res.data.forEach(function (item) {
             test.push({
                 id: item.id,
