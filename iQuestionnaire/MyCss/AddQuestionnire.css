@@ -193,6 +193,22 @@
     border-bottom: 2px solid #0098a1;
 }
 
+.option_weight_wrap {
+    display: flex;
+    align-items: center;
+    flex: 0 0 20%;
+}
+
+.option_weight_content {
+    flex: 0 0 43%;
+}
+
+/* 題次input樣式 */
+.radio_optionNum_input {
+    display: grid;
+    padding-right: 10px;
+}
+
 .showQuestions_wrap {
     padding: 10px;
 }
@@ -238,7 +254,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 15px;
-    padding-left: 57px;
+    padding-left: 30px;
 }
 
     .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label {
@@ -460,20 +476,22 @@
 }
 
     .editOptions .input_area {
-        flex: 0 0 70%;
+        flex: 0 0 52%;
     }
 
     .editOptions .radio_icon,
     .editOptions .checkbox_icon,
     .editOptions .pulldown_icon {
-        flex: 0 0 5%;
+        display:flex;
+        align-items:center;
+        flex: 0 0 12%;
         font-size: 18px;
-        height: 31px;
+        height: 26px;
         padding-left: 8px;
     }
 
 .editOptions_tools {
-    flex: 0 0 15%;
+    flex: 0 0 12%;
 }
 
     .editOptions_tools ul.editOptions_tools_list {

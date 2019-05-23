@@ -137,12 +137,29 @@
                         <td style="padding: 10px">
                             <button type="button" class="button btn_blue" id="show_radio_edit" onclick="addOption(event,'radio','add')"><i class="fa fa-plus"></i>&nbsp;新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_radio">
+
                                 <div class="editOptions">
-                                    <div class="radio_icon"><i class="fa fa-dot-circle-o"></i>&emsp;</div>
+                                    <div class="radio_icon">
+                                        <i class="fa fa-dot-circle-o"></i>&nbsp;
+                                        <div class="radio_optionNum_input">
+                                            <input type="text" value="" placeholder="輸入..." class="radio_optionNum" />
+                                            <div class="inputLine"></div>
+                                        </div>  
+                                    </div>
+                                    
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editRadio_input" />
                                         <div class="inputLine"></div>
                                     </div>
+
+                                    <div class="option_weight_wrap">
+                                        <span style="display:inline-block">&nbsp;權重：&nbsp;</span>
+                                        <div class="option_weight_content">
+                                            <input type="text" value="" placeholder="輸入..." class="radio_option_weight_input" />
+                                            <div class="inputLine"></div>
+                                        </div>                                        
+                                    </div>
+
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
                                             <li onclick="deleteOption(event,'radio','add')">
@@ -157,6 +174,7 @@
                                             </li>
                                         </ul>
                                     </div>
+                                    
                                 </div>
                             </div>
 
@@ -178,6 +196,8 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
                 </div>
 
             </div>
@@ -216,11 +236,27 @@
 
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_radio" style="display: block">
                                 <div class="editOptions">
-                                    <div class="radio_icon"><i class="fa fa-dot-circle-o"></i>&emsp;</div>
+
+                                    <div class="radio_icon"><i class="fa fa-dot-circle-o"></i>&nbsp;
+                                        <div class="radio_optionNum_input">
+                                            <input type="text" value="" placeholder="輸入..." class="edit_radio_optionNum" />
+                                            <div class="inputLine"></div>
+                                        </div>
+                                    </div>
+
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editRadio_input" />
                                         <div class="inputLine"></div>
                                     </div>
+
+                                    <div class="option_weight_wrap">
+                                        <span style="display:inline-block">&nbsp;權重：&nbsp;</span>
+                                        <div class="option_weight_content">
+                                            <input type="text" value="" placeholder="輸入..." class="edit_radio_option_weight_input" />
+                                            <div class="inputLine"></div>
+                                        </div>                                      
+                                    </div>
+
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
                                             <li onclick="deleteOption(event,'radio','edit')">
@@ -237,6 +273,7 @@
                                             </li>
                                         </ul>
                                     </div>
+
                                 </div>
                             </div>
                         </td>
@@ -248,6 +285,8 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
                 </div>
 
             </div>
@@ -283,10 +322,17 @@
                             <button type="button" class="button btn_blue" id="show_checkbox_edit" onclick="addOption(event,'checkbox','add')">新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_checkbox">
                                 <div class="editOptions">
-                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&emsp;</div>
+                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&nbsp;<span class="checkbox_optionNum"></span></div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editCheckbox_input" />
                                         <div class="inputLine"></div>
+                                    </div>
+                                    <div class="option_weight_wrap">
+                                        <span style="display:inline-block">&nbsp;權重：&nbsp;</span>
+                                        <div class="option_weight_content">
+                                            <input type="text" value="" placeholder="輸入..." class="checkbox_option_weight_input" />
+                                            <div class="inputLine"></div>
+                                        </div>                                      
                                     </div>
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
@@ -328,6 +374,8 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
                 </div>
 
             </div>
@@ -363,10 +411,17 @@
                             <button type="button" class="button btn_blue" id="edit_show_checkbox_edit" onclick="addOption(event,'checkbox','edit')">新增選項</button>
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_checkbox" style="display: block">
                                 <div class="editOptions">
-                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&emsp;</div>
+                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&nbsp;<span class="edit_checkbox_optionNum"></span></div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editCheckbox_input" />
                                         <div class="inputLine"></div>
+                                    </div>
+                                    <div class="option_weight_wrap">
+                                        <span style="display:inline-block">&nbsp;權重：&nbsp;</span>
+                                        <div class="option_weight_content">
+                                            <input type="text" value="" placeholder="輸入..." class="edit_checkbox_option_weight_input" />
+                                            <div class="inputLine"></div>
+                                        </div>                                      
                                     </div>
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
@@ -401,6 +456,8 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
                 </div>
 
             </div>
@@ -436,10 +493,17 @@
                             <button type="button" class="button btn_blue" id="show_pulldown_edit" onclick="addOption(event,'pulldown','add')">新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_pulldown">
                                 <div class="editOptions">
-                                    <div class="pulldown_icon"><i class="fa fa-caret-square-o-down"></i>&emsp;</div>
+                                    <div class="pulldown_icon"><i class="fa fa-caret-square-o-down"></i>&nbsp;<span class="pulldown_optionNum"></span></div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editPulldown_input" />
                                         <div class="inputLine"></div>
+                                    </div>
+                                    <div class="option_weight_wrap">
+                                        <span style="display:inline-block">&nbsp;權重：&nbsp;</span>
+                                        <div class="option_weight_content">
+                                            <input type="text" value="" placeholder="輸入..." class="pulldown_option_weight_input" />
+                                            <div class="inputLine"></div>
+                                        </div>                                      
                                     </div>
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
@@ -474,6 +538,8 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
                 </div>
 
             </div>
@@ -509,10 +575,17 @@
                             <button type="button" class="button btn_blue" id="edit_show_pulldown_edit" onclick="addOption(event,'pulldown','edit')">新增選項</button>
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_pulldown" style="display: block">
                                 <div class="editOptions">
-                                    <div class="checkbox_icon"><i class="fa fa-caret-square-o-down"></i>&emsp;</div>
+                                    <div class="checkbox_icon"><i class="fa fa-caret-square-o-down"></i>&nbsp;<span class="edit_pulldown_optionNum"></span></div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editPulldown_input" />
                                         <div class="inputLine"></div>
+                                    </div>
+                                    <div class="option_weight_wrap">
+                                        <span style="display:inline-block">&nbsp;權重：&nbsp;</span>
+                                        <div class="option_weight_content">
+                                            <input type="text" value="" placeholder="輸入..." class="edit_pulldown_option_weight_input" />
+                                            <div class="inputLine"></div>
+                                        </div>                                      
                                     </div>
                                     <div class="editOptions_tools">
                                         <ul class="editOptions_tools_list">
@@ -547,6 +620,8 @@
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
                     <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
                     <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
                 </div>
 
             </div>
@@ -707,22 +782,30 @@
                    <td colspan="2">
 
                        <label class="label_radio">
-                         <input type="radio" name="option"/>
-                         <span class="label_icon"></span>
-                         <span class="label_text">甲、乙、丙...</span>
-                       </label>
-
-                       <label class="label_radio">
-                         <input type="radio" name="option"/>
+                         <input type="radio" name="option" value="(1)、(2)、(3)..." checked="checked"/>
                          <span class="label_icon"></span>
                          <span class="label_text">(1)、(2)、(3)...</span>
                        </label>
 
                        <label class="label_radio">
-                         <input type="radio" name="option"/>
+                         <input type="radio" name="option" value="甲、乙、丙..."/>
+                         <span class="label_icon"></span>
+                         <span class="label_text">甲、乙、丙...</span>
+                       </label>
+
+                       <label class="label_radio">
+                         <input type="radio" name="option" value="a、b、c..."/>
                          <span class="label_icon"></span>
                          <span class="label_text">a、b、c...</span>
                        </label>
+
+                       <label class="label_radio">
+                         <input type="radio" name="option" value="自訂格式"/>
+                         <span class="label_icon"></span>
+                         <span class="label_text">自訂格式</span>
+                       </label>
+
+
                    </td>
                 </tr>
             </table>
@@ -776,6 +859,7 @@
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
 
                                             <label class="label_radio">
+                                                <span>{{ option.optionNum }}、</span>
                                                 <input type="radio" disabled="disabled" />
                                                 <span class="label_icon"></span>
                                                 <span class="label_text">{{ option.val }}</span>
@@ -802,6 +886,7 @@
                                         <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
                                             <label class="label_checkbox">
+                                                <span>{{ option.optionNum }}、</span>
                                                 <input type="checkbox" disabled="disabled"/>
                                                 <span class="label_icon"></span>
                                                 <span class="label_text">{{ option.val }}</span>
@@ -827,6 +912,7 @@
                                         <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
                                             <span style="display:flex;align-items:center">
+                                                <span>{{ option.optionNum }}、</span>
                                                 <i class="fa fa-caret-square-o-down" style="font-size:18px"></i>&nbsp;
                                                 <span>{{ option.val }}</span>
                                             </span>                                    
