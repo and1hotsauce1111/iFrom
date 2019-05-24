@@ -167,7 +167,7 @@
                                                     <i class="fa fa-minus"></i>
                                                 </span>
                                             </li>
-                                            <li onclick="copyOption(event,'radio')">
+                                            <li onclick="copyOption(event,'radio','add')">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
@@ -194,7 +194,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
-                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
+                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至最下方</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
@@ -265,7 +265,7 @@
                                                 </span>
                                                 <span style="display:none" id="edit_eidtRadio_del"></span>
                                             </li>
-                                            <li onclick="copyOption(event)">
+                                            <li onclick="copyOption(event,'radio','edit')">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
@@ -283,7 +283,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" aria-hidden="true" style="padding-right: 10px"></i>
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
-                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
+                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至最下方</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
@@ -322,7 +322,12 @@
                             <button type="button" class="button btn_blue" id="show_checkbox_edit" onclick="addOption(event,'checkbox','add')">新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_checkbox">
                                 <div class="editOptions">
-                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&nbsp;<span class="checkbox_optionNum"></span></div>
+                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&nbsp;
+                                        <div class="checkbox_optionNum_input">
+                                            <input type="text" value="" placeholder="輸入..." class="checkbox_optionNum" />
+                                            <div class="inputLine"></div>
+                                        </div> 
+                                    </div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editCheckbox_input" />
                                         <div class="inputLine"></div>
@@ -346,7 +351,7 @@
                                                     <i class="fa fa-minus"></i>
                                                 </span>
                                             </li>
-                                            <li onclick="copyOption(event,'checkbox')">
+                                            <li onclick="copyOption(event,'checkbox','add')">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
@@ -372,7 +377,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" aria-hidden="true" style="padding-right: 10px"></i>
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
-                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
+                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至最下方</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
@@ -411,7 +416,12 @@
                             <button type="button" class="button btn_blue" id="edit_show_checkbox_edit" onclick="addOption(event,'checkbox','edit')">新增選項</button>
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_checkbox" style="display: block">
                                 <div class="editOptions">
-                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&nbsp;<span class="edit_checkbox_optionNum"></span></div>
+                                    <div class="checkbox_icon"><i class="fa fa-check-square-o"></i>&nbsp;
+                                        <div class="checkbox_optionNum_input">
+                                            <input type="text" value="" placeholder="輸入..." class="edit_checkbox_optionNum" />
+                                            <div class="inputLine"></div>
+                                        </div>
+                                    </div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editCheckbox_input" />
                                         <div class="inputLine"></div>
@@ -436,7 +446,7 @@
                                                 </span>
                                                 <span style="display:none" id="edit_eidtCheckbox_del"></span>
                                             </li>
-                                            <li onclick="copyOption(event)">
+                                            <li onclick="copyOption(event,'checkbox','edit')">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
@@ -454,7 +464,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" aria-hidden="true" style="padding-right: 10px"></i>
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
-                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
+                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至最下方</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
@@ -493,7 +503,12 @@
                             <button type="button" class="button btn_blue" id="show_pulldown_edit" onclick="addOption(event,'pulldown','add')">新增選項</button>
                             <div class="editOptions_wrap" id="editOptions_wrap_pulldown">
                                 <div class="editOptions">
-                                    <div class="pulldown_icon"><i class="fa fa-caret-square-o-down"></i>&nbsp;<span class="pulldown_optionNum"></span></div>
+                                    <div class="pulldown_icon"><i class="fa fa-caret-square-o-down"></i>&nbsp;
+                                        <div class="pulldown_optionNum_input">
+                                            <input type="text" value="" placeholder="輸入..." class="pulldown_optionNum" />
+                                            <div class="inputLine"></div>
+                                        </div>
+                                    </div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editPulldown_input" />
                                         <div class="inputLine"></div>
@@ -517,7 +532,7 @@
                                                     <i class="fa fa-minus"></i>
                                                 </span>
                                             </li>
-                                            <li onclick="copyOption(event,'pulldown')">
+                                            <li onclick="copyOption(event,'pulldown','add')">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
@@ -536,7 +551,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" aria-hidden="true" style="padding-right: 10px"></i>
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
-                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
+                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至最下方</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
@@ -575,7 +590,12 @@
                             <button type="button" class="button btn_blue" id="edit_show_pulldown_edit" onclick="addOption(event,'pulldown','edit')">新增選項</button>
                             <div class="editOptions_wrap" id="edit_editOptions_wrap_pulldown" style="display: block">
                                 <div class="editOptions">
-                                    <div class="checkbox_icon"><i class="fa fa-caret-square-o-down"></i>&nbsp;<span class="edit_pulldown_optionNum"></span></div>
+                                    <div class="checkbox_icon"><i class="fa fa-caret-square-o-down"></i>&nbsp;
+                                        <div class="pulldown_optionNum_input">
+                                            <input type="text" value="" placeholder="輸入..." class="edit_pulldown_optionNum" />
+                                            <div class="inputLine"></div>
+                                        </div>
+                                    </div>
                                     <div class="input_area">
                                         <input type="text" value="" placeholder="輸入..." class="edit_editPulldown_input" />
                                         <div class="inputLine"></div>
@@ -600,7 +620,7 @@
                                                 </span>
                                                 <span style="display:none" id="edit_eidtPulldown_del"></span>
                                             </li>
-                                            <li onclick="copyOption(event)">
+                                            <li onclick="copyOption(event,'pulldown','edit')">
                                                 <span title="複製">
                                                     <i class="fa fa-clone"></i>
                                                 </span>
@@ -618,7 +638,7 @@
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" aria-hidden="true" style="padding-right: 10px"></i>
                     <i class="fa fa-minus"></i>&nbsp;:&nbsp;<span>刪除單一筆選項(若該選項有設置跳題邏輯將會一併刪除)&emsp;</span>
-                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至當前選項下方</span>
+                    <i class="fa fa-clone"></i>&nbsp;:&nbsp;<span>插入新選項至最下方</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span>權重可以設定填答該選項的比重，若未設定則默認為題號順序</span>
@@ -782,19 +802,19 @@
                    <td colspan="2">
 
                        <label class="label_radio">
-                         <input type="radio" name="option" value="(1)、(2)、(3)..." checked="checked"/>
+                         <input type="radio" name="option" value="(1)、(2)、(3)" checked="checked"/>
                          <span class="label_icon"></span>
                          <span class="label_text">(1)、(2)、(3)...</span>
                        </label>
 
                        <label class="label_radio">
-                         <input type="radio" name="option" value="甲、乙、丙..."/>
+                         <input type="radio" name="option" value="甲、乙、丙"/>
                          <span class="label_icon"></span>
                          <span class="label_text">甲、乙、丙...</span>
                        </label>
 
                        <label class="label_radio">
-                         <input type="radio" name="option" value="a、b、c..."/>
+                         <input type="radio" name="option" value="a、b、c"/>
                          <span class="label_icon"></span>
                          <span class="label_text">a、b、c...</span>
                        </label>

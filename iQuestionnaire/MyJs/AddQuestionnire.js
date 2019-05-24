@@ -1,5 +1,4 @@
 ﻿$(function () {
-
     /* View */
 
     //UI
@@ -32,6 +31,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增單選題',
                     OutsideStyle: 'max-width:800px',
+                    InsideStyle:'max-height:700px;overflow:auto',
                     Html: $('#editRadio'),
                     OnClose: function (Type) {
                         if (Type == 'ok') {
@@ -111,7 +111,7 @@
                         var required = $('input[type="radio"][name="radio1"]:checked').val();
 
                         //存每個選項的值
-                        
+
                         var options = [];
                         var optionWeight = [];
                         $('.showEditOptions_radio .input_area input').each(function (index, val) {
@@ -119,23 +119,24 @@
                                 id: _uuid(),
                                 val: $(this).val(),
                                 jumpLogic: null,
-                            });                                              
+                            });
                         });
 
-                        //存選項題次
-                        $('.radio_optionNum').not(':first').each(function (index) {
-                            var num = $(this).html().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, ''); 
+
+                        //存選項的題次
+                        $('.showEditOptions_radio').find('input.radio_optionNum').each(function (index) {
+                            var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                            console.log(index);
                             options[index].optionNum = num;
                         });
 
-                        //存自訂選項的值
-                        $('.radio_optionNumVal').each();
 
+                        //存選項權重
                         $('input.radio_option_weight_input').not(':first').each(function () {
                             optionWeight.push($(this).val());
                         });
 
-                        options.forEach(function (option,index) {
+                        options.forEach(function (option, index) {
                             option.optionWeight = optionWeight[index];
                         });
 
@@ -190,6 +191,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯單選題',
                     OutsideStyle: 'max-width:800px',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#edit_editRadio'),
                     OnReady: function (Code) {
 
@@ -241,9 +243,9 @@
                             }
 
                             for (var k = 0; k < data['options'].length; k++) {
-                                $('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_editRadio_input')[k].value = data['options'][k].val;
-                                $('.edit_radio_optionNum').eq(k).html(data['options'][k].optionNum);
-                                $('.edit_radio_option_weight_input').eq(k).val(data['options'][k].optionWeight);
+                                $('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_editRadio_input').eq(k).val(data['options'][k].val);
+                                $('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_radio_optionNum').eq(k).val(data['options'][k].optionNum + '、');
+                                $('.editOptions_wrap#edit_editOptions_wrap_radio').find('input.edit_radio_option_weight_input').eq(k).val(data['options'][k].optionWeight);
                             }
                         }
 
@@ -331,8 +333,9 @@
                         //是否必填
                         var required = $('input[type="radio"][name="edit_radio1"]:checked').val();
 
-                        //儲存新選項
+                        //儲存新選項/權重
                         var newOption = [];
+                        var optionWeight = [];
 
                         var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_editRadio_input');
 
@@ -344,6 +347,25 @@
                                 jumpLogic: null,
                             });
                         }
+
+                        //存選項的題次
+                        $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_radio_optionNum').each(function (index) {
+                            var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                            newOption[index].optionNum = num;
+                        });
+
+
+                        //存選項權重
+                        $('.editOptions_wrap#edit_editOptions_wrap_radio').find('input.edit_radio_option_weight_input').each(function (index) {
+                            optionWeight.push($(this).val());
+                        });
+
+
+                        newOption.forEach(function (option, index) {
+                            option.optionWeight = optionWeight[index];
+                        });
+
+
 
                         //更新問題
 
@@ -403,6 +425,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增多選題',
                     OutsideStyle: 'max-width:800px',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#editCheckbox'),
                     OnClose: function (Type) {
                         if (Type == 'ok') {
@@ -483,7 +506,7 @@
                         var required = $('input[type="radio"][name="radio2"]:checked').val();
 
                         //存每個選項的值
-                        //存選項題次
+
                         var options = [];
                         var optionWeight = [];
                         $('.showEditOptions_checkbox .input_area input').each(function (index, val) {
@@ -494,8 +517,9 @@
                             });
                         });
 
+                        //存選項題次
                         $('.checkbox_optionNum').not(':first').each(function (index) {
-                            var num = $(this).html().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                            var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
                             options[index].optionNum = num;
                         });
 
@@ -556,6 +580,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯多選題',
                     OutsideStyle: 'max-width:800px',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#edit_editCheckbox'),
                     OnReady: function (Code) {
 
@@ -606,7 +631,7 @@
 
                             for (var k = 0; k < data['options'].length; k++) {
                                 $('.editOptions_wrap#edit_editOptions_wrap_checkbox').find('.edit_editCheckbox_input')[k].value = data['options'][k].val;
-                                $('.edit_checkbox_optionNum').eq(k).html(data['options'][k].optionNum);
+                                $('.edit_checkbox_optionNum').eq(k).val(data['options'][k].optionNum + '、');
                                 $('.edit_checkbox_option_weight_input').eq(k).val(data['options'][k].optionWeight);
                             }
 
@@ -693,8 +718,9 @@
                         //是否必填
                         var required = $('input[type="radio"][name="edit_radio2"]:checked').val();
 
-                        //儲存新選項
+                        //儲存新選項/權重
                         var newOption = [];
+                        var optionWeight = [];
 
                         var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_checkbox .edit_editCheckbox_input');
 
@@ -705,6 +731,22 @@
                                 jumpLogic: null,
                             });
                         }
+
+                        //存選項的題次
+                        $('.edit_checkbox_optionNum').each(function (index) {
+                            var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                            newOption[index].optionNum = num;
+                        });
+
+                        //存選項權重
+                        $('input.edit_checkbox_option_weight_input').each(function (index) {
+                            optionWeight.push($(this).val());
+                        });
+
+
+                        newOption.forEach(function (option, index) {
+                            option.optionWeight = optionWeight[index];
+                        });
 
 
 
@@ -768,6 +810,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增下拉題',
                     OutsideStyle: 'max-width:800px',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#editPulldown'),
                     OnClose: function (Type) {
                         if (Type == 'ok') {
@@ -856,7 +899,7 @@
                         });
 
                         $('.pulldown_optionNum').not(':first').each(function (index) {
-                            var num = $(this).html().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                            var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
                             options[index].optionNum = num;
                         });
 
@@ -916,6 +959,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯下拉題',
                     OutsideStyle: 'max-width:800px',
+                    InsideStyle:'max-height:700px;overflow:auto',
                     Html: $('#edit_editPulldown'),
                     OnReady: function (Code) {
 
@@ -926,7 +970,7 @@
                             $('#edit_eidtPulldown_del').html(index);
                             $('#edit_eidtPulldown_copy').html(index);
 
-                            
+
 
                             var data = {};
                             for (var i = 0; i < vm.allQuestionnaireData.length; i++) {
@@ -967,7 +1011,7 @@
 
                             for (var k = 0; k < data['options'].length; k++) {
                                 $('.editOptions_wrap#edit_editOptions_wrap_pulldown').find('.edit_editPulldown_input')[k].value = data['options'][k].val;
-                                $('.edit_pulldown_optionNum').eq(k).html(data['options'][k].optionNum);
+                                $('.edit_pulldown_optionNum').eq(k).val(data['options'][k].optionNum + '、');
                                 $('.edit_pulldown_option_weight_input').eq(k).val(data['options'][k].optionWeight);
                             }
 
@@ -1053,8 +1097,9 @@
                         //是否必填
                         var required = $('input[type="radio"][name="edit_radio3"]:checked').val();
 
-                        //儲存新選項
+                        //儲存新選項/權重
                         var newOption = [];
+                        var optionWeight = [];
 
                         var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_pulldown .edit_editPulldown_input');
 
@@ -1067,7 +1112,21 @@
                             });
                         }
 
+                        //存選項的題次
+                        $('.edit_pulldown_optionNum').each(function (index) {
+                            var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                            newOption[index].optionNum = num;
+                        });
 
+                        //存選項權重
+                        $('input.edit_pulldown_option_weight_input').each(function (index) {
+                            optionWeight.push($(this).val());
+                        });
+
+
+                        newOption.forEach(function (option, index) {
+                            option.optionWeight = optionWeight[index];
+                        });
 
                         //更新問題
                         var jumpToQuestion = vm.tempLogicSetting.jumpTo !== '' ? $.extend(true, {}, vm.tempLogicSetting) : [];
@@ -1128,6 +1187,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增文本題',
                     OutsideStyle: 'max-width:700px',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#editTextarea'),
                     OnClose: function (Type) {
                         if (Type === 'ok') {
@@ -1199,6 +1259,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯文本題',
                     OutsideStyle: 'max-width:700px',
+                    InsideStyle:'max-height:700px;overflow:auto',
                     Html: $('#edit_editTextarea'),
                     OnClose: function (Type) {
                         if (Type === 'ok') {
@@ -1678,41 +1739,36 @@
 
     /* 編輯問題選項功能 */
 
-    //var editRadioOptionTemplate = $('.editOptions_wrap#editOptions_wrap_radio').html(); //複製選項格式
-    //var editCheckboxOptionTemplate = $('.editOptions_wrap#editOptions_wrap_checkbox').html(); //複製選項格式
-    //var editPulldownOptionTemplate = $('.editOptions_wrap#editOptions_wrap_pulldown').html(); //複製選項格式
-
-
     //添加選項
     addOption = function (e, type, status) {
 
         if (status === 'add') {
             optionNumCount++;
             if (type === 'radio') {
-                orderOptionNum('add', 'radio', e);                
+                orderOptionNum(e, 'add', 'radio', 'new');
             }
 
             if (type === 'checkbox') {
-                orderOptionNum('add', 'checkbox', e);               
+                orderOptionNum(e, 'add', 'checkbox', 'new');
             }
 
             if (type === 'pulldown') {
-                orderOptionNum('add', 'pulldown', e);
+                orderOptionNum(e, 'add', 'pulldown', 'new');
             }
         }
 
         if (status === 'edit') {
             editOptionCount++;
             if (type === 'radio') {
-                orderOptionNum('edit', 'radio', e);
+                orderOptionNum(e, 'edit', 'radio', 'new');
             }
 
             if (type === 'checkbox') {
-                orderOptionNum('edit', 'checkbox', e);
+                orderOptionNum(e, 'edit', 'checkbox', 'new');
             }
 
-            if(type === 'pulldown') {
-                orderOptionNum('edit', 'pulldown', e);
+            if (type === 'pulldown') {
+                orderOptionNum(e, 'edit', 'pulldown', 'new');
             }
 
         }
@@ -1732,28 +1788,35 @@
             },
             OnOK: function () {
                 if (status === 'add') {
-                    $(e.target).parents('.editOptions').remove();
+                    //移除並重新排序
+                    if (type === 'radio') {
+                        orderOptionNum(e, 'add','radio','delete');
+                    }
+                    if (type === 'checkbox') {
+                        orderOptionNum(e, 'add', 'checkbox', 'delete');
+                    }
+                    if (type === 'pulldown') {
+                        orderOptionNum(e, 'add', 'pulldown', 'delete');
+                    }
+
+                    
                     $('#LoadingBox').hide();
                 }
 
                 if (status === 'edit') {
 
                     if (type === 'radio') {
-                        var index = $('#edit_eidtRadio_del').html();
-                        var title = $(e.target).parents('.editOptions').find('.edit_editRadio_input').val();
+                        orderOptionNum(e, 'edit', 'radio', 'delete');
                     }
 
                     if (type === 'checkbox') {
-                        var index = $('#edit_eidtCheckbox_del').html();
-                        var title = $(e.target).parents('.editOptions').find('.edit_editCheckbox_input').val();
+                        orderOptionNum(e, 'edit', 'checkbox', 'delete');
                     }
 
                     if (type === 'pulldown') {
-                        var index = $('#edit_eidtPulldown_del').html();
-                        var title = $(e.target).parents('.editOptions').find('.edit_editPulldown_input').val();
+                        orderOptionNum(e, 'edit', 'pulldown', 'delete');
                     }
 
-                    $(e.target).parents('.editOptions').remove();
                     //刪除跳題邏輯
                     //取移除選項的值，比對若有設置跳題則刪除
 
@@ -1764,19 +1827,53 @@
     };
 
     //複製選項
-    copyOption = function (e) {
+    copyOption = function (e, type, status) {
 
-        var clone = $(e.target).parents('.editOptions').clone(true);
-        $(e.target).parents('.editOptions').after(clone);
+        if (status === 'add') {
+            optionNumCount++;
+            if (type === 'radio') {
+                //改題次
+                orderOptionNum(e, 'add', 'radio', 'copy');
+            }
+            if (type === 'checkbox') {
+                //改題次
+                orderOptionNum(e, 'add', 'checkbox', 'copy');
+            }
+            if (type === 'pulldown') {
+                //改題次
+                orderOptionNum(e, 'add', 'pulldown', 'copy');
+            }
+
+        }
+
+        if (status === 'edit') {
+            editOptionCount++;
+            //改題次
+            if (type === 'radio') {
+                //改題次
+                orderOptionNum(e, 'edit', 'radio', 'copy');
+            }
+            if (type === 'checkbox') {
+                //改題次
+                orderOptionNum(e, 'edit', 'checkbox', 'copy');
+            }
+            if (type === 'pulldown') {
+                //改題次
+                orderOptionNum(e, 'edit', 'pulldown', 'copy');
+            }
+        }
+
     };
 
     //選項題次計算功能
     var optionNumCount = 0; //新增選項計數器
     var editOptionCount = 0; //編輯選項計數器
-    var editRadioTemplate = $('.editOptions_wrap#edit_editOptions_wrap_radio').html();
-    var editCheckboxTemplate = $('.editOptions_wrap#edit_editOptions_wrap_checkbox').html();
-    var editPulldownTemplate = $('.editOptions_wrap#edit_editOptions_wrap_pulldown').html();
-    orderOptionNum = function (status, type, evt) {
+    var editRadioTemplate = $('.editOptions_wrap#edit_editOptions_wrap_radio').html(); //單選編輯選項格式
+    var editCheckboxTemplate = $('.editOptions_wrap#edit_editOptions_wrap_checkbox').html(); //多選編輯選項格式
+    var editPulldownTemplate = $('.editOptions_wrap#edit_editOptions_wrap_pulldown').html(); //下拉編輯選項格式
+    var chineseOrder = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
+    var englishOrder = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+    orderOptionNum = function (evt, status, type, trigger) {
 
         //先等插入選項DOM再取選項題次的DOM
         window.setTimeout(function () {
@@ -1785,65 +1882,189 @@
             var optionNumType = $('input[type="radio"][name="option"]:checked').val(); //取得題次格式
 
             //題次格式設定
-            if (optionNumType === '甲、乙、丙...') {
-                optionNum = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'];
-            }
-            if (optionNumType === '(1)、(2)、(3)...') {
-                optionNum = null; //若為null則累加數字
-            }
-            if (optionNumType === 'a、b、c...') {
-                optionNum = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-            }
-            if (optionNumType === '自訂格式') {
-                optionNum = []; //變undefined
+            switch (optionNumType) {
+                case '甲、乙、丙':
+                    optionNum = chineseOrder;
+                    break;
+
+                case '(1)、(2)、(3)':
+                    optionNum = null; //若為null則累加數字
+                    break;
+
+                case 'a、b、c':
+                    optionNum = englishOrder;
+                    break;
+
+                case '自訂格式':
+                    optionNum = []; //變undefined
+                    break;
             }
 
-            if (status === 'add' && type === 'radio') {
-                var input = '<input class="radio_optionNumVal" type="text" value="" placeholder="輸入..."/><div class="inputLine"></div>';
-                var orderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount +')';
-                $(evt.target).siblings('.showEditOptions_radio').append($('.editOptions_wrap#editOptions_wrap_radio').html());
-                //$('.radio_optionNum').eq(optionNumCount).html((orderNum !== undefined ? orderNum + '、' : input));
-                $('input.radio_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+
+            var orderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount + ')'; //新增的題次
+            var editOrderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')'; //編輯的題次
+            var clone = $(evt.target).parents('.editOptions').clone(true); //複製選項
+
+            //新增選項顯示題次
+            if (trigger === 'new') {
+
+                if (status === 'add' && type === 'radio') {
+                    $(evt.target).siblings('.showEditOptions_radio').append($('.editOptions_wrap#editOptions_wrap_radio').html());
+                    $('input.radio_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+                }
+                    
+
+                if (status === 'add' && type === 'checkbox') {
+                    $(evt.target).siblings('.showEditOptions_checkbox').append($('.editOptions_wrap#editOptions_wrap_checkbox').html());
+                    $('input.checkbox_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+                }               
+               
+
+                if (status === 'add' && type === 'pulldown') {
+                    $(evt.target).siblings('.showEditOptions_pulldown').append($('.editOptions_wrap#editOptions_wrap_pulldown').html());
+                    $('input.pulldown_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+                }
+                              
+
+                if (status === 'edit' && type === 'radio') {
+                    $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_radio').append(editRadioTemplate);
+                    $('.editOptions_wrap#edit_editOptions_wrap_radio input.edit_radio_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
+                }
+
+                
+                if (status === 'edit' && type === 'checkbox') {
+                    $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(editCheckboxTemplate);
+                    $('input.edit_checkbox_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
+                }
+                        
+
+                if (status === 'edit' && type === 'pulldown') {
+                    var orderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
+                    $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(editPulldownTemplate);
+                    $('input.edit_pulldown_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
+                }               
+                    
             }
 
-            if (status === 'add' && type === 'checkbox') {
-                var input = '<input class="checkbox_optionNumVal" type="text" value="" placeholder="輸入..."/><div class="inputLine"></div>';
-                var orderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount + ')';
-                $(evt.target).siblings('.showEditOptions_checkbox').append($('.editOptions_wrap#editOptions_wrap_checkbox').html());
-                $('.checkbox_optionNum').eq(optionNumCount).html((orderNum !== undefined ? orderNum + '、' : input));
+            //複製選項顯示題次
+            if (trigger === 'copy') {
+                if (status === 'add' && type === 'radio') {
+                    var selfOrder = $(clone[0]).find('.radio_optionNum').val();
+                    $('.showEditOptions_radio').append($(clone[0]));
+                    $(clone[0]).find('input.radio_optionNum').val((orderNum !== undefined ? orderNum + '、' : selfOrder));
+                }
+                    
+
+                if (status === 'add' && type === 'checkbox') {
+                    var selfOrder = $(clone[0]).find('.checkbox_optionNum').val();
+                    $('.showEditOptions_checkbox').append(clone[0]);
+                    $(clone[0]).find('input.checkbox_optionNum').val((orderNum !== undefined ? orderNum + '、' : selfOrder));
+                }
+                    
+
+                if (status === 'add' && type === 'pulldown') {
+                    var selfOrder = $(clone[0]).find('.pulldown_optionNum').val();
+                    $('.showEditOptions_pulldown').append(clone[0]);
+                    $(clone[0]).find('input.pulldown_optionNum').val((orderNum !== undefined ? orderNum + '、' : selfOrder));
+                }
+                    
+
+                if (status === 'edit' && type === 'radio') {
+                    var selfOrder = $(clone[0]).find('.edit_radio_optionNum').val();
+                    $('.editOptions_wrap#edit_editOptions_wrap_radio').append($(clone[0]));
+                    $(clone[0]).find('input.edit_radio_optionNum').val((editOrderNum !== undefined ? editOrderNum + '、' : selfOrder));
+                }
+                    
+
+                if (status === 'edit' && type === 'checkbox') {
+                    var selfOrder = $(clone[0]).find('.edit_checkbox_optionNum').val();
+                    $('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(clone[0]);
+                    $(clone[0]).find('input.edit_checkbox_optionNum').val((editOrderNum !== undefined ? editOrderNum + '、' : selfOrder));
+                }
+                    
+
+                if (status === 'edit' && type === 'pulldown') {
+                    var selfOrder = $(clone[0]).find('.edit_pulldown_optionNum').val();
+                    $('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(clone[0]);
+                    $(clone[0]).find('input.edit_pulldown_optionNum').val((editOrderNum !== undefined ? editOrderNum + '、' : selfOrder));
+                }
+                    
             }
 
-            if (status === 'add' && type === 'pulldown') {
-                var input = '<input class="pulldown_optionNumVal" type="text" value="" placeholder="輸入..."/><div class="inputLine"></div>';
-                var orderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount + ')';
-                $(evt.target).siblings('.showEditOptions_pulldown').append($('.editOptions_wrap#editOptions_wrap_pulldown').html());
-                $('.pulldown_optionNum').eq(optionNumCount).html((orderNum !== undefined ? orderNum + '、' : input));
-            }
+            //刪除選項顯示題次
+            if (trigger === 'delete') {
+                if (status === 'add' && type === 'radio') {
+                    optionNumCount = 0;                   
+                    $(evt.target).parents('.editOptions').remove();
+                    $('.showEditOptions_radio').find('input.radio_optionNum').each(function () {
+                        optionNumCount++;
+                        var newOrderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount + ')';
+                        $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
+                    });
+                }
 
-            if (status === 'edit' && type === 'radio') {
-                var input = '<input class="edit_radio_optionNumVal" type="text" value="" placeholder="輸入..."/><div class="inputLine"></div>';
-                var orderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
-                $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_radio').append(editRadioTemplate);
-                $('.edit_radio_optionNum').eq(editOptionCount - 1).html((orderNum !== undefined ? orderNum + '、' : input));
-            }
 
-            if (status === 'edit' && type === 'checkbox') {
-                var input = '<input class="edit_checkbox_optionNumVal" type="text" value="" placeholder="輸入..."/><div class="inputLine"></div>';
-                var orderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
-                $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(editCheckboxTemplate);
-                $('.edit_checkbox_optionNum').eq(editOptionCount - 1).html((orderNum !== undefined ? orderNum + '、' : input));
-            }
+                if (status === 'add' && type === 'checkbox') {
+                    optionNumCount = 0;
+                    $(evt.target).parents('.editOptions').remove();
+                    $('.showEditOptions_checkbox').find('input.checkbox_optionNum').each(function () {
+                        optionNumCount++;
+                        var newOrderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount + ')';
+                        $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
+                    });
+                }
+                   
 
-            if (status === 'edit' && type === 'pulldown') {
-                var input = '<input class="edit_pulldown_optionNumVal" type="text" value="" placeholder="輸入..."/><div class="inputLine"></div>';
-                var orderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
-                $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(editPulldownTemplate);
-                $('.edit_pulldown_optionNum').eq(editOptionCount - 1).html((orderNum !== undefined ? orderNum + '、' : input));       
+                if (status === 'add' && type === 'pulldown') {
+                    optionNumCount = 0;
+                    $(evt.target).parents('.editOptions').remove();
+                    $('.showEditOptions_pulldown').find('input.pulldown_optionNum').each(function () {
+                        optionNumCount++;
+                        var newOrderNum = optionNum !== null ? optionNum[optionNumCount - 1] : '(' + optionNumCount + ')';
+                        $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
+                    });
+                }
+                    
+
+                if (status === 'edit' && type === 'radio') {
+                    editOptionCount = 0;
+                    $(evt.target).parents('.editOptions').remove();
+                    $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_radio_optionNum').each(function () {
+                        editOptionCount++;
+                        var newOrderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
+                        $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
+                    });
+                }
+                    
+
+                if (status === 'edit' && type === 'checkbox') {
+                    editOptionCount = 0;
+                    $(evt.target).parents('.editOptions').remove();
+                    $('.editOptions_wrap#edit_editOptions_wrap_checkbox .edit_checkbox_optionNum').each(function () {
+                        editOptionCount++;
+                        var newOrderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
+                        $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
+                    });
+                }
+                    
+
+                if (status === 'edit' && type === 'pulldown') {
+                    editOptionCount = 0;
+                    $(evt.target).parents('.editOptions').remove();
+                    $('.editOptions_wrap#edit_editOptions_wrap_pulldown .edit_pulldown_optionNum').each(function () {
+                        editOptionCount++;
+                        var newOrderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
+                        $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
+                    });
+                }
+                   
             }
 
         }, 100);
 
     };
+
+
 
 
     /* 問題設定功能 */
@@ -1984,7 +2205,7 @@
         alertBox({
             Mode: 'C',
             Title: '<i class="fa fa-code-fork"></i>&nbsp;設定跳題邏輯',
-            OutsideStyle: 'max-width:900px',
+            OutsideStyle: 'max-width:800px',
             Html: $('#jumpQuestion'),
             OnReady: function () {
 

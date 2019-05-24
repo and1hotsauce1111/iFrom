@@ -204,7 +204,9 @@
 }
 
 /* 題次input樣式 */
-.radio_optionNum_input {
+.radio_optionNum_input,
+.checkbox_optionNum_input,
+.pulldown_optionNum_input {
     display: grid;
     padding-right: 10px;
 }
@@ -254,12 +256,12 @@
     display: flex;
     flex-direction: column;
     margin-top: 15px;
-    padding-left: 30px;
+    padding-left: 18px;
 }
 
-    .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label {
+    /*.showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label {
         margin-bottom: 15px;
-    }
+    }*/
 
         .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label:hover {
             color: #505050;
@@ -435,10 +437,6 @@
     box-shadow: 0 0 0 3px #f00 inset
 }
 
-.AlertBoxDivContent .AlertBoxDivHtml {
-    max-height: 700px !important;
-    overflow: auto !important;
-}
 /* 顯示跳題設定 */
 .show_logic_setting {
     position: absolute;
