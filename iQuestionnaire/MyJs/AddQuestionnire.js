@@ -35,17 +35,37 @@
                     Html: $('#editRadio'),
                     OnClose: function (Type) {
                         if (Type == 'ok') {
+
                             //存每個選項的值
                             var options = [];
-                            $('.showEditOptions_radio .input_area input').each(function (index) {
+                            var optionWeight = [];
+                            $('.showEditOptions_radio .input_area input').each(function (index, val) {
                                 options.push({
                                     id: _uuid(),
                                     val: $(this).val(),
-                                    jumpLogic: null
+                                    jumpLogic: null,
                                 });
                             });
 
-                            //未添加題目的提示
+
+                            //存選項的題次
+                            $('.showEditOptions_radio').find('input.radio_optionNum').each(function (index) {
+                                var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                                options[index].optionNum = num;
+                            });
+
+
+                            //存選項權重
+                            $('input.radio_option_weight_input').not(':first').each(function () {
+                                optionWeight.push($(this).val());
+                            });
+
+                            options.forEach(function (option, index) {
+                                option.optionWeight = optionWeight[index];
+                            });
+
+
+                            //題目未添加的提示
                             if ($('#radio_question_title').val() == '') {
                                 alertBox({
                                     Mode: 'A',
@@ -69,7 +89,7 @@
                                 }
                             }
 
-                            //未添加選項的提示
+                            //選項未添加的提示
                             if (options.length === 0) {
                                 alertBox({
                                     Mode: 'A',
@@ -80,6 +100,19 @@
                                 });
                                 return false;
                             } else {
+
+                                for (var i = 0; i < options.length; i++) {
+                                    if (options[i].val === '') {
+                                        alertBox({
+                                            Mode: 'A',
+                                            Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                            OnOK: function () {
+                                                $('#radio_options').addClass('warning');
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                }
                                 if ($('#radio_options').hasClass('warning')) {
                                     $('#radio_options').removeClass('warning');
                                 }
@@ -96,6 +129,36 @@
                                     alertBox({
                                         Mode: 'A',
                                         Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            //權重和題號未添加 / 格式錯誤的提示
+                            var re = /^[0-9]+$/;
+                            for (var i = 0; i < options.length; i++) {                               
+                                if (options[i].optionWeight === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                    });
+                                    return false;
+                                } else if (options[i].optionWeight !== '' && !re.test(options[i].optionWeight)) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                    });
+                                    return false;
+                                }
+
+                                
+                            }
+
+                            for (var i = 0; i < options.length; i++) {
+                                if (options[i].optionNum === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定選項題次!</p>'
                                     });
                                     return false;
                                 }
@@ -193,10 +256,14 @@
                     OutsideStyle: 'max-width:800px',
                     InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#edit_editRadio'),
+                    OnRun: function () {
+                        $('#LoadingBox').show();
+                    },
                     OnReady: function (Code) {
 
                         if (status == 'edit') {
 
+                            
                             var index = $(dom).attr('data-index');
                             //存問題index
                             $('#edit_eidtRadio_del').html(index);
@@ -247,13 +314,17 @@
                                 $('.editOptions_wrap#edit_editOptions_wrap_radio').find('.edit_radio_optionNum').eq(k).val(data['options'][k].optionNum + '、');
                                 $('.editOptions_wrap#edit_editOptions_wrap_radio').find('input.edit_radio_option_weight_input').eq(k).val(data['options'][k].optionWeight);
                             }
+
+                            $('#LoadingBox').hide();
                         }
 
                     },
                     OnClose: function (Type) {
                         if (Type == 'ok') {
                             //儲存新選項
+                            //儲存新選項/權重
                             var newOption = [];
+                            var optionWeight = [];
 
                             var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_editRadio_input');
 
@@ -262,9 +333,26 @@
                                 newOption.push({
                                     id: _uuid(),
                                     val: nodeList[j].value,
-                                    jumpLogic: null
+                                    jumpLogic: null,
                                 });
                             }
+
+                            //存選項的題次
+                            $('.editOptions_wrap#edit_editOptions_wrap_radio .edit_radio_optionNum').each(function (index) {
+                                var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                                newOption[index].optionNum = num;
+                            });
+
+
+                            //存選項權重
+                            $('.editOptions_wrap#edit_editOptions_wrap_radio').find('input.edit_radio_option_weight_input').each(function (index) {
+                                optionWeight.push($(this).val());
+                            });
+
+
+                            newOption.forEach(function (option, index) {
+                                option.optionWeight = optionWeight[index];
+                            });
 
                             //未添加題目的提示
                             if ($('#edit_radio_question_title').val() == '') {
@@ -302,6 +390,19 @@
                                 });
                                 return false;
                             } else {
+
+                                for (var i = 0; i < newOption.length; i++) {
+                                    if (newOption[i].val === '') {
+                                        alertBox({
+                                            Mode: 'A',
+                                            Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                            OnOK: function () {
+                                                $('#edit_radio_options').addClass('warning');
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                }
                                 if ($('#edit_radio_options').hasClass('warning')) {
                                     $('#edit_radio_options').removeClass('warning');
                                 }
@@ -323,6 +424,35 @@
                                     return false;
                                 }
                             }
+
+                            var re = /^[0-9]+$/;
+                            for (var i = 0; i < newOption.length; i++) {
+                                
+                                if (newOption[i].optionWeight === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                    });
+                                    return false;
+                                } else if (newOption[i].optionWeight !== '' && !re.test(newOption[i].optionWeight)) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            for (var i = 0; i < newOption.length; i++) {
+                                if (newOption[i].optionNum === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定選項題次!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
                         }
                     },
                     OnOK: function () {
@@ -429,14 +559,28 @@
                     Html: $('#editCheckbox'),
                     OnClose: function (Type) {
                         if (Type == 'ok') {
-                            //存每個選項的值
                             var options = [];
-                            $('.showEditOptions_checkbox .input_area input').each(function (index) {
+                            var optionWeight = [];
+                            $('.showEditOptions_checkbox .input_area input').each(function (index, val) {
                                 options.push({
                                     id: _uuid(),
                                     val: $(this).val(),
-                                    jumpLogic: null
+                                    jumpLogic: null,
                                 });
+                            });
+
+                            //存選項題次
+                            $('.checkbox_optionNum').not(':first').each(function (index) {
+                                var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                                options[index].optionNum = num;
+                            });
+
+                            $('input.checkbox_option_weight_input').not(':first').each(function () {
+                                optionWeight.push($(this).val());
+                            });
+
+                            options.forEach(function (option, index) {
+                                option.optionWeight = optionWeight[index];
                             });
 
                             //未添加題目的提示
@@ -453,14 +597,12 @@
                                 });
                                 return false;
                             } else {
-
                                 if ($('#checkbox_title').hasClass('warning')) {
                                     $('#checkbox_title').removeClass('warning');
                                 }
                                 if ($('#checkbox_options').hasClass('warning')) {
                                     $('#checkbox_options').removeClass('warning');
                                 }
-
                             }
 
                             //未添加選項的提示
@@ -474,6 +616,19 @@
                                 });
                                 return false;
                             } else {
+                                for (var i = 0; i < options.length; i++) {
+                                    if (options[i].val === '') {
+                                        alertBox({
+                                            Mode: 'A',
+                                            Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                            OnOK: function () {
+                                                $('#checkbox_options').addClass('warning');
+                                            }
+                                        });
+
+                                        return false;
+                                    }
+                                }
                                 if ($('#checkbox_options').hasClass('warning')) {
                                     $('#checkbox_options').removeClass('warning');
                                 }
@@ -492,6 +647,33 @@
                                     alertBox({
                                         Mode: 'A',
                                         Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            var re = /^[0-9]+$/;
+                            for (var i = 0; i < options.length; i++) {
+                                if (options[i].optionWeight === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                    });
+                                    return false;
+                                } else if (options[i].optionWeight !== '' && !re.test(options[i].optionWeight)) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            for (var i = 0; i < options.length; i++) {
+                                if (options[i].optionNum === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定選項題次!</p>'
                                     });
                                     return false;
                                 }
@@ -582,6 +764,9 @@
                     OutsideStyle: 'max-width:800px',
                     InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#edit_editCheckbox'),
+                    OnRun: function () {
+                        $('#LoadingBox').show();
+                    },
                     OnReady: function (Code) {
 
                         if (status == 'edit') {
@@ -635,24 +820,41 @@
                                 $('.edit_checkbox_option_weight_input').eq(k).val(data['options'][k].optionWeight);
                             }
 
+                            $('#LoadingBox').hide();
                         }
 
                     },
                     OnClose: function (Type) {
                         if (Type == 'ok') {
-                            //儲存新選項
+                            //儲存新選項/權重
                             var newOption = [];
+                            var optionWeight = [];
 
                             var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_checkbox .edit_editCheckbox_input');
-
 
                             for (var j = 0; j < nodeList.length; j++) {
                                 newOption.push({
                                     id: _uuid(),
                                     val: nodeList[j].value,
-                                    jumpLogic: null
+                                    jumpLogic: null,
                                 });
                             }
+
+                            //存選項的題次
+                            $('.edit_checkbox_optionNum').each(function (index) {
+                                var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                                newOption[index].optionNum = num;
+                            });
+
+                            //存選項權重
+                            $('input.edit_checkbox_option_weight_input').each(function (index) {
+                                optionWeight.push($(this).val());
+                            });
+
+
+                            newOption.forEach(function (option, index) {
+                                option.optionWeight = optionWeight[index];
+                            });
 
                             //未添加題目的提示
                             if ($('#edit_checkbox_question_title').val() == '') {
@@ -688,6 +890,19 @@
                                 });
                                 return false;
                             } else {
+                                for (var i = 0; i < newOption.length; i++) {
+                                    if (newOption[i].val === '') {
+                                        alertBox({
+                                            Mode: 'A',
+                                            Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                            OnOK: function () {
+                                                $('#edit_checkbox_options').addClass('warning');
+                                            }
+                                        });
+
+                                        return false;
+                                    }
+                                }
                                 if ($('#edit_checkbox_options').hasClass('warning')) {
                                     $('#edit_checkbox_options').removeClass('warning');
                                 }
@@ -705,6 +920,33 @@
                                     alertBox({
                                         Mode: 'A',
                                         Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            var re = /^[0-9]+$/;
+                            for (var i = 0; i < newOption.length; i++) {
+                                if (newOption[i].optionWeight === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                    });
+                                    return false;
+                                } else if (newOption[i].optionWeight !== '' && !re.test(newOption[i].optionWeight)) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            for (var i = 0; i < newOption.length; i++) {
+                                if (newOption[i].optionNum === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定選項題次!</p>'
                                     });
                                     return false;
                                 }
@@ -815,13 +1057,28 @@
                     OnClose: function (Type) {
                         if (Type == 'ok') {
                             //存每個選項的值
+                            //存選項題次
                             var options = [];
-                            $('.showEditOptions_pulldown .input_area input').each(function (index) {
+                            var optionWeight = [];
+                            $('.showEditOptions_pulldown .input_area input').each(function (index, val) {
                                 options.push({
                                     id: _uuid(),
                                     val: $(this).val(),
-                                    jumpLogic: null
+                                    jumpLogic: null,
                                 });
+                            });
+
+                            $('.pulldown_optionNum').not(':first').each(function (index) {
+                                var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                                options[index].optionNum = num;
+                            });
+
+                            $('input.pulldown_option_weight_input').not(':first').each(function () {
+                                optionWeight.push($(this).val());
+                            });
+
+                            options.forEach(function (option, index) {
+                                option.optionWeight = optionWeight[index];
                             });
 
                             //未添加題目的提示
@@ -857,6 +1114,18 @@
                                 });
                                 return false;
                             } else {
+                                for (var i = 0; i < options.length; i++) {
+                                    if (options[i].val === '') {
+                                        alertBox({
+                                            Mode: 'A',
+                                            Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                            OnOK: function () {
+                                                $('#pulldown_options').addClass('warning');
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                }
                                 if ($('#pulldown_options').hasClass('warning')) {
                                     $('#pulldown_options').removeClass('warning');
                                 }
@@ -873,6 +1142,33 @@
                                     alertBox({
                                         Mode: 'A',
                                         Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            var re = /^[0-9]+$/;
+                            for (var i = 0; i < options.length; i++) {
+                                if (options[i].optionWeight === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                    });
+                                    return false;
+                                } else if (options[i].optionWeight !== '' && !re.test(options[i].optionWeight)) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            for (var i = 0; i < options.length; i++) {
+                                if (options[i].optionNum === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定選項題次!</p>'
                                     });
                                     return false;
                                 }
@@ -961,6 +1257,9 @@
                     OutsideStyle: 'max-width:800px',
                     InsideStyle:'max-height:700px;overflow:auto',
                     Html: $('#edit_editPulldown'),
+                    OnRun: function () {
+                        $('#LoadingBox').show();
+                    },
                     OnReady: function (Code) {
 
                         if (status == 'edit') {
@@ -1015,13 +1314,15 @@
                                 $('.edit_pulldown_option_weight_input').eq(k).val(data['options'][k].optionWeight);
                             }
 
+                            $('#LoadingBox').hide();
                         }
 
                     },
                     OnClose: function (Type) {
                         if (Type == 'ok') {
-                            //儲存新選項
+                            //儲存新選項/權重
                             var newOption = [];
+                            var optionWeight = [];
 
                             var nodeList = $('.editOptions_wrap#edit_editOptions_wrap_pulldown .edit_editPulldown_input');
 
@@ -1030,9 +1331,25 @@
                                 newOption.push({
                                     id: _uuid(),
                                     val: nodeList[j].value,
-                                    jumpLogic: null
+                                    jumpLogic: null,
                                 });
                             }
+
+                            //存選項的題次
+                            $('.edit_pulldown_optionNum').each(function (index) {
+                                var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
+                                newOption[index].optionNum = num;
+                            });
+
+                            //存選項權重
+                            $('input.edit_pulldown_option_weight_input').each(function (index) {
+                                optionWeight.push($(this).val());
+                            });
+
+
+                            newOption.forEach(function (option, index) {
+                                option.optionWeight = optionWeight[index];
+                            });
 
                             //未添加題目的提示
                             if ($('#edit_pulldown_question_title').val() == '') {
@@ -1067,6 +1384,18 @@
                                 });
                                 return false;
                             } else {
+                                for (var i = 0; i < newOption.length; i++) {
+                                    if (newOption[i].val === '') {
+                                        alertBox({
+                                            Mode: 'A',
+                                            Html: '<p style="color:#FF6A00">未添加選項</p>',
+                                            OnOK: function () {
+                                                $('#edit_pulldown_options').addClass('warning');
+                                            }
+                                        });
+                                        return false;
+                                    }
+                                }
                                 if ($('#edit_pulldown_options').hasClass('warning')) {
                                     $('#edit_pulldown_options').removeClass('warning');
                                 }
@@ -1084,6 +1413,33 @@
                                     alertBox({
                                         Mode: 'A',
                                         Html: '<p style="color:#FF6A00">選項重複設定!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            var re = /^[0-9]+$/;
+                            for (var i = 0; i < newOption.length; i++) {
+                                if (newOption[i].optionWeight === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                    });
+                                    return false;
+                                } else if (newOption[i].optionWeight !== '' && !re.test(newOption[i].optionWeight)) {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                    });
+                                    return false;
+                                }
+                            }
+
+                            for (var i = 0; i < newOption.length; i++) {
+                                if (newOption[i].optionNum === '') {
+                                    alertBox({
+                                        Mode: 'A',
+                                        Html: '<p style="color:#FF6A00">未設定選項題次!</p>'
                                     });
                                     return false;
                                 }
@@ -1261,6 +1617,9 @@
                     OutsideStyle: 'max-width:700px',
                     InsideStyle:'max-height:700px;overflow:auto',
                     Html: $('#edit_editTextarea'),
+                    OnRun: function () {
+                        $('#LoadingBox').show();
+                    },
                     OnClose: function (Type) {
                         if (Type === 'ok') {
                             //未添加題目的提示
@@ -1311,6 +1670,8 @@
                         //抓當前DOM父層的問題題號標題
                         var questionTitle = $(dom).parents('.showQuestions_unit_tools').siblings('.question_title').html();
                         $('#quesitonNum').html(questionTitle);
+
+                        $('#LoadingBox').hide();
 
                     },
                     OnOK: function () {
@@ -1400,6 +1761,9 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯頁面說明',
                     Html: $('#editPageDesc'),
+                    OnRun: function () {
+                        $('#LoadingBox').show();
+                    },
                     OnReady: function () {
                         //過場loading
 
@@ -1410,6 +1774,8 @@
 
                         //插入題目
                         $('#editPageDescVal').val(data);
+
+                        $('#LoadingBox').hide();
 
                     },
                     OnOK: function () {
@@ -1734,7 +2100,6 @@
 
 
     /* Controller */
-
 
 
     /* 編輯問題選項功能 */
