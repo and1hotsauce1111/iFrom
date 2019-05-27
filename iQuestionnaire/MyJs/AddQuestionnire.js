@@ -31,7 +31,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增單選題',
                     OutsideStyle: 'max-width:800px',
-                    InsideStyle:'max-height:700px;overflow:auto',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#editRadio'),
                     OnClose: function (Type) {
                         if (Type == 'ok') {
@@ -136,7 +136,7 @@
 
                             //權重和題號未添加 / 格式錯誤的提示
                             var re = /^[0-9]+$/;
-                            for (var i = 0; i < options.length; i++) {                               
+                            for (var i = 0; i < options.length; i++) {
                                 if (options[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
@@ -151,7 +151,7 @@
                                     return false;
                                 }
 
-                                
+
                             }
 
                             for (var i = 0; i < options.length; i++) {
@@ -263,7 +263,7 @@
 
                         if (status == 'edit') {
 
-                            
+
                             var index = $(dom).attr('data-index');
                             //存問題index
                             $('#edit_eidtRadio_del').html(index);
@@ -427,7 +427,7 @@
 
                             var re = /^[0-9]+$/;
                             for (var i = 0; i < newOption.length; i++) {
-                                
+
                                 if (newOption[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
@@ -1255,7 +1255,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯下拉題',
                     OutsideStyle: 'max-width:800px',
-                    InsideStyle:'max-height:700px;overflow:auto',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#edit_editPulldown'),
                     OnRun: function () {
                         $('#LoadingBox').show();
@@ -1615,7 +1615,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯文本題',
                     OutsideStyle: 'max-width:700px',
-                    InsideStyle:'max-height:700px;overflow:auto',
+                    InsideStyle: 'max-height:700px;overflow:auto',
                     Html: $('#edit_editTextarea'),
                     OnRun: function () {
                         $('#LoadingBox').show();
@@ -2155,7 +2155,7 @@
                 if (status === 'add') {
                     //移除並重新排序
                     if (type === 'radio') {
-                        orderOptionNum(e, 'add','radio','delete');
+                        orderOptionNum(e, 'add', 'radio', 'delete');
                     }
                     if (type === 'checkbox') {
                         orderOptionNum(e, 'add', 'checkbox', 'delete');
@@ -2164,7 +2164,7 @@
                         orderOptionNum(e, 'add', 'pulldown', 'delete');
                     }
 
-                    
+
                     $('#LoadingBox').hide();
                 }
 
@@ -2277,38 +2277,38 @@
                     $(evt.target).siblings('.showEditOptions_radio').append($('.editOptions_wrap#editOptions_wrap_radio').html());
                     $('input.radio_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
                 }
-                    
+
 
                 if (status === 'add' && type === 'checkbox') {
                     $(evt.target).siblings('.showEditOptions_checkbox').append($('.editOptions_wrap#editOptions_wrap_checkbox').html());
                     $('input.checkbox_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
-                }               
-               
+                }
+
 
                 if (status === 'add' && type === 'pulldown') {
                     $(evt.target).siblings('.showEditOptions_pulldown').append($('.editOptions_wrap#editOptions_wrap_pulldown').html());
                     $('input.pulldown_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
                 }
-                              
+
 
                 if (status === 'edit' && type === 'radio') {
                     $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_radio').append(editRadioTemplate);
                     $('.editOptions_wrap#edit_editOptions_wrap_radio input.edit_radio_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
                 }
 
-                
+
                 if (status === 'edit' && type === 'checkbox') {
                     $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(editCheckboxTemplate);
                     $('input.edit_checkbox_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
                 }
-                        
+
 
                 if (status === 'edit' && type === 'pulldown') {
                     var orderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
                     $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(editPulldownTemplate);
                     $('input.edit_pulldown_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
-                }               
-                    
+                }
+
             }
 
             //複製選項顯示題次
@@ -2318,48 +2318,48 @@
                     $('.showEditOptions_radio').append($(clone[0]));
                     $(clone[0]).find('input.radio_optionNum').val((orderNum !== undefined ? orderNum + '、' : selfOrder));
                 }
-                    
+
 
                 if (status === 'add' && type === 'checkbox') {
                     var selfOrder = $(clone[0]).find('.checkbox_optionNum').val();
                     $('.showEditOptions_checkbox').append(clone[0]);
                     $(clone[0]).find('input.checkbox_optionNum').val((orderNum !== undefined ? orderNum + '、' : selfOrder));
                 }
-                    
+
 
                 if (status === 'add' && type === 'pulldown') {
                     var selfOrder = $(clone[0]).find('.pulldown_optionNum').val();
                     $('.showEditOptions_pulldown').append(clone[0]);
                     $(clone[0]).find('input.pulldown_optionNum').val((orderNum !== undefined ? orderNum + '、' : selfOrder));
                 }
-                    
+
 
                 if (status === 'edit' && type === 'radio') {
                     var selfOrder = $(clone[0]).find('.edit_radio_optionNum').val();
                     $('.editOptions_wrap#edit_editOptions_wrap_radio').append($(clone[0]));
                     $(clone[0]).find('input.edit_radio_optionNum').val((editOrderNum !== undefined ? editOrderNum + '、' : selfOrder));
                 }
-                    
+
 
                 if (status === 'edit' && type === 'checkbox') {
                     var selfOrder = $(clone[0]).find('.edit_checkbox_optionNum').val();
                     $('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(clone[0]);
                     $(clone[0]).find('input.edit_checkbox_optionNum').val((editOrderNum !== undefined ? editOrderNum + '、' : selfOrder));
                 }
-                    
+
 
                 if (status === 'edit' && type === 'pulldown') {
                     var selfOrder = $(clone[0]).find('.edit_pulldown_optionNum').val();
                     $('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(clone[0]);
                     $(clone[0]).find('input.edit_pulldown_optionNum').val((editOrderNum !== undefined ? editOrderNum + '、' : selfOrder));
                 }
-                    
+
             }
 
             //刪除選項顯示題次
             if (trigger === 'delete') {
                 if (status === 'add' && type === 'radio') {
-                    optionNumCount = 0;                   
+                    optionNumCount = 0;
                     $(evt.target).parents('.editOptions').remove();
                     $('.showEditOptions_radio').find('input.radio_optionNum').each(function () {
                         optionNumCount++;
@@ -2378,7 +2378,7 @@
                         $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
                     });
                 }
-                   
+
 
                 if (status === 'add' && type === 'pulldown') {
                     optionNumCount = 0;
@@ -2389,7 +2389,7 @@
                         $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
                     });
                 }
-                    
+
 
                 if (status === 'edit' && type === 'radio') {
                     editOptionCount = 0;
@@ -2400,7 +2400,7 @@
                         $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
                     });
                 }
-                    
+
 
                 if (status === 'edit' && type === 'checkbox') {
                     editOptionCount = 0;
@@ -2411,7 +2411,7 @@
                         $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
                     });
                 }
-                    
+
 
                 if (status === 'edit' && type === 'pulldown') {
                     editOptionCount = 0;
@@ -2422,7 +2422,7 @@
                         $(this).val((newOrderNum !== undefined ? newOrderNum + '、' : $(this).val()));
                     });
                 }
-                   
+
             }
 
         }, 100);
@@ -2566,16 +2566,24 @@
     };
 
     //邏輯跳題
+    var ifAddLogic = true; //判斷是添加還是刪除邏輯設定
     jumpQuestion = function (e, dom) {
         alertBox({
             Mode: 'C',
             Title: '<i class="fa fa-code-fork"></i>&nbsp;設定跳題邏輯',
             OutsideStyle: 'max-width:800px',
             Html: $('#jumpQuestion'),
+            OnRun: function () {
+                $('#LoadingBox').show();
+            },
             OnReady: function () {
 
-                var type = $(dom).attr('data-type');
+                $('#LoadingBox').hide();
 
+                var type = $(dom).attr('data-type');
+                var index = $(dom).attr('data-index');
+
+                //載入選項及跳題題目
                 if (type === 'radio') {
 
                     //顯示當前題目
@@ -2625,6 +2633,7 @@
                         ButtonText: '請選擇選項',
                         Disabled: false,
                         OnChange: function (Select, Name) {
+                            ifAddLogic = true; //新增狀態
                             //激活選項
                             if (Select[0] == '任意選項') {
                                 vm.tempLogicSetting.allJump = Select;
@@ -2698,13 +2707,16 @@
                         ButtonText: '請選擇選項',
                         Disabled: false,
                         OnChange: function (Select, Name) {
+                            ifAddLogic = true; //新增狀態
                             //激活選項
+
                             if (Select[0] == '任意選項') {
                                 vm.tempLogicSetting.allJump = Select;
                             }
+
+                            console.log(Select);
                             vm.tempLogicSetting.triggerOption.id = Select;
                             vm.tempLogicSetting.triggerOption.val = DropListTempData['selected_option'].SelectText;
-                            console.log(vm.tempLogicSetting.triggerOption.val);
 
                         }
                     });
@@ -2773,6 +2785,7 @@
                         ButtonText: '請選擇選項',
                         Disabled: false,
                         OnChange: function (Select, Name) {
+                            ifAddLogic = true; //新增狀態
                             //激活選項
                             if (Select[0] == '任意選項') {
                                 vm.tempLogicSetting.allJump = Select;
@@ -2833,6 +2846,7 @@
                         ButtonText: '請選擇題目',
                         Disabled: false,
                         OnChange: function (Select, Name) {
+                            ifAddLogic = true; //新增狀態
                             //跳到此問題
                             vm.tempLogicSetting.jumpTo.id = Select;
                             vm.tempLogicSetting.jumpTo.val = DropListTempData['jump_to_question'].SelectText;
@@ -2841,185 +2855,16 @@
 
                 }
 
-            },
-            OnOK: function () {
-
-                var type = $(dom).attr('data-type');
-                //var result = '<i class="fa fa-code-fork"></i>&nbsp;若本題選擇【' + vm.tempLogicSetting.triggerOption.val + '】，則跳至第&nbsp;' + vm.tempLogicSetting.jumpTo.val + '&nbsp;題';
-
-                if (type === 'radio') {
-
-                    //取得當前編輯的問題
-                    var index = $(dom).attr('data-index');
-                    var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
-
-                    //是否選擇任意選項跳題
-                    if (vm.tempLogicSetting.allJump.length === 0) {
-                        //沒有任意選項跳題
-                        target.options.forEach(function (option) {
-                            if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
-                                //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
-                                option.jumpLogic = _.cloneDeep(vm.tempLogicSetting);
-                            }
-                        });
-
-                        //判斷是否同選項的設定
-                        //清空顯示跳題提示data
-                        target.showLogicCount = [];
-                        target.options.forEach(function (option) {
-                            if (option.jumpLogic !== null) {
-                                target.showLogicCount.push(option.jumpLogic);
-                            }
-                        });
-                    } else {
-                        //有任意選項跳題
-                        //清空顯示跳題提示data
-                        target.showLogicCount = [];
-                        target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
-                    }
-
-                }
-                if (type === 'checkbox') {
-                    //取得當前編輯的問題
-                    var index = $(dom).attr('data-index');
-                    var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
-
-                    //是否選擇任意選項跳題
-                    if (vm.tempLogicSetting.allJump.length === 0) {
-                        //沒有任意選項跳題
-                        //是否為多選跳題
-                        if (vm.tempLogicSetting.triggerOption.val.length === 1) {
-                            //單選跳題
-                            target.options.forEach(function (option) {
-                                if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
-                                    //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
-                                    option.jumpLogic = _.cloneDeep(vm.tempLogicSetting);
-                                }
-                            });
-
-                            //判斷是否同選項的設定
-                            //清空顯示跳題提示data
-                            target.showLogicCount = [];
-                            target.options.forEach(function (option) {
-                                if (option.jumpLogic !== null) {
-                                    target.showLogicCount.push(option.jumpLogic);
-                                }
-                            });
-                        } else {
-                            //多選跳題
-                            //有任意選項跳題
-
-                            var index = -1; //不存在的index，用來記錄相同的多選跳題選項
-                            for (var i = 0; i < target.showLogicCount.length; i++) {
-                                //若為單選跳題則跳過
-                                if (target.showLogicCount[i].triggerOption.val.length === 1) {
-                                    continue;
-                                }
-
-                                if (_.isEqual(target.showLogicCount[i].triggerOption.val, vm.tempLogicSetting.triggerOption.val)) {
-
-                                    index = i;
-                                    break;
-                                }
-                            }
-
-                            if (index !== -1) { //匹配相同的多選跳題選項
-                                target.showLogicCount[index] = _.cloneDeep(vm.tempLogicSetting);
-                            } else { //若無匹配則新增
-                                target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
-                            }
-
-                        }
-                    } else {
-                        //有任意選項跳題
-                        //清空顯示跳題提示data
-                        target.showLogicCount = [];
-                        target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
-                    }
-
-                }
-                if (type === 'pulldown') {
-                    //取得當前編輯的問題
-                    var index = $(dom).attr('data-index');
-                    var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
-
-                    //是否選擇任意選項跳題
-                    if (vm.tempLogicSetting.allJump.length === 0) {
-                        //沒有任意選項跳題
-                        //是否為多選跳題
-                        if (vm.tempLogicSetting.triggerOption.val.length === 1) {
-                            //單選跳題
-                            target.options.forEach(function (option) {
-                                if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
-                                    //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
-                                    option.jumpLogic = _.cloneDeep(vm.tempLogicSetting);
-                                }
-                            });
-
-                            //判斷是否同選項的設定
-                            //清空顯示跳題提示data
-                            target.showLogicCount = [];
-                            target.options.forEach(function (option) {
-                                if (option.jumpLogic !== null) {
-                                    target.showLogicCount.push(option.jumpLogic);
-                                }
-                            });
-                        } else {
-                            //多選跳題
-                            //有任意選項跳題
-
-                            var index = -1; //不存在的index，用來記錄相同的多選跳題選項
-                            for (var i = 0; i < target.showLogicCount.length; i++) {
-                                //若為單選跳題則跳過
-                                if (target.showLogicCount[i].triggerOption.val.length === 1) {
-                                    continue;
-                                }
-
-                                if (_.isEqual(target.showLogicCount[i].triggerOption.val, vm.tempLogicSetting.triggerOption.val)) {
-
-                                    index = i;
-                                    break;
-                                }
-                            }
-
-                            if (index !== -1) { //匹配相同的多選跳題選項
-                                target.showLogicCount[index] = _.cloneDeep(vm.tempLogicSetting);
-                            } else { //若無匹配則新增
-                                target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
-                            }
-
-                        }
-                    } else {
-                        //有任意選項跳題
-                        //清空顯示跳題提示data
-                        target.showLogicCount = [];
-                        target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
-                    }
-                }
-                if (type === 'textarea') {
-                    //取得當前編輯的問題
-                    var index = $(dom).attr('data-index');
-                    var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
-
-                    target.showLogicCount = [(_.cloneDeep(vm.tempLogicSetting))];
-                }
-            }
-        });
-    };
-
-    //顯示跳題設定結果
-    showLogicSetting = function (dom, type) {
-        alertBox({
-            Mode: 'C',
-            Html: $('#show_logic_setting'),
-            Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯跳題設定',
-            OutsideStyle: 'max-width:750px',
-            OnReady: function () {
+                //顯示跳題邏輯設定
                 $('#show_logic_content').empty();
-                var index = $(dom).attr("data-logic");
                 var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
-                console.log(target);
-                if (type === 'radio') {
+
+                //未設定任何跳題選項
+                if (target.length === 0) {
+                    $('#show_logic_content').append('<h4 style="color:#FD6A4F;margin:0">尚未添加跳題設定</h4>')
+                }
+
+                if (type === 'radio' || type === 'pulldown') {
 
                     //判斷是否有任意選項
                     if (target.length === 1) {
@@ -3029,7 +2874,6 @@
                         var split;
                         if (string.length > 20) {
                             split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
-                            console.log(split);
                         } else {
                             split = target[0].jumpTo.val[0];
                         }
@@ -3038,16 +2882,16 @@
                         if (target[0].allJump.length === 0) {
                             //沒有任意選項跳題
 
-                            $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                            $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val[0] + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
                         } else {
                             //有任意選項跳題
-                            $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                            $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="任意選項" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="任意選項" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
                         }
                     } else {
                         for (var i = 0; i < target.length; i++) {
@@ -3057,20 +2901,19 @@
                             var split;
                             if (string.length > 20) {
                                 split = _.split(target[i].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
-                                console.log(split);
                             } else {
                                 split = target[i].jumpTo.val[0];
                             }
 
-                            $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                            $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[i].triggerOption.val[0] + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[i].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[i].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
 
                         }
                     }
 
-                } else if (type === 'checkbox' || type === 'pulldown') {
+                } else if (type === 'checkbox') {
 
                     //判斷是否有任意選項
                     if (target.length === 1) {
@@ -3080,7 +2923,6 @@
                         var split;
                         if (string.length > 20) {
                             split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
-                            console.log(split);
                         } else {
                             split = target[0].jumpTo.val[0];
                         }
@@ -3088,13 +2930,13 @@
                         //只設定一個跳題選項或有設定任意選項跳題
                         if (target[0].allJump.length === 0) {
                             //沒有任意選項跳題
-                            $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                            $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
                          <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="'+ target[0].triggerOption.id[0] + '" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
                         } else {
                             //有任意選項跳題
-                            $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                            $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[0].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
                          <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="任意選項" onclick="delLogicSetting(event,' + index + ',$(this),' + null + ')">刪除跳題設定</button></div>');
@@ -3109,41 +2951,209 @@
                             var split;
                             if (string.length > 20) {
                                 split = _.split(target[i].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
-                                console.log(split);
                             } else {
                                 split = target[i].jumpTo.val[0];
                             }
 
-                            $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                            $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
                         若本題選擇<span style="color:#FD6A4F">【' + target[i].triggerOption.val.join(', ') + '】</span>\
                         ，則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="多選跳題" onclick="delLogicSetting(event,' + index + ',$(this), ' + i + ')">刪除跳題設定</button></div>');
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="多選跳題" data-val="'+ target[i].triggerOption.val + '" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
 
                         }
                     }
                 } else {
 
                     //切割字串
-                    var string = _.split(target[0].jumpTo.val[0], '');
-                    var split;
-                    if (string.length > 20) {
-                        split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
-                        console.log(split);
+                    //未設定任何跳題選項
+                    if (target.length === 0) {
+                        return;
                     } else {
-                        split = target[0].jumpTo.val[0];
+                        var string = _.split(target[0].jumpTo.val[0], '');
+                        var split;
+                        if (string.length > 20) {
+                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
+                        } else {
+                            split = target[0].jumpTo.val[0];
+                        }
+
+                        $('#show_logic_content').append('<div style="display:flex;margin:5px 0 5px 0"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
+                         若有填答則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
+                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="文本跳題" onclick="delLogicSetting(event,' + index + ',$(this))">刪除跳題設定</button></div>');
                     }
 
-                    $('#show_logic_content').append('<div style="display:flex;margin-bottom:20px"><div class="show_logic"><i class="fa fa-code-fork"></i>&nbsp;\
-                         若有填答則跳至第&nbsp;<span style="color:#FD6A4F">【' + split + '】</span>&nbsp; 題\
-                         <button style="margin-left:20px" type="button" class="button_o btn_blue_o btn_s" data-delId="文本跳題" onclick="delLogicSetting(event,' + index + ',$(this), ' + null + ')">刪除跳題設定</button></div>');
                 }
+
+            },
+            OnOK: function () {
+
+                var type = $(dom).attr('data-type');
+                //var result = '<i class="fa fa-code-fork"></i>&nbsp;若本題選擇【' + vm.tempLogicSetting.triggerOption.val + '】，則跳至第&nbsp;' + vm.tempLogicSetting.jumpTo.val + '&nbsp;題';
+                if (ifAddLogic) {
+                    if (type === 'radio') {
+
+                        //取得當前編輯的問題
+                        var index = $(dom).attr('data-index');
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+
+                        //是否選擇任意選項跳題
+                        if (vm.tempLogicSetting.allJump.length === 0) {
+                            //沒有任意選項跳題
+                            target.options.forEach(function (option) {
+                                if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
+                                    //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
+                                    option.jumpLogic = _.cloneDeep(vm.tempLogicSetting);
+                                }
+                            });
+
+                            //判斷是否同選項的設定
+                            //清空顯示跳題提示data
+                            target.showLogicCount = [];
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    target.showLogicCount.push(option.jumpLogic);
+                                }
+                            });
+                        } else {
+                            //有任意選項跳題
+                            //清空顯示跳題提示data
+                            target.showLogicCount = [];
+                            target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+                        }
+
+                    }
+                    if (type === 'checkbox') {
+                        //取得當前編輯的問題
+                        var index = $(dom).attr('data-index');
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+
+                        //是否選擇任意選項跳題
+                        if (vm.tempLogicSetting.allJump.length === 0) {
+                            //沒有任意選項跳題
+                            //是否為多選跳題
+                            if (vm.tempLogicSetting.triggerOption.val.length === 1) {
+                                //單選跳題
+                                //存到各選項
+                                target.options.forEach(function (option) {
+                                    if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
+                                        //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
+                                        option.jumpLogic = _.cloneDeep(vm.tempLogicSetting);
+                                    }
+                                });
+
+                                //判斷是否同選項的設定
+                                var nullIndex = -1; //不存在的index，用來記錄相同的單選跳題選項
+                                for (var i = 0; i < target.showLogicCount.length; i++) {
+                                    if (_.isEqual(target.showLogicCount[i].triggerOption.val, vm.tempLogicSetting.triggerOption.val)) {
+
+                                        nullIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (nullIndex !== -1) { //匹配相同的多選跳題選項
+                                    target.showLogicCount[nullIndex] = _.cloneDeep(vm.tempLogicSetting);
+                                } else { //若無匹配則新增
+                                    target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+                                }
+
+                            } else {
+                                //多選跳題
+                                var nullIndex = -1; //不存在的index，用來記錄相同的多選跳題選項
+                                for (var i = 0; i < target.showLogicCount.length; i++) {
+                                    //若為單選跳題則跳過
+                                    if (target.showLogicCount[i].triggerOption.val.length === 1) {
+                                        continue;
+                                    }
+
+                                    if (_.isEqual(target.showLogicCount[i].triggerOption.val, vm.tempLogicSetting.triggerOption.val)) {
+
+                                        nullIndex = i;
+                                        break;
+                                    }
+                                }
+                                if (nullIndex !== -1) { //匹配相同的多選跳題選項
+                                    target.showLogicCount[nullIndex] = _.cloneDeep(vm.tempLogicSetting);
+                                } else { //若無匹配則新增
+                                    target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+                                }
+
+                            }
+                        } else {
+                            //有任意選項跳題
+                            //清空顯示跳題提示data
+                            target.showLogicCount = [];
+                            target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+                        }
+
+                    }
+                    if (type === 'pulldown') {
+                        //取得當前編輯的問題
+                        var index = $(dom).attr('data-index');
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+
+                        //是否選擇任意選項跳題
+                        if (vm.tempLogicSetting.allJump.length === 0) {
+                            //沒有任意選項跳題
+                            //是否為多選跳題
+                            if (vm.tempLogicSetting.triggerOption.val.length === 1) {
+                                //單選跳題
+                                target.options.forEach(function (option) {
+                                    if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
+                                        //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
+                                        option.jumpLogic = _.cloneDeep(vm.tempLogicSetting);
+                                    }
+                                });
+
+                                //判斷是否同選項的設定
+                                //清空顯示跳題提示data
+                                target.showLogicCount = [];
+                                target.options.forEach(function (option) {
+                                    if (option.jumpLogic !== null) {
+                                        target.showLogicCount.push(option.jumpLogic);
+                                    }
+                                });
+                            }
+                        } else {
+                            //有任意選項跳題
+                            //清空顯示跳題提示data
+                            target.showLogicCount = [];
+                            target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
+                        }
+                    }
+                    if (type === 'textarea') {
+                        //取得當前編輯的問題
+                        var index = $(dom).attr('data-index');
+                        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+
+                        target.showLogicCount = [(_.cloneDeep(vm.tempLogicSetting))];
+                    }
+                }
+
+                ifAddLogic = true;
+
+                //刪除暫存跳題選項
+                vm.tempLogicSetting = {
+                    triggerOption: {
+                        id: '',
+                        val: ''
+                    },
+                    jumpTo: {
+                        id: '',
+                        val: ''
+                    },
+                    noSkip: {
+                        id: '',
+                        val: ''
+                    },
+                    allJump: []
+                };
 
             }
         });
     };
 
     //刪除邏輯跳題
-    delLogicSetting = function (e, index, dom, multi) {
+    delLogicSetting = function (e, index, dom) {
         alertBox({
             Mode: 'C',
             Title: '刪除跳題設定',
@@ -3159,18 +3169,22 @@
 
                 //刪除資料
                 var delId = $(dom).attr('data-delId');
+                var delVal = $(dom).attr('data-val');
                 var item = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
-
                 //判斷是多選或單選跳題
 
                 if (delId == '任意選項' || delId == '文本跳題') {
                     item.showLogicCount = [];
-                    $('#LoadingBox').hide();
                 } else {
                     if (delId === '多選跳題') {
-                        item.showLogicCount.splice(multi, 1);
-                        $('#LoadingBox').hide();
+                        //刪完一筆後index有變化!!
+                        item.showLogicCount.forEach(function (data, index) {
+                            if (data.triggerOption.val == delVal) {
+                                item.showLogicCount.splice(index, 1);
+                            }
+                        });
                     } else {
+                        console.log('pulldown');
                         item.options.forEach(function (option) {
                             if (option.id == delId) {
                                 option.jumpLogic = null;
@@ -3183,13 +3197,29 @@
                                 item.showLogicCount.splice(index, 1);
                             }
                         });
-                        $('#LoadingBox').hide();
                     }
 
                 }
 
-
-
+                //刪除暫存跳題選項
+                vm.tempLogicSetting = {
+                    triggerOption: {
+                        id: '',
+                        val: ''
+                    },
+                    jumpTo: {
+                        id: '',
+                        val: ''
+                    },
+                    noSkip: {
+                        id: '',
+                        val: ''
+                    },
+                    allJump: []
+                };
+                console.log(vm.tempLogicSetting);
+                ifAddLogic = false;
+                $('#LoadingBox').hide();
             }
         });
     };
@@ -3244,7 +3274,6 @@
         });
 
     };
-
 
     //上一頁
     prevPage = function () {

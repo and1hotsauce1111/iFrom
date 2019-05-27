@@ -725,23 +725,31 @@
                         <td><p id="currentTitle"></p></td>
                     </tr>
                     <tr>
+                        <th class="textC">當前設定</th>
+                        <td id="show_logic_content"></td>
+                    </tr>
+                    <tr>
                         <th class="textC">設置跳題</th>
                         <td>
-                            <span style="color:#FF6A00">如果本題選中&emsp;&emsp;</span><span id="selected_option"></span><span style="color:#FF6A00">&emsp;&emsp;則跳轉到&emsp;&emsp;</span><span id="jump_to_question"></span>
+                            <span style="color:#FF6A00">如果本題選中&emsp;&emsp;</span>
+                            <span id="selected_option"></span><span style="color:#FF6A00">&emsp;&emsp;則跳轉到&emsp;&emsp;</span>
+                            <span id="jump_to_question"></span>
                         </td>
                     </tr>
                 </table>
                 
                 <div class="toolsDesc">
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i><span>&nbsp;添加問卷題目及選項後，可依據填答的選項跳轉至某道題目。</span>
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span>&nbsp;添加問卷題目及選項後，可依據填答的選項跳轉至某道題目。</span>
                     <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i><span style="display:inline-block">文本題型無須設定填答選項。</span>
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span style="display:inline-block">文本題型無須設定填答選項。</span>
                 </div>
             </div>
 
             <%-- 顯示跳題設定結果 --%>
             <div id="show_logic_setting">
-                <div id="show_logic_content"></div>
+                <%--<div id="show_logic_content"></div>--%>
             </div>
 
 
@@ -874,7 +882,11 @@
                                 <%-- 單選題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'radio'">
-                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+
+                                        <h1 style="font-size: 18px;margin:0" class="question_title">
+                                            <span class="show_question_title" v-if="question.required === 'true'">必填</span>
+                                            &emsp;Q&nbsp;{{ question.questionNum }}&emsp;
+                                        </h1>
                                         <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
 
@@ -887,13 +899,11 @@
                                             
                                         </div>
                                   
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'radio')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
+                                        <%--<div class="show_logic_setting" onclick="showLogicSetting($(this),'radio')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
                                             <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
                                             <span class="logic_count">{{ question.showLogicCount.length }}</span>
-                                        </div>
-                                    
-                                        
-                                    
+                                        </div>--%>
+                              
                                     </div> 
                           
                                 <!-- end of 單選題 -->        
@@ -902,7 +912,11 @@
                                 <%-- 多選題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'checkbox'">
-                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+
+                                        <h1 style="font-size: 18px;margin:0" class="question_title">
+                                            <span class="show_question_title" v-if="question.required === 'true'">必填</span>
+                                            &emsp;Q&nbsp;{{ question.questionNum }}&emsp;
+                                        </h1>
                                         <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
                                             <label class="label_checkbox">
@@ -913,13 +927,6 @@
                                             </label>
                                         </div>
 
-                                       
-
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'checkbox')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
-                                            <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
-                                            <span class="logic_count">{{ question.showLogicCount.length }}</span>
-                                        </div>
-
                                     </div> 
                             
                                 <!-- end of 多選題 --> 
@@ -928,7 +935,11 @@
                                 <%-- 下拉題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'pulldown'">
-                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+
+                                        <h1 style="font-size: 18px;margin:0" class="question_title">
+                                            <span class="show_question_title" v-if="question.required === 'true'">必填</span>
+                                            &emsp;Q&nbsp;{{ question.questionNum }}&emsp;
+                                        </h1>
                                         <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options" v-for="option in question.options">
                                             <span style="display:flex;align-items:center">
@@ -936,13 +947,6 @@
                                                 <i class="fa fa-caret-square-o-down" style="font-size:18px"></i>&nbsp;
                                                 <span>{{ option.val }}</span>
                                             </span>                                    
-                                        </div>
-
-                                        
-
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'pulldown')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
-                                            <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
-                                            <span class="logic_count">{{ question.showLogicCount.length }}</span>
                                         </div>
 
                                     </div>
@@ -954,20 +958,16 @@
                                 <%-- 文本題 --%>
 
                                     <div class="showQuestions_unit" v-if="question.type === 'textarea'">
-                                        <h1 style="font-size: 18px;margin:0" class="question_title"><span class="show_question_title" v-if="question.required === 'true'" style="display:inline-block;background-color:#EA4335;color: #fff;padding: 2px;border-radius: 2px;">必填</span>&emsp;Q&nbsp;{{ question.questionNum }}&emsp;</h1>
+                                        <h1 style="font-size: 18px;margin:0" class="question_title">
+                                            <span class="show_question_title" v-if="question.required === 'true'">必填</span>
+                                            &emsp;Q&nbsp;{{ question.questionNum }}&emsp;
+                                        </h1>
                                         <span style="display: inline-block; padding: 20px;word-wrap: break-word;font-size: 18px">{{ question.title }}</span>
                                         <div class="showQuestions_unit_options">
                                             <div style="font-size: 0">
                                                 <textarea rows="5" placeholder="" disabled></textarea>
                                             </div>                                    
-                                        </div>
-
-                                        
-
-                                        <div class="show_logic_setting" onclick="showLogicSetting($(this),'textarea')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
-                                            <span style="font-size:35px" title="顯示跳題設定"><i class="fa fa-code-fork"></i></span>
-                                            <span class="logic_count">{{ question.showLogicCount.length }}</span>
-                                        </div>
+                                        </div>             
 
                                     </div> 
                             
@@ -980,6 +980,7 @@
                                             <span title="跳題設定">
                                                 <i class="fa fa-code-fork"></i>
                                             </span>
+                                            <span class="logic_count" v-if="question.showLogicCount.length !== 0">{{ question.showLogicCount.length }}</span>
                                         </li>
                                         <li onclick="editQuestion(event,'edit',$(this))" :data-type="question.type" :data-index="index">
                                             <span title="編輯">

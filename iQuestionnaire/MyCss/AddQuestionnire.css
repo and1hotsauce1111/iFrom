@@ -75,7 +75,6 @@
         }
 
 /* 縮小版工具列 */
-
 .tools_bar_mini {
     top: 100px;
     display: flex;
@@ -173,14 +172,6 @@
 
 
 
-
-
-
-
-
-
-
-
 /* 編輯區塊 */
 .ContentBoxHeader {
     width: 100%;
@@ -233,12 +224,14 @@
     }
 
 .question_wrap {
-    user-select:none;
+    user-select: none;
 }
+
 .ghost {
     opacity: .5;
     background: #C8EBFB;
 }
+
 .question_wrap:hover .showQuestions_unit {
     cursor: pointer;
     border: 1px solid #d3d3d3;
@@ -263,9 +256,9 @@
         margin-bottom: 15px;
     }*/
 
-        .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label:hover {
-            color: #505050;
-        }
+    .showQuestions_wrap .showQuestions_unit .showQuestions_unit_options label:hover {
+        color: #505050;
+    }
 
 .showQuestions_wrap .showQuestions_unit_tools,
 .showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc {
@@ -446,18 +439,20 @@
     user-select: none;
 }
 
-    .show_logic_setting .logic_count {
-        position: relative;
-        top: -20px;
-        right: 5px;
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        background-color: rgb(234, 67, 53);
-        border-radius: 50%;
-        text-align: center;
-        color: rgb(255, 255, 255);
-    }
+
+.logic_count {
+    position: relative;
+    font-size: 12px;
+    top: -10px;
+    right: 3px;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: rgb(234, 67, 53);
+    border-radius: 50%;
+    text-align: center;
+    color: rgb(255, 255, 255);
+}
 
 
 
@@ -480,8 +475,8 @@
     .editOptions .radio_icon,
     .editOptions .checkbox_icon,
     .editOptions .pulldown_icon {
-        display:flex;
-        align-items:center;
+        display: flex;
+        align-items: center;
         flex: 0 0 12%;
         font-size: 18px;
         height: 26px;
@@ -504,6 +499,14 @@
             cursor: pointer;
         }
 
+.show_question_title {
+    display: inline-block;
+    background-color: #EA4335;
+    color: #fff;
+    padding: 2px;
+    border-radius: 2px;
+}
+
 
 /* loading完成前先隱藏列表 */
 .tableDisplayNone,
@@ -512,10 +515,9 @@
 }
 
 #LoadingBox {
-    position:fixed;
-    top:55vh;
-    left:55vw;
+    position: fixed;
+    top: 55vh;
+    left: 55vw;
     text-align: center;
-    z-index:6500;
+    z-index: 6500;
 }
-
