@@ -2999,6 +2999,7 @@
                         //是否選擇任意選項跳題
                         if (vm.tempLogicSetting.allJump.length === 0) {
                             //沒有任意選項跳題
+                            
                             target.options.forEach(function (option) {
                                 if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
                                     //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
@@ -3016,6 +3017,12 @@
                             });
                         } else {
                             //有任意選項跳題
+                            //清空選項跳題設定
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    option.jumpLogic = null;
+                                }
+                            });
                             //清空顯示跳題提示data
                             target.showLogicCount = [];
                             target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
@@ -3053,6 +3060,13 @@
                                 if (nullIndex !== -1) { //匹配相同的多選跳題選項
                                     target.showLogicCount[nullIndex] = _.cloneDeep(vm.tempLogicSetting);
                                 } else { //若無匹配則新增
+                                    //若有任意跳題選項則刪除
+                                    for (var i = 0; i < target.showLogicCount.length; i++) {
+                                        if (target.showLogicCount[i].allJump[0] == '任意選項') {
+                                            target.showLogicCount.splice(i, 1);
+                                            break;
+                                        }
+                                    }
                                     target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
                                 }
 
@@ -3074,12 +3088,25 @@
                                 if (nullIndex !== -1) { //匹配相同的多選跳題選項
                                     target.showLogicCount[nullIndex] = _.cloneDeep(vm.tempLogicSetting);
                                 } else { //若無匹配則新增
+                                    //若有任意跳題選項則刪除
+                                    for (var i = 0; i < target.showLogicCount.length; i++) {
+                                        if (target.showLogicCount[i].allJump[0] == '任意選項') {
+                                            target.showLogicCount.splice(i, 1);
+                                            break;
+                                        }
+                                    }
                                     target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
                                 }
 
                             }
                         } else {
                             //有任意選項跳題
+                            //清空選項跳題設定
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    option.jumpLogic = null;
+                                }
+                            });
                             //清空顯示跳題提示data
                             target.showLogicCount = [];
                             target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
@@ -3115,6 +3142,12 @@
                             }
                         } else {
                             //有任意選項跳題
+                            //清空選項跳題設定
+                            target.options.forEach(function (option) {
+                                if (option.jumpLogic !== null) {
+                                    option.jumpLogic = null;
+                                }
+                            });
                             //清空顯示跳題提示data
                             target.showLogicCount = [];
                             target.showLogicCount.push(_.cloneDeep(vm.tempLogicSetting));
@@ -3184,7 +3217,6 @@
                             }
                         });
                     } else {
-                        console.log('pulldown');
                         item.options.forEach(function (option) {
                             if (option.id == delId) {
                                 option.jumpLogic = null;
