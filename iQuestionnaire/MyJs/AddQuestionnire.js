@@ -2985,13 +2985,26 @@
                 }
 
             },
+            OnClose: function (Type) {
+                if (Type === 'ok') {
+
+                    if (vm.tempLogicSetting.jumpTo.val === '') {
+                        alertBox({
+                            Mode: 'A',
+                            Html: '<p style="color:#FF6A00">未選擇轉跳題目</p>',
+                        });
+
+                        return false;
+                    }
+                    return true;
+                }
+            },
             OnOK: function () {
 
                 var type = $(dom).attr('data-type');
                 //var result = '<i class="fa fa-code-fork"></i>&nbsp;若本題選擇【' + vm.tempLogicSetting.triggerOption.val + '】，則跳至第&nbsp;' + vm.tempLogicSetting.jumpTo.val + '&nbsp;題';
                 if (ifAddLogic) {
                     if (type === 'radio') {
-
                         //取得當前編輯的問題
                         var index = $(dom).attr('data-index');
                         var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
@@ -3249,7 +3262,6 @@
                     },
                     allJump: []
                 };
-                console.log(vm.tempLogicSetting);
                 ifAddLogic = false;
                 $('#LoadingBox').hide();
             }
