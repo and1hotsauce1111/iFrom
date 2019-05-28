@@ -302,7 +302,7 @@
     .showQuestions_wrap .showQuestions_unit_tools ul.showQuestions_unit_tools_list li,
     .showQuestions_pageDesc_wrap .showQuestions_unit_tools_pageDesc ul.showQuestions_unit_tools_list li {
         flex: 0 0 24%;
-        font-size: 18px;
+        font-size: 20px;
         text-align: center;
     }
 
@@ -329,6 +329,7 @@
 }
 
 .question_wrap:hover .showQuestions_unit_tools,
+.question_wrap:hover .move_question,
 .showQuestions_pageDesc_wrap:hover .showQuestions_unit_tools_pageDesc {
     visibility: visible;
 }
@@ -427,7 +428,7 @@
 /* 編輯問題模板提示樣式 */
 .textC.warning {
     color: #f00;
-    box-shadow: 0 0 0 3px #f00 inset
+    box-shadow: 0 0 0 3px #f00 inset;
 }
 
 /* 顯示跳題設定 */
@@ -439,6 +440,46 @@
     user-select: none;
 }
 
+/* 上下移動問題 */
+.move_question {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    font-size: 30px;
+    visibility: hidden;
+}
+
+    .move_question span:first-child {
+        margin-right: 5px;
+    }
+
+    .move_question span:hover {
+        color: #ccc;
+    }
+
+/* 上下移動問題的動畫 */
+.move_animate {
+    box-shadow:none;
+    animation: shadow 0.5s ease-out;
+}
+
+@keyframes shadow {
+    0% {
+        box-shadow: 0 0 0 1px #5F9ED6 inset;
+    }
+
+    50% {
+        box-shadow: 0 0 0 2px #5F9ED6 inset;
+    }
+
+    80% {
+        box-shadow: 0 0 0 1px #5F9ED6 inset;
+    }
+
+    100% {
+        box-shadow:none;
+    }
+}
 
 .logic_count {
     position: relative;

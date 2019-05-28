@@ -740,10 +740,13 @@
                 
                 <div class="toolsDesc">
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span>&nbsp;添加問卷題目及選項後，可依據填答的選項跳轉至某道題目。</span>
+                    <span>添加問卷題目及選項後，可依據填答的選項跳轉至某道題目。</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span style="display:inline-block">文本題型無須設定填答選項。</span>
+                    <span style="display:inline-block">文本題型無須設定填答選項。</span>              
+                    <br />
+                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
+                    <span style="display:inline-block">確定刪除跳題設定後將不可回復。</span>
                 </div>
             </div>
 
@@ -877,6 +880,11 @@
                                     <div class="showQuestions_pageDesc">
                                         <p class="page_desc">{{ question.val }}</p>
                                     </div>
+
+                                    <div class="move_question">
+                                        <span title="問題上移" :data-index="index" onclick="moveUp($(this))"><i class="fa fa-arrow-circle-up"></i></span>
+                                        <span title="問題下移" :data-index="index" onclick="moveDown($(this))"><i class="fa fa-arrow-circle-down"></i></span>
+                                    </div>
                                 </div>
 
                                 <%-- 單選題 --%>
@@ -897,6 +905,11 @@
                                                 <span class="label_text">{{ option.val }}</span>
                                             </label>
                                             
+                                        </div>
+
+                                        <div class="move_question">
+                                            <span title="問題上移" :data-index="index" onclick="moveUp($(this))"><i class="fa fa-arrow-circle-up"></i></span>
+                                            <span title="問題下移" :data-index="index" onclick="moveDown($(this))"><i class="fa fa-arrow-circle-down"></i></span>
                                         </div>
                                   
                                         <%--<div class="show_logic_setting" onclick="showLogicSetting($(this),'radio')" :data-logic="index" v-if="question.showLogicCount.length !== 0">
@@ -927,6 +940,11 @@
                                             </label>
                                         </div>
 
+                                        <div class="move_question">
+                                            <span title="問題上移" :data-index="index" onclick="moveUp($(this))"><i class="fa fa-arrow-circle-up"></i></span>
+                                            <span title="問題下移" :data-index="index" onclick="moveDown($(this))"><i class="fa fa-arrow-circle-down"></i></span>
+                                        </div>
+
                                     </div> 
                             
                                 <!-- end of 多選題 --> 
@@ -949,6 +967,11 @@
                                             </span>                                    
                                         </div>
 
+                                        <div class="move_question">
+                                            <span title="問題上移" :data-index="index" onclick="moveUp($(this))"><i class="fa fa-arrow-circle-up"></i></span>
+                                            <span title="問題下移" :data-index="index" onclick="moveDown($(this))"><i class="fa fa-arrow-circle-down"></i></span>
+                                        </div>
+
                                     </div>
                             
                                 <!-- end of 下拉題 --> 
@@ -967,7 +990,12 @@
                                             <div style="font-size: 0">
                                                 <textarea rows="5" placeholder="" disabled></textarea>
                                             </div>                                    
-                                        </div>             
+                                        </div> 
+                                        
+                                        <div class="move_question">
+                                            <span title="問題上移" :data-index="index" onclick="moveUp($(this))"><i class="fa fa-arrow-circle-up"></i></span>
+                                            <span title="問題下移" :data-index="index" onclick="moveDown($(this))"><i class="fa fa-arrow-circle-down"></i></span>
+                                        </div>
 
                                     </div> 
                             

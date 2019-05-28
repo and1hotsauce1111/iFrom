@@ -189,7 +189,6 @@
                         //存選項的題次
                         $('.showEditOptions_radio').find('input.radio_optionNum').each(function (index) {
                             var num = $(this).val().replace(/[\ |\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\、|\<|\.|\>|\/|\?]/g, '');
-                            console.log(index);
                             options[index].optionNum = num;
                         });
 
@@ -2987,15 +2986,17 @@
             },
             OnClose: function (Type) {
                 if (Type === 'ok') {
+                    if (ifAddLogic) {
+                        if (vm.tempLogicSetting.jumpTo.val === '') {
+                            alertBox({
+                                Mode: 'A',
+                                Html: '<p style="color:#FF6A00">未選擇轉跳題目</p>',
+                            });
 
-                    if (vm.tempLogicSetting.jumpTo.val === '') {
-                        alertBox({
-                            Mode: 'A',
-                            Html: '<p style="color:#FF6A00">未選擇轉跳題目</p>',
-                        });
-
-                        return false;
+                            return false;
+                        }
                     }
+                    
                     return true;
                 }
             },
@@ -3424,6 +3425,54 @@
             event.returnValue = "確定要刷新頁面? 資料將不被保存";
         }
         return '確定要刷新頁面? 資料將不被保存';
+    };
+
+    //問題上下移動功能
+    moveUp = function (dom) {
+        $('#LoadingBox').show();
+        var index = parseInt($(dom).attr('data-index'));
+        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
+        if (index === 0) {
+            alertBox({
+                Mode: 'A',
+                Html: '<p style="color:#FF6A00">已經為第一項!</p>'
+            });
+            $('#LoadingBox').hide();
+            return false;
+        }
+        
+        window.setTimeout(function () {
+            target.splice(index - 1, 2, target[index], target[index - 1]);
+            //重排題號
+            resetNum();
+            $('#LoadingBox').hide();
+            $('.showQuestions_unit').eq(index - 1).addClass('move_animate');
+        }, 300);
+
+        $('.showQuestions_unit').eq(index - 1).removeClass('move_animate');
+    };
+
+    moveDown = function (dom) {
+        $('#LoadingBox').show();
+        var index = parseInt($(dom).attr('data-index'));
+        var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
+        if (index >= target.length - 1) {
+            alertBox({
+                Mode: 'A',
+                Html: '<p style="color:#FF6A00">已經為最後一項!</p>'
+            });
+            $('#LoadingBox').hide();
+            return false;
+        }
+        window.setTimeout(function () {           
+            target.splice(index, 2, target[index + 1], target[index]);
+            //重排題號
+            resetNum();
+            $('#LoadingBox').hide();
+            $('.showQuestions_unit').eq(index + 1).addClass('move_animate');
+        }, 300);
+
+        $('.showQuestions_unit').eq(index + 1).removeClass('move_animate');
     };
 
 
