@@ -75,7 +75,8 @@
         var getAnnounce = 'http://localhost:5566/announce/';
         var postAnnounce = 'http://localhost:5566/announce/';
         var deleteAnnounce = 'http://localhost:5566/announce/';
-        var postAnswer = 'http://localhost:53000/answer';
+        var getAnswer = 'http://localhost:53000/answer/';
+        var postAnswer = 'http://localhost:53000/answer/';
 
         //麵包屑
         //pid為0代表父層，子層pid = 父層的id
@@ -98,6 +99,7 @@
             { id: '/iQuestion/AnswerQuestionnaireList.aspx', pid: '/iQuestion/Default.aspx', name: '我的問卷' },
             { id: '/iQuestion/AddQuestionnire.aspx?surveyId=' + surveyId + '', pid: '/iQuestion/QuestionnaireList.aspx', name: '編輯問卷' },
             { id: '/iQuestion/Answer.aspx?surveyId=' + surveyId + '', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷填答' },
+            { id: '/iQuestion/viewAnswer.aspx?surveyId=' + surveyId + '', pid: '/iQuestion/AnswerQuestionnaireList.aspx', name: '問卷預覽' },
             { id: '/iQuestion/MyAnnounce.aspx', pid: '/iQuestion/Default.aspx', name: '公告消息' }
         ];
 

@@ -83,17 +83,19 @@
             prevPage: function () {
                 this.check = true;
                 vm.nowPage--;
+                //移到最上方
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 300);
             },
             nextPage: function () {
 
                 //判斷有沒有必填
 
-
                 var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
                 for (var i = 0; i < target.length; i++) {
                     if (target[i].type !== 'textarea') {
                         if (target[i].required === 'true') {
-                            console.log('true');
 
                             if (target[i].isSelect === '' || target[i].isSelect.length === 0) {
                                 $('#q-' + target[i].questionNum).addClass('warn');
@@ -118,10 +120,13 @@
                 //條件單獨拉出來判斷
                 if (this.check == true) {
                     vm.nowPage++;
+                    //移到最上方
+                    $('html,body').animate({
+                        scrollTop: 0
+                    }, 300);
                 }
-
             },
-            singleInputVal: function (optionId, index, number) {
+            singleInputVal: function (optionId, index, number, type) {
 
                 //取消警告樣式
                 var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
@@ -150,8 +155,19 @@
 
                 var logicSetting = this.allQuestionnaireData[this.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
 
+
                 if (logicSetting.length !== 0) {
 
+                    //取得下拉和文本題的id
+                    if (type === 'pulldown' || type === 'textarea') {
+                        var i = null;
+                        logicSetting[0].triggerOption.val.forEach(function (item, index) {
+                            if (item === optionId[0]) i = index;
+                        });
+                        if (i !== null) {
+                            optionId = logicSetting[0].triggerOption.id[i];
+                        }
+                    }
 
                     //跳至該題的num
                     var jumpId = logicSetting[0].jumpTo.id[0];
@@ -281,20 +297,20 @@
 
                 //移除頁面跳轉監聽
                 window.onbeforeunload = null;
-
-                var answer = [];
+                var surveyId = $.getUrlVar('surveyId');
+                var answers = { id: surveyId, answer: [] };
 
                 vm.allQuestionnaireData.forEach(function (page) {
                     page.questionDataPerPage.pageQuestionData.forEach(function (item) {
                         if (item.type !== 'textarea') {
-                            answer.push({
+                            answers.answer.push({
                                 questionId: item.id,
                                 page: page.page,
                                 questionTitle: item.title,
                                 selectVal: item.isSelect
                             });
                         } else {
-                            answer.push({
+                            answers.answer.push({
                                 questionId: item.id,
                                 page: page.page,
                                 questionTitle: item.title,
@@ -305,11 +321,21 @@
                     });
                 });
 
+                axios.get(getAnswer + surveyId)
+                    .then(function (res) {
+                        if (res.data != undefined) {
+                            axios.patch(postAnswer + surveyId, answers).then(function (res) {
+                                window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        //找不到資料表示第一次填答
+                        axios.post(postAnswer, answers).then(function (res) {
+                            window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
+                        });
+                    });
 
-                axios.post(postAnswer, answer).then(function (res) {
-                    console.log('success');
-                    window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
-                });
 
             }
         }

@@ -22,6 +22,18 @@
 
     editQuestion = function (event, status, dom) {
 
+        //未添加頁面的提示
+        var questionWrap = $('.showQuestions_wrap');
+        if (questionWrap.length === 0) {
+            alertBox({
+                Mode: 'A',
+                Title: '錯誤提示',
+                Html:'<p style="color:#FF6A00">尚未添加頁面!</p>',
+                OutsideStyle: 'max-width:700px'
+            });
+            return false;
+        }
+
         var type = $(dom).attr('data-type');
 
         if (type === 'radio') {
@@ -2611,11 +2623,13 @@
                     if (vm.allQuestionnaireData) {
                         vm.allQuestionnaireData.forEach(function (question) {
                             question.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                questions.push({
-                                    name: 'Q' + item.questionNum + ' ' + item.title + '',
-                                    val: item.id,
-                                    group: '第 ' + question.page + ' 頁'
-                                });
+                                if (item.type !== 'pageDesc') {
+                                    questions.push({
+                                        name: 'Q' + item.questionNum + ' ' + item.title + '',
+                                        val: item.id,
+                                        group: '第 ' + question.page + ' 頁'
+                                    });
+                                }                             
                             });
                         });
                     }
@@ -2685,11 +2699,13 @@
                     if (vm.allQuestionnaireData) {
                         vm.allQuestionnaireData.forEach(function (question) {
                             question.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                questions.push({
-                                    name: 'Q' + item.questionNum + ' ' + item.title + '',
-                                    val: item.id,
-                                    group: '第 ' + question.page + ' 頁'
-                                });
+                                if (item.type !== 'pageDesc') {
+                                    questions.push({
+                                        name: 'Q' + item.questionNum + ' ' + item.title + '',
+                                        val: item.id,
+                                        group: '第 ' + question.page + ' 頁'
+                                    });
+                                } 
                             });
                         });
                     }
@@ -2764,11 +2780,13 @@
                     if (vm.allQuestionnaireData) {
                         vm.allQuestionnaireData.forEach(function (question) {
                             question.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                questions.push({
-                                    name: 'Q' + item.questionNum + ' ' + item.title + '',
-                                    val: item.id,
-                                    group: '第 ' + question.page + ' 頁'
-                                });
+                                if (item.type !== 'pageDesc') {
+                                    questions.push({
+                                        name: 'Q' + item.questionNum + ' ' + item.title + '',
+                                        val: item.id,
+                                        group: '第 ' + question.page + ' 頁'
+                                    });
+                                } 
                             });
                         });
                     }
@@ -2823,11 +2841,13 @@
                     if (vm.allQuestionnaireData) {
                         vm.allQuestionnaireData.forEach(function (question) {
                             question.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                                questions.push({
-                                    name: 'Q' + item.questionNum + ' ' + item.title + '',
-                                    val: item.id,
-                                    group: '第 ' + question.page + ' 頁'
-                                });
+                                if (item.type !== 'pageDesc') {
+                                    questions.push({
+                                        name: 'Q' + item.questionNum + ' ' + item.title + '',
+                                        val: item.id,
+                                        group: '第 ' + question.page + ' 頁'
+                                    });
+                                } 
                             });
                         });
                     }
@@ -2871,8 +2891,8 @@
                         //切割字串
                         var string = _.split(target[0].jumpTo.val[0], '');
                         var split;
-                        if (string.length > 20) {
-                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
+                        if (string.length > 12) {
+                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 8)).join('') + '...';
                         } else {
                             split = target[0].jumpTo.val[0];
                         }
@@ -2898,8 +2918,8 @@
                             //切割字串
                             var string = _.split(target[i].jumpTo.val[0], '');
                             var split;
-                            if (string.length > 20) {
-                                split = _.split(target[i].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
+                            if (string.length > 12) {
+                                split = _.split(target[i].jumpTo.val[0], '', (string.length - 8)).join('') + '...';
                             } else {
                                 split = target[i].jumpTo.val[0];
                             }
@@ -2920,8 +2940,8 @@
                         //切割字串
                         var string = _.split(target[0].jumpTo.val[0], '');
                         var split;
-                        if (string.length > 20) {
-                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
+                        if (string.length > 12) {
+                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 8)).join('') + '...';
                         } else {
                             split = target[0].jumpTo.val[0];
                         }
@@ -2948,8 +2968,8 @@
                             //切割字串
                             var string = _.split(target[i].jumpTo.val[0], '');
                             var split;
-                            if (string.length > 20) {
-                                split = _.split(target[i].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
+                            if (string.length > 12) {
+                                split = _.split(target[i].jumpTo.val[0], '', (string.length - 8)).join('') + '...';
                             } else {
                                 split = target[i].jumpTo.val[0];
                             }
@@ -2970,8 +2990,8 @@
                     } else {
                         var string = _.split(target[0].jumpTo.val[0], '');
                         var split;
-                        if (string.length > 20) {
-                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 10)).join('') + '...';
+                        if (string.length > 12) {
+                            split = _.split(target[0].jumpTo.val[0], '', (string.length - 8)).join('') + '...';
                         } else {
                             split = target[0].jumpTo.val[0];
                         }

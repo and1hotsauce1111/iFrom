@@ -132,15 +132,20 @@
                             </label>--%>
                             <span class="label_text">@row</span>
                         </td>
-                        <td class="textL">@name</td>
-                        <td class="textL mobile_displayNone">@end</td>
-                        <td class="textL mobile_displayNone">@repeat</td>
-                        <td class="mobile_info mobile_displayBlock">
+                        <td class="textL mobile_name">
+                            @name
                             <button type="button" data-index="@id" class="button btn_white_o mobile_answer_btn" onclick="mobileInfo($(this))"><i class="fa fa-info-circle" style="color: #F6A800; font-size: 16px"></i></button>
                         </td>
-                        <td class="textL">
+                        <td class="textL mobile_displayNone">@end</td>
+                        <td class="textL mobile_displayNone">@repeat</td>
+                        <%--<td class="mobile_info mobile_displayBlock">
+                            <button type="button" data-index="@id" class="button btn_white_o mobile_answer_btn" onclick="mobileInfo($(this))"><i class="fa fa-info-circle" style="color: #F6A800; font-size: 16px"></i></button>
+                        </td>--%>
+                        <td class="textL mobile_manipulate">
                             <button type="button" data-index="@id" class="button btn_white_o answer_btn" onclick="answerQuestion($(this))"><i class="fa fa-pencil-square-o" style="color: #F6A800; padding-right: 3px"></i>填答</button>
                             <button type="button" data-index="@id" class="button btn_white_o mobile_answer_btn" onclick="answerQuestion($(this))"><i class="fa fa-pencil-square-o" style="color: #F6A800; font-size: 16px"></i></button>
+                            <button type="button" data-index="@id" class="button btn_white_o answer_btn" onclick="viewAnswer($(this))"><i class="fa fa fa-search" style="color: #F6A800; padding-right: 3px"></i>預覽</button>
+                            <button type="button" data-index="@id" class="button btn_white_o mobile_answer_btn" onclick="viewAnswer($(this))"><i class="fa fa fa-search" style="color: #F6A800; font-size: 16px"></i></button>
                         </td>
                     </tr>
                     <tr tbl-build="列表元件-NoData" class="tableDisplayNone">

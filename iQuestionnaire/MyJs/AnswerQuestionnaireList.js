@@ -195,6 +195,12 @@
         window.location.href = 'Answer.aspx?surveyId=' + id + '';
     };
 
+    //預覽問卷
+    viewAnswer = function (dom) {
+        var id = $(dom).attr('data-index');
+        window.location.href = 'viewAnswer.aspx?surveyId=' + id + '';
+    };
+
     //手機板問卷資訊
     mobileInfo = function (dom) {
         alertBox({

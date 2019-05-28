@@ -23,11 +23,9 @@
     margin-top: 15px;
 }
 
-.mobile_answer_btn {
-    display: none;
-}
-
-.mobile_info {
+.mobile_answer_btn,
+.mobile_info,
+.mobile_question_name {
     display: none;
 }
 
@@ -293,6 +291,14 @@
         font-size: 10px;
     }
 
+    .mobile_name {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 75px !important;
+    }
+
+
     /* 顯示手機板search */
     /* 顯示手機板search result */
     /* 顯示手機板顯示列表 */
@@ -322,7 +328,10 @@
     .mobile_answer_btn {
         width: 40px;
         padding: 10px;
-        display: block;
+        display: inline-block;
+    }
+    .mobile_manipulate {
+        width:100px;
     }
 }
 
@@ -355,5 +364,8 @@
 
     .mobile_search_width {
         width: 177px;
+    }
+    .mobile_manipulate {
+        width: 126px;
     }
 }
