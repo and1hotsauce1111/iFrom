@@ -14,6 +14,7 @@
 </asp:Content>
 
 <asp:Content ID="Bady1" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
+
     <div id="editQuestion">
 
         <%-- 選擇題型工具列 --%>
@@ -24,6 +25,14 @@
                 <div class="tools_bar_items_basic">
                     <div class="tool_items">
                         <ul class="tool_items_list">
+                            <li onclick="addNewPage(event,'add')">
+                                <div class="textarea_icon"><i class="fa fa-file-o"></i></div>
+                                <div class="textarea_text">新增頁面</div>
+                            </li>
+                            <li onclick="editQuestion(event,'add', $(this))" data-type="pageDesc">
+                                <div class="textarea_icon"><i class="fa fa-quote-right"></i></div>
+                                <div class="textarea_text">頁面說明</div>
+                            </li>
                             <li onclick="editQuestion(event,'add',$(this))" data-type="radio">
                                 <div class="radio_icon"><i class="fa fa-dot-circle-o"></i></div>
                                 <div class="radio_text">單選題</div>
@@ -39,21 +48,13 @@
                             <li onclick="editQuestion(event,'add',$(this))" data-type="textarea">
                                 <div class="textarea_icon"><i class="fa fa-file-text-o"></i></div>
                                 <div class="textarea_text">文本題</div>
-                            </li>
-                            <li onclick="editQuestion(event,'add', $(this))" data-type="pageDesc">
-                                <div class="textarea_icon"><i class="fa fa-quote-right"></i></div>
-                                <div class="textarea_text">頁面說明</div>
-                            </li>
-                            <li onclick="addNewPage(event,'add')">
-                                <div class="textarea_icon"><i class="fa fa-file-o"></i></div>
-                                <div class="textarea_text">新增頁面</div>
-                            </li>
+                            </li>            
                         </ul>
                     </div>
                     <div class="tool_type">
+                        <span style="display: inline-block; background-color: #FFD04A; flex: 0 0 33.4%">備註說明</span>
                         <span style="display: inline-block; background-color: #3388ff; flex: 0 0 50.1%">選擇題</span>
                         <span style="display: inline-block; background-color: #EA4335; flex: 0 0 16.5%">填空題</span>
-                        <span style="display: inline-block; background-color: #FFD04A; flex: 0 0 33.4%">備註說明</span>
                     </div>
                 </div>
                 <div class="save_items">
@@ -68,6 +69,12 @@
         <div class="tools_bar_mini">
             <div class="basic_tools">
                 <ul class="basic_tools_list">
+                    <li onclick="addNewPage(event, 'add')">
+                        <div class="textarea_icon" title="新增頁面"><i class="fa fa-file-o"></i></div>
+                    </li>
+                    <li onclick="editQuestion(event,'add', $(this))" data-type="pageDesc">
+                        <div class="textarea_icon" title="頁面說明"><i class="fa fa-quote-right"></i></div>
+                    </li>
                     <li onclick="editQuestion(event,'add',$(this))" data-type="radio">
                         <div class="radio_icon" title="單選題"><i class="fa fa-dot-circle-o"></i></div>
                     </li>
@@ -79,13 +86,7 @@
                     </li>
                     <li onclick="editQuestion(event,'add',$(this))" data-type="textarea">
                         <div class="textarea_icon" title="文本題"><i class="fa fa-file-text-o"></i></div>
-                    </li>
-                    <li onclick="editQuestion(event,'add', $(this))" data-type="pageDesc">
-                        <div class="textarea_icon" title="頁面說明"><i class="fa fa-quote-right"></i></div>
-                    </li>
-                    <li onclick="addNewPage(event, 'add')">
-                        <div class="textarea_icon" title="新增頁面"><i class="fa fa-file-o"></i></div>
-                    </li>
+                    </li>            
                 </ul>
             </div>
             <div class="save">
@@ -103,7 +104,7 @@
             <div id="editPageDesc">
                 <span style="display: inline-block; margin: 20px 0"><span style="color: #FF6A00">*&nbsp;</span>請輸入頁面說明內容: </span>
                 <div style="font-size: 0">
-                    <textarea rows="3" placeholder="輸入內容..." id="editPageDescVal"></textarea>
+                    <textarea rows="3" placeholder="輸入內容..." name="editor1" id="editor1"></textarea>
                 </div>
             </div>
 
@@ -667,7 +668,7 @@
                     <tr>
                         <th style="width: 30%" class="textC" id="textarea_title"><span style="color: #FF6A00">*&nbsp;</span>請輸入問題標題</th>
                         <td>
-                            <input type="text" value="" placeholder="輸入內容..." id="textarea_question_title" />
+                            <input type="text" value="" placeholder="輸入內容..." id="textarea_question_title"/>
                             <div class="inputLine"></div>
                         </td>
                     </tr>
@@ -767,7 +768,7 @@
 
         <div class="ContentBoxHtml tableDisplayNone">
             <div class="ContentBoxHeader">問卷設置</div>
-            <table class="table">
+            <table class="question_setting table">
                 <tr>
                     <th style="font-size: 18px">標題</th>
                     <td colspan="4">
@@ -786,7 +787,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 30%;font-size: 18px" class="textC">問卷填答設置</th>
+                    <th style="font-size: 18px" class="textC">問卷填答設置</th>
                     <td colspan="2">
                         <label class="label_checkbox">
                             <input type="checkbox" value="重複填答" v-model="repeat"/>
@@ -797,12 +798,12 @@
                 </tr>
                 <tr>
                     <th style="font-size: 18px">問卷開放期間</th>
-                    <td>
+                    <td class="start_time">
                         <span style="color:#ff6a00">起: </span>
                         <div v-if="startTime === ''" id="startTime" style="margin-right:15px"></div>
                         <div v-else>{{ startTime }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('start')">重新設定</button></div>               
                     </td>
-                    <td>
+                    <td class="end_time">
                         <span style="color:#ff6a00">迄: </span>
                         <div v-if="deadline === ''" id="deadline"></div>
                         <div v-else>{{ deadline }} &emsp;<button type="button" class="button btn_blue" @click="resetTime('end')">重新設定</button></div>
@@ -815,19 +816,19 @@
                        <label class="label_radio">
                          <input type="radio" name="option" value="(1)、(2)、(3)" checked="checked"/>
                          <span class="label_icon"></span>
-                         <span class="label_text">(1)、(2)、(3)...</span>
+                         <span class="label_text">(1)、(2)、(3)</span>
                        </label>
 
                        <label class="label_radio">
                          <input type="radio" name="option" value="甲、乙、丙"/>
                          <span class="label_icon"></span>
-                         <span class="label_text">甲、乙、丙...</span>
+                         <span class="label_text">甲、乙、丙</span>
                        </label>
 
                        <label class="label_radio">
                          <input type="radio" name="option" value="a、b、c"/>
                          <span class="label_icon"></span>
-                         <span class="label_text">a、b、c...</span>
+                         <span class="label_text">a、b、c</span>
                        </label>
 
                        <label class="label_radio">
@@ -845,7 +846,6 @@
 
         <%-- 渲染頁面資料 --%>
         <div class="ContentBoxHtml questionDisplayNone" id="show_question">
-
 
             <div v-for="(page,i) in allQuestionnaireData">
 
@@ -876,9 +876,9 @@
                             <div class="question_wrap" v-for="(question,index) in page.questionDataPerPage.pageQuestionData" :data-id="question.id">
 
                                 <%-- 頁面說明 --%>
-                                <div class="showQuestions_unit" v-if="question.type === 'pageDesc'">
+                                    <div class="showQuestions_unit" v-if="question.type === 'pageDesc'">
                                     <div class="showQuestions_pageDesc">
-                                        <p class="page_desc">{{ question.val }}</p>
+                                        <p class="page_desc" v-html="question.val"></p>
                                     </div>
 
                                     <div class="move_question">
@@ -1002,9 +1002,9 @@
                                 <!-- end of 文本題 -->
 
                                 <%-- 題目編輯面板 --%>
-                                <div class="showQuestions_unit_tools">
+                                    <div class="showQuestions_unit_tools">
                                     <ul class="showQuestions_unit_tools_list">
-                                        <li v-if="question.type !== 'pageDesc'" onclick="jumpQuestion(event, $(this))" :data-index="index" :data-type="question.type">
+                                        <li v-if="question.type === 'radio' || question.type === 'pulldown' || question.type === 'checkbox'" onclick="jumpQuestion(event, $(this))" :data-index="index" :data-type="question.type">
                                             <span title="跳題設定">
                                                 <i class="fa fa-code-fork"></i>
                                             </span>
@@ -1033,13 +1033,12 @@
                             </div> <%-- end顯示問題區塊 --%>
                     
                         </div>
+
                 </template>
 
             </div>
 
         </div>
-
-        
 
 
         <%-- 頁面編輯side tools --%>
@@ -1074,7 +1073,5 @@
         <div class="ContentBoxHtml" style="height: 50px; visibility: hidden"></div>
 
     </div>
-
-
 
 </asp:Content>

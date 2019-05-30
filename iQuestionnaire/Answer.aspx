@@ -59,7 +59,7 @@
                             <div class="mobile_checkbox_title"><span>{{ question.questionNum }}.</span><h4>{{ question.title }}&nbsp;<span v-if="question.required == 'true'" style="color: #FF6A00">(必填)</span></h4></div>
                             <div class="question_content_checkbox" v-for="option in question.options">
                                 <label class="label_checkbox">
-                                    <input type="checkbox" :value="option.val" v-model="question.isSelect" @change="singleInputVal(option.id,index,question.questionNum,question.type)"/>
+                                    <input type="checkbox" :value="option.id" v-model="question.isSelect" @change="singleInputVal(question.isSelect,index,question.questionNum,question.type)"/>
                                     <span class="label_icon"></span>
                                     <span class="label_text">{{ option.val }}</span>
                                 </label>

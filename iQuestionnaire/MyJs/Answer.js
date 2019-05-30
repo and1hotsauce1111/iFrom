@@ -16,7 +16,6 @@
         return '確定要刷新頁面? 資料將不被保存';
     };
 
-
     /* Vue */
 
     var vm = new Vue({
@@ -99,8 +98,13 @@
 
                             if (target[i].isSelect === '' || target[i].isSelect.length === 0) {
                                 $('#q-' + target[i].questionNum).addClass('warn');
+                                //減去頂部menu的高度
+                                var top = $('#q-' + target[i].questionNum).offset().top - 150;
+                                $('body,html').animate({
+                                    scrollTop: top
+                                }, 300);
                                 this.check = false;
-                                continue;
+                                break;
                             }
                         }
 
@@ -108,8 +112,13 @@
                         if (target[i].required === 'true') {
                             if (target[i].answerVal === '') {
                                 $('#q-' + target[i].questionNum).addClass('warn');
+                                //減去頂部menu的高度
+                                var top = $('#q-' + target[i].questionNum).offset().top - 150;
+                                $('body,html').animate({
+                                    scrollTop: top
+                                }, 300);
                                 this.check = false;
-                                continue;
+                                break;
                             }
 
                         }
@@ -153,49 +162,110 @@
                     }
                 }
 
+                //取的該題的邏輯設定
                 var logicSetting = this.allQuestionnaireData[this.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
-
 
                 if (logicSetting.length !== 0) {
 
-                    //取得下拉和文本題的id
-                    if (type === 'pulldown' || type === 'textarea') {
-                        var i = null;
-                        logicSetting[0].triggerOption.val.forEach(function (item, index) {
-                            if (item === optionId[0]) i = index;
-                        });
-                        if (i !== null) {
-                            optionId = logicSetting[0].triggerOption.id[i];
+                    var jumpId = ''; //跳至題目的id
+                    var jumpNum = 0; //跳至題目的num
+                    var jumpToPage = 0; //要跳至的頁面
+                    var jumpAll = null; //有設定任意跳題
+
+
+                    if (type === 'pulldown') {
+
+                        //取得下拉和文本題的id
+                        if (logicSetting[0].allJump[0] == '任意選項') { //任意選項跳題
+                            jumpAll = true;
+                            jumpId = logicSetting[0].jumpTo.id[0];
+                        } else {
+                            for (var i = 0; i < logicSetting.length; i++) {
+                                if (logicSetting[i].triggerOption.val[0] == optionId) {
+                                    jumpId = logicSetting[i].jumpTo.id[0];
+                                    break;
+                                }
+                            }
                         }
+
+                        //取得跳至題目的num,page
+                        vm.allQuestionnaireData.forEach(function (page) {
+                            page.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                if (item.id == jumpId) {
+                                    jumpNum = item.questionNum;
+                                    jumpToPage = page.page;
+                                }
+                            });
+                        });
+
                     }
 
-                    //跳至該題的num
-                    var jumpId = logicSetting[0].jumpTo.id[0];
-                    var jumpNum;
-                    var jumpToPage; //要跳至的頁面
 
-                    vm.allQuestionnaireData.forEach(function (page) {
-                        page.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                            if (item.id == jumpId) {
-                                jumpNum = item.questionNum;
-                                jumpToPage = page.page;
+                    if (type === 'checkbox') {
+
+                        //取得多選題的id
+                        if (logicSetting[0].allJump[0] == '任意選項') {//任意選項跳題
+                            jumpAll = true;
+                            jumpId = logicSetting[0].jumpTo.id[0];
+                        } else {
+                            //重新排序陣列
+                            var newArr = optionId.sort().toString();
+                            for (var i = 0; i < logicSetting.length; i++) {
+                                if (logicSetting[i].triggerOption.id.sort().toString() === newArr) {
+                                    jumpId = logicSetting[i].jumpTo.id[0];
+                                    break;
+                                }
                             }
+                        }
+
+                        //取得跳至題目的num,page
+                        vm.allQuestionnaireData.forEach(function (page) {
+                            page.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                if (item.id == jumpId) {
+                                    jumpNum = item.questionNum;
+                                    jumpToPage = page.page;
+                                }
+                            });
                         });
-                    });
+                    }
 
 
-                    if (optionId == logicSetting[0].triggerOption.id[0]) { //選到跳題選項
-                        console.log('trigger');
-                        //忽略必填題的提示
+                    if (type === 'radio') {
+                        //任意選項跳題
+                        if (logicSetting[0].allJump[0] == '任意選項') {
+                            jumpAll = true;
+                            jumpId = logicSetting[0].jumpTo.id[0];
+                        } else {
+                            for (var i = 0; i < logicSetting.length; i++) {
+                                if (logicSetting[i].triggerOption.id[0] == optionId) {
+                                    jumpId = logicSetting[i].jumpTo.id[0];
+                                    break;
+                                }
+                            }
+                        }
 
-                        //選到跳題選項
-                        this.allQuestionnaireData.forEach(function (page) {
+                        //取得跳至題目的num,page
+                        vm.allQuestionnaireData.forEach(function (page) {
+                            page.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                                if (item.id == jumpId) {
+                                    jumpNum = item.questionNum;
+                                    jumpToPage = page.page;
+                                }
+                            });
+                        });
+
+                    }
+
+                    //判斷是否選到跳題
+                    //任意選項跳題
+                    if (jumpNum !== 0 || jumpAll == true) {
+                        vm.allQuestionnaireData.forEach(function (page) {
                             var data = page.questionDataPerPage.pageQuestionData;
 
                             for (var i = 0; i < data.length; i++) {
 
                                 if (number < data[i].questionNum && data[i].questionNum < jumpNum) {
-
+                                    console.log('jump');
                                     //移除提示紅框
                                     if ($('#q-' + data[i].questionNum).hasClass('warn')) {
                                         $('#q-' + data[i].questionNum).removeClass('warn');
@@ -229,13 +299,14 @@
                                 }
 
                             }
+
                         });
 
                         //跳至跳題頁
                         vm.nowPage = jumpToPage;
-                        window.setTimeout(function () {
-                            var top = document.querySelector('#q-' + jumpNum).offsetTop;
-                            $('document').animate({ scrollTop: top }, 500);
+                        var top = document.querySelector('#q-' + jumpNum).offsetTop - 100;
+                        $('body,html').animate({ scrollTop: top }, 500);
+                        window.setTimeout(function () {                       
                             //Highlight動畫
                             $('#q-' + jumpNum).removeClass('highlight');
                         }, 800);
@@ -243,98 +314,152 @@
                         //先加class, setTimeout後取消
                         $('#q-' + jumpNum).addClass('highlight');
 
-                    } else { //選到非跳題選項
+                        return false;
+                    }
 
-                        //恢復必填題的提示
-                        console.log('notrigger');
+                    //取消該選項題目的跳題
+                    //找跳題題號
+                    var cancelJumpNum = [];
+                    for (var n = 0; n < vm.allQuestionnaireData.length; n++) {
+                        var item = vm.allQuestionnaireData[n].questionDataPerPage.pageQuestionData;
+                        for (var m = 0; m < logicSetting.length; m++) {
+                            for (var j = 0; j < item.length; j++) {
+                                if (logicSetting[m].jumpTo.id[0] == item[j].id) {
+                                    cancelJumpNum.push(item[j].questionNum);
+                                }
+                            }
+                        }
+                    }
+                    //取jumpNum最大值
+                    var max = cancelJumpNum.reduce(function (prev, cur) {
+                        return prev > cur ? prev : cur;
+                    });
 
-                        this.allQuestionnaireData.forEach(function (page) {
-                            var data = page.questionDataPerPage.pageQuestionData;
+                    vm.allQuestionnaireData.forEach(function (page) {
+                        var data = page.questionDataPerPage.pageQuestionData;
 
-                            for (var i = 0; i < data.length; i++) {
+                        for (var i = 0; i < data.length; i++) {
 
-                                if (number < data[i].questionNum && data[i].questionNum < jumpNum) {
+                            if (number < data[i].questionNum && data[i].questionNum < max) {
 
-                                    if (data[i].type === 'radio') {
-                                        $('#q-' + data[i].questionNum).find('input[type="radio"]').removeAttr('disabled');
-                                        $('#q-' + data[i].questionNum).removeClass('highlight');
-                                        data[i].isSelect = '';
-                                        $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
-                                    }
-
-                                    if (data[i].type === 'checkbox') {
-                                        $('#q-' + data[i].questionNum).find('input[type="checkbox"]').removeAttr('disabled');
-                                        $('#q-' + data[i].questionNum).removeClass('highlight');
-                                        data[i].isSelect = [];
-                                        $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
-                                    }
-
-                                    if (data[i].type === 'pulldown') {
-                                        $('#q-' + data[i].questionNum).find('button').removeAttr('disabled');
-                                        $('#q-' + data[i].questionNum).removeClass('highlight');
-                                        data[i].isSelect = '';
-                                        $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
-
-                                    }
-
-                                    if (data[i].type === 'textarea') {
-                                        $('#q-' + data[i].questionNum).find('textarea').removeAttr('disabled');
-                                        $('#q-' + data[i].questionNum).removeClass('highlight');
-                                        data[i].isSelect = '';
-                                        $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
-
-                                    }
+                                if (data[i].type === 'radio') {
+                                    $('#q-' + data[i].questionNum).find('input[type="radio"]').removeAttr('disabled');
+                                    $('#q-' + data[i].questionNum).removeClass('highlight');
+                                    data[i].isSelect = '';
+                                    $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
                                 }
 
-                            }
-                        });
-                    }
-                }
+                                if (data[i].type === 'checkbox') {
+                                    $('#q-' + data[i].questionNum).find('input[type="checkbox"]').removeAttr('disabled');
+                                    $('#q-' + data[i].questionNum).removeClass('highlight');
+                                    data[i].isSelect = [];
+                                    $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
+                                }
 
+                                if (data[i].type === 'pulldown') {
+                                    $('#q-' + data[i].questionNum).find('button').removeAttr('disabled');
+                                    $('#q-' + data[i].questionNum).removeClass('highlight');
+                                    data[i].isSelect = '';
+                                    $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
+
+                                }
+
+                                if (data[i].type === 'textarea') {
+                                    $('#q-' + data[i].questionNum).find('textarea').removeAttr('disabled');
+                                    $('#q-' + data[i].questionNum).removeClass('highlight');
+                                    data[i].isSelect = '';
+                                    $('#q-' + data[i].questionNum).css({ 'color': '#505050' });
+
+                                }
+                            }
+
+                        }
+                    });
+
+                }
 
             },
             saveAnswer: function () {
 
-                //移除頁面跳轉監聽
-                window.onbeforeunload = null;
-                var surveyId = $.getUrlVar('surveyId');
-                var answers = { id: surveyId, answer: [] };
+                //只有一頁時判斷有無必填
+                var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData;
+                for (var i = 0; i < target.length; i++) {
+                    if (target[i].type !== 'textarea') {
+                        if (target[i].required === 'true') {
 
-                vm.allQuestionnaireData.forEach(function (page) {
-                    page.questionDataPerPage.pageQuestionData.forEach(function (item) {
-                        if (item.type !== 'textarea') {
-                            answers.answer.push({
-                                questionId: item.id,
-                                page: page.page,
-                                questionTitle: item.title,
-                                selectVal: item.isSelect
-                            });
-                        } else {
-                            answers.answer.push({
-                                questionId: item.id,
-                                page: page.page,
-                                questionTitle: item.title,
-                                selectVal: item.answerVal
-                            });
+                            if (target[i].isSelect === '' || target[i].isSelect.length === 0) {
+                                $('#q-' + target[i].questionNum).addClass('warn');
+                                //減去頂部menu的高度
+                                var top = $('#q-' + target[i].questionNum).offset().top - 150;
+                                $('body,html').animate({
+                                    scrollTop: top
+                                }, 300);
+                                this.check = false;
+                                break;
+                            }
                         }
 
-                    });
-                });
+                    } else {
+                        if (target[i].required === 'true') {
+                            if (target[i].answerVal === '') {
+                                $('#q-' + target[i].questionNum).addClass('warn');
+                                //減去頂部menu的高度
+                                var top = $('#q-' + target[i].questionNum).offset().top - 150;
+                                $('body,html').animate({
+                                    scrollTop: top
+                                }, 300);
+                                this.check = false;
+                                break;
+                            }
 
-                axios.get(getAnswer + surveyId)
-                    .then(function (res) {
-                        if (res.data != undefined) {
-                            axios.patch(postAnswer + surveyId, answers).then(function (res) {
-                                window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
-                            });
                         }
-                    })
-                    .catch(function (error) {
-                        //找不到資料表示第一次填答
-                        axios.post(postAnswer, answers).then(function (res) {
-                            window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
+
+                    }
+                }
+
+                //必填都填答完畢
+                if (this.check == true) {
+                    //移除頁面跳轉監聽
+                    window.onbeforeunload = null;
+                    var surveyId = $.getUrlVar('surveyId');
+                    var answers = { id: surveyId, answer: [] };
+
+                    vm.allQuestionnaireData.forEach(function (page) {
+                        page.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                            if (item.type !== 'textarea') {
+                                answers.answer.push({
+                                    questionId: item.id,
+                                    page: page.page,
+                                    questionTitle: item.title,
+                                    selectVal: item.isSelect
+                                });
+                            } else {
+                                answers.answer.push({
+                                    questionId: item.id,
+                                    page: page.page,
+                                    questionTitle: item.title,
+                                    selectVal: item.answerVal
+                                });
+                            }
+
                         });
                     });
+
+                    axios.get(getAnswer + surveyId)
+                        .then(function (res) {
+                            if (res.data != undefined) {
+                                axios.patch(postAnswer + surveyId, answers).then(function (res) {
+                                    window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
+                                });
+                            }
+                        })
+                        .catch(function (error) {
+                            //找不到資料表示第一次填答
+                            axios.post(postAnswer, answers).then(function (res) {
+                                window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
+                            });
+                        });
+                }
 
 
             }

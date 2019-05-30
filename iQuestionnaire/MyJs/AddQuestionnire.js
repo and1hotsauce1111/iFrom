@@ -18,6 +18,14 @@
         }
     });
 
+    //尚未添加任何問題的提示語
+    window.setTimeout(function () {
+        if ($('.showQuestions_wrap').children().length === 0) {
+            console.log($('.showQuestions_wrap'));
+            $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+        }
+    }, 100);
+
     /* 問卷編輯區塊 */
 
     editQuestion = function (event, status, dom) {
@@ -28,7 +36,7 @@
             alertBox({
                 Mode: 'A',
                 Title: '錯誤提示',
-                Html:'<p style="color:#FF6A00">尚未添加頁面!</p>',
+                Html: '<p style="color:#FF6A00">尚未添加頁面!</p>',
                 OutsideStyle: 'max-width:700px'
             });
             return false;
@@ -216,6 +224,8 @@
 
 
                         if (vm.nowPage === 1) {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             //初始第一頁
                             vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
                                 type: 'radio',
@@ -234,6 +244,8 @@
                             resetNum();
 
                         } else {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'radio',
                                 id: _uuid(),
@@ -725,6 +737,8 @@
                         });
 
                         if (vm.nowPage === 1) {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             //初始第一頁
                             vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
                                 type: 'checkbox',
@@ -742,6 +756,8 @@
                             //題號重新排序
                             resetNum();
                         } else {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'checkbox',
                                 id: _uuid(),
@@ -1220,6 +1236,8 @@
 
 
                         if (vm.nowPage === 1) {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             //初始第一頁
                             vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
                                 type: 'pulldown',
@@ -1237,6 +1255,8 @@
                             //題號重新排序
                             resetNum();
                         } else {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'pulldown',
                                 id: _uuid(),
@@ -1583,6 +1603,9 @@
                             //是否必填
                             var required = $('input[type="radio"][name="radio4"]:checked').val();
 
+                            //清空預設提示
+                            $('h4.page_desc').remove();
+
                             //初始第一頁
                             vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
                                 type: 'textarea',
@@ -1601,6 +1624,8 @@
 
                             //是否必填
                             var required = $('input[type="radio"][name="radio4"]:checked').val();
+                            //清空預設提示
+                            $('h4.page_desc').remove();
 
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'textarea',
@@ -1744,22 +1769,31 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;新增頁面說明',
                     Html: $('#editPageDesc'),
+                    OutsideStyle: 'max-width:800px',
+                    OnRun: function () {
+                        //彈窗的物件build起來再呼叫CKEditor
+                        CKEDITOR.replace('editor1');
+                    },
                     OnOK: function () {
                         //過場loading
 
                         if (vm.nowPage === 1) {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             //初始第一頁
                             vm.allQuestionnaireData[0].questionDataPerPage["pageQuestionData"].push({
                                 type: 'pageDesc',
                                 id: _uuid(),
-                                val: $('#editPageDescVal').val()
+                                val: CKEDITOR.instances.editor1.getData()
                             });
 
                         } else {
+                            //清空預設提示
+                            $('h4.page_desc').remove();
                             vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage["pageQuestionData"].push({
                                 type: 'pageDesc',
                                 id: _uuid(),
-                                val: $('#editPageDescVal').val()
+                                val: CKEDITOR.instances.editor1.getData()
                             });
                         }
 
@@ -1774,6 +1808,8 @@
                     Html: $('#editPageDesc'),
                     OnRun: function () {
                         $('#LoadingBox').show();
+                        //彈窗的物件build起來再呼叫CKEditor
+                        CKEDITOR.replace('editor1');
                     },
                     OnReady: function () {
                         //過場loading
@@ -1833,6 +1869,15 @@
                 });
 
                 vm.currentPage = '第 ' + vm.allQuestionnaireData.length + ' 頁';
+
+                //移除未添加葉面的警語
+                $('h4.page_desc').remove();
+                //尚未添加任何問題的提示語
+                window.setTimeout(function () {
+                    if ($('.showQuestions_wrap').children().length === 0) {
+                        $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                    }
+                }, 100);
 
             }
         });
@@ -1920,11 +1965,21 @@
                     //跳轉至上頁
                     if (vm.nowPage === 1) {
                         $('#LoadingBox').hide();
+                        $('#show_question').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列新增頁面</h4>');
                         return false;
                     } else {
                         vm.nowPage--;
                         vm.currentPage = '第 ' + vm.nowPage + ' 頁';
                         $('#LoadingBox').hide();
+                        //刪除最後一題時顯示提示語
+                        //尚未添加任何問題的提示語
+                        if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                            window.setTimeout(function () {
+                                if ($('.showQuestions_wrap').children().length === 0) {
+                                    $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                                }
+                            }, 100);
+                        }
                     }
 
 
@@ -1997,11 +2052,21 @@
                     //跳轉至上頁
                     if (vm.nowPage === 1) {
                         $('#LoadingBox').hide();
+                        $('#show_question').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列新增頁面</h4>');
                         return false;
                     } else {
                         vm.nowPage--;
                         vm.currentPage = '第 ' + vm.nowPage + ' 頁';
                         $('#LoadingBox').hide();
+                        //刪除最後一題時顯示提示語
+                        //尚未添加任何問題的提示語
+                        if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                            window.setTimeout(function () {
+                                if ($('.showQuestions_wrap').children().length === 0) {
+                                    $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                                }
+                            }, 100);
+                        }
                     }
 
                     //刪除跳題邏輯
@@ -2027,8 +2092,38 @@
 
         if (surveyId !== '0') { //編輯問卷
 
-            //判斷問卷開放時間是否有誤
-            if (startTimeVal > deadlineVal) {
+            //未輸入問卷起訖時間
+            //if (vm.startTimeVal === 0 && vm.deadlineVal === 0) {
+            //    alertBox({
+            //        Mode: 'A',
+            //        Html: '<p style="color:#ff6a00">尚未設定問卷起訖時間！</p>'
+            //    });
+
+            //    return false;
+            //}
+
+            //未輸入開始時間
+            if (vm.startTimeVal === 0 && vm.deadlineVal !== 0) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#ff6a00">尚未輸入問卷開始時間！</p>'
+                });
+
+                return false;
+            }
+
+            //未輸入結束時間
+            if (vm.deadlineVal === 0 && vm.startTimeVal !== 0) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#ff6a00">尚未輸入問卷結束時間！</p>'
+                });
+
+                return false;
+            }
+
+            //問卷結束時間早於開放時間
+            if (vm.startTimeVal > vm.deadlineVal) {
                 alertBox({
                     Mode: 'A',
                     Html: '<p style="color:#ff6a00">問卷結束時間早於開放時間！</p>'
@@ -2051,8 +2146,10 @@
                 id: surveyId,
                 questionnaireTitle: vm.questionnaireTitle || '未設定標題',
                 questionnaireDesc: vm.questionnaireDesc,
-                questionnaireDeadline: deadline || vm.deadline,
-                questionnaireStartTime: startTime || vm.startTime,
+                questionnaireDeadline: vm.deadline, //若無重新設定則存原本的值
+                questionnaireStartTime: vm.startTime,//若無重新設定則存原本的值
+                questionnaireDeadlineVal: vm.deadlineVal,//若無重新設定則存原本的值
+                questionnaireStartTimeVal: vm.startTimeVal,//若無重新設定則存原本的值
                 allQuestionnaireData: vm.allQuestionnaireData,
                 repeatAnswer: vm.repeat,
             };
@@ -2063,8 +2160,37 @@
 
         } else { //新增問卷
 
-            //判斷問卷開放時間是否有誤
-            if (startTimeVal > deadlineVal) {
+            //是否未設定起訖時間
+            //if (!vm.startTimeVal && !vm.deadlineVal) {
+            //    alertBox({
+            //        Mode: 'A',
+            //        Html: '<p style="color:#ff6a00">尚未設定問卷起訖時間！</p>'
+            //    });
+
+            //    return false;
+            //}
+
+            //只設定開始時間
+            if (vm.startTimeVal !== 0 && vm.deadlineVal === 0) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#ff6a00">尚未設定結束時間！</p>'
+                });
+
+                return false;
+            }
+            //只設定結束時間
+            if (vm.deadlineVal !== 0 && vm.startTimeVal === 0) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#ff6a00">尚未設定開始時間！</p>'
+                });
+
+                return false;
+            }
+
+            //問卷結束時間早於開放時間
+            if (vm.startTimeVal > vm.deadlineVal) {
                 alertBox({
                     Mode: 'A',
                     Html: '<p style="color:#ff6a00">問卷結束時間早於開放時間！</p>'
@@ -2082,13 +2208,16 @@
                 return false;
             }
 
+
             //儲存新建問卷
             var questionnaire = {
                 id: _uuid(),
                 questionnaireTitle: vm.questionnaireTitle || '未設定標題',
                 questionnaireDesc: vm.questionnaireDesc,
-                questionnaireDeadline: deadline || '',
-                questionnaireStartTime: startTime || '',
+                questionnaireDeadline: vm.deadline,
+                questionnaireStartTime: vm.startTime,
+                questionnaireDeadlineVal: vm.deadlineVal,
+                questionnaireStartTimeVal: vm.startTimeVal,
                 allQuestionnaireData: vm.allQuestionnaireData,
                 repeatAnswer: vm.repeat,
             };
@@ -2512,11 +2641,34 @@
 
                     $('#LoadingBox').hide();
 
+                    //刪除最後一題時顯示提示語
+                    //尚未添加任何問題的提示語
+                    if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                        window.setTimeout(function () {
+                            if ($('.showQuestions_wrap').children().length === 0) {
+                                $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                            }
+                        }, 100);
+                    }
+
                 }
 
                 if (type === 'pageDesc') {
                     var index = $(dom).attr('data-index');
-                    vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.splice(index, 1);
+                    vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.splice(index, 1);
+
+                    $('#LoadingBox').hide();
+
+                    //刪除最後一題時顯示提示語
+                    //尚未添加任何問題的提示語
+                    if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                        window.setTimeout(function () {
+                            if ($('.showQuestions_wrap').children().length === 0) {
+                                $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                            }
+                        }, 100);
+                    }
+
 
                 }
             }
@@ -2571,9 +2723,6 @@
             }
         });
 
-
-
-
     };
 
     //邏輯跳題
@@ -2614,7 +2763,7 @@
                     });
 
                     //添加任意選項
-                    options.push({
+                    options.unshift({
                         Text: '任意選項',
                         Val: '任意選項'
                     });
@@ -2629,15 +2778,15 @@
                                         val: item.id,
                                         group: '第 ' + question.page + ' 頁'
                                     });
-                                }                             
+                                }
                             });
                         });
                     }
 
-
-                    //顯示編輯問題以後的題目
-                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum - 1);
-
+                    console.log(currentQuestionNum);
+                    //顯示當前問題下下一個題目
+                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
+                    console.log(questions);
 
                     DropListSetting({
                         ID: 'selected_option',
@@ -2690,7 +2839,7 @@
                     });
 
                     //添加任意選項
-                    options.push({
+                    options.unshift({
                         Text: '任意選項',
                         Val: '任意選項'
                     });
@@ -2705,14 +2854,14 @@
                                         val: item.id,
                                         group: '第 ' + question.page + ' 頁'
                                     });
-                                } 
+                                }
                             });
                         });
                     }
 
-                    //顯示編輯問題以後的題目
-                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum - 1);
-
+                    //顯示當前問題下下一個題目
+                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
+                    console.log(questions);
 
                     DropListSetting({
                         ID: 'selected_option',
@@ -2771,7 +2920,7 @@
                     });
 
                     //添加任意選項
-                    options.push({
+                    options.unshift({
                         Text: '任意選項',
                         Val: '任意選項'
                     });
@@ -2786,14 +2935,14 @@
                                         val: item.id,
                                         group: '第 ' + question.page + ' 頁'
                                     });
-                                } 
+                                }
                             });
                         });
                     }
 
-                    //顯示編輯問題以後的題目
-                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum - 1);
-
+                    //顯示當前問題下下一個題目
+                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
+                    console.log(questions);
 
                     DropListSetting({
                         ID: 'selected_option',
@@ -2847,13 +2996,13 @@
                                         val: item.id,
                                         group: '第 ' + question.page + ' 頁'
                                     });
-                                } 
+                                }
                             });
                         });
                     }
 
                     //顯示編輯問題以後的題目
-                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum - 1);
+                    questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
 
 
 
@@ -3015,8 +3164,21 @@
 
                             return false;
                         }
+
+                        if (vm.tempLogicSetting.allJump.length !== 0) {
+                            //有設定任意選項跳題
+                            if (vm.tempLogicSetting.triggerOption.id.length > 1) { //選了任意跳題 + 任一選項
+                                //跳提示
+                                alertBox({
+                                    Mode: 'A',
+                                    Html: '<p style="color:#FF6A00">已選擇任意選項，不允許添加其他選項!</p>'
+                                });
+
+                                return false;
+                            }
+                        }
                     }
-                    
+
                     return true;
                 }
             },
@@ -3033,7 +3195,7 @@
                         //是否選擇任意選項跳題
                         if (vm.tempLogicSetting.allJump.length === 0) {
                             //沒有任意選項跳題
-                            
+
                             target.options.forEach(function (option) {
                                 if (option.id == vm.tempLogicSetting.triggerOption.id[0]) {
                                     //option.jumpLogic = $.extend(true, {}, vm.tempLogicSetting);
@@ -3136,6 +3298,7 @@
                         } else {
                             //有任意選項跳題
                             //清空選項跳題設定
+
                             target.options.forEach(function (option) {
                                 if (option.jumpLogic !== null) {
                                     option.jumpLogic = null;
@@ -3353,6 +3516,14 @@
         } else {
             vm.nowPage--;
             vm.currentPage = '第 ' + vm.nowPage + ' 頁';
+
+            if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                window.setTimeout(function () {
+                    if ($('.showQuestions_wrap').children().length === 0) {
+                        $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                    }
+                }, 100);
+            }
         }
     };
 
@@ -3371,10 +3542,16 @@
         } else {
             vm.nowPage++;
             vm.currentPage = '第 ' + vm.nowPage + ' 頁';
+
+            if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                window.setTimeout(function () {
+                    if ($('.showQuestions_wrap').children().length === 0) {
+                        $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                    }
+                }, 100);
+            }
         }
-        //$('body').delay(500).show(1, function () {
-        //    $('.showQuestions_unit_tools').show();
-        //});
+
     };
 
     //跳頁
@@ -3389,6 +3566,14 @@
         vm.nowPage = jumpto;
 
         vm.currentPage = '第 ' + jumpto + ' 頁';
+
+        if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+            window.setTimeout(function () {
+                if ($('.showQuestions_wrap').children().length === 0) {
+                    $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                }
+            }, 100);
+        }
     };
 
     //點擊空白處關閉
@@ -3412,17 +3597,21 @@
     });
 
     //選取時間
-    var startTime;
-    var deadline;
-    var startTimeVal;
-    var deadlineVal;
     TimePickSetting({
         ID: 'deadline',
         Format: 'yyyy-MM-dd HH:mm',
         TimePick: true,
         OnClose: function () {
-            deadlineVal = TimePickGet('deadline').Time;
-            deadline = TimePickGet('deadline').Format;
+            if (!TimePickGet('deadline')) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#FF6A00">尚未選擇結束時間!</p>',
+                });
+
+                return false;
+            }
+            vm.deadline = TimePickGet('deadline').Format;
+            vm.deadlineVal = TimePickGet('deadline').Time;
         }
     });
 
@@ -3431,8 +3620,16 @@
         Format: 'yyyy-MM-dd HH:mm',
         TimePick: true,
         OnClose: function () {
-            startTimeVal = TimePickGet('startTime').Time;
-            startTime = TimePickGet('startTime').Format;
+            if (!TimePickGet('startTime')) {
+                alertBox({
+                    Mode: 'A',
+                    Html: '<p style="color:#FF6A00">尚未選擇開始時間!</p>',
+                });
+
+                return false;
+            }
+            vm.startTime = TimePickGet('startTime').Format;
+            vm.startTimeVal = TimePickGet('startTime').Time;
         }
     });
 
@@ -3460,7 +3657,7 @@
             $('#LoadingBox').hide();
             return false;
         }
-        
+
         window.setTimeout(function () {
             target.splice(index - 1, 2, target[index], target[index - 1]);
             //重排題號
@@ -3484,7 +3681,7 @@
             $('#LoadingBox').hide();
             return false;
         }
-        window.setTimeout(function () {           
+        window.setTimeout(function () {
             target.splice(index, 2, target[index + 1], target[index]);
             //重排題號
             resetNum();
@@ -3558,6 +3755,8 @@
                 questionnaireDesc: '', //問卷說明
                 startTime: '', //開始時間
                 deadline: '', //截止日期
+                startTimeVal: 0, //開始時間值
+                deadlineVal: 0, //截止日期值
                 repeat: '', // 問卷可否重複填答
                 tempLogicSetting: {
                     triggerOption: {
@@ -3601,6 +3800,8 @@
                     vm.questionnaireDesc = res.data.questionnaireDesc;
                     vm.deadline = res.data.questionnaireDeadline;
                     vm.startTime = res.data.questionnaireStartTime;
+                    vm.deadlineVal = res.data.questionnaireDeadlineVal;
+                    vm.startTimeVal = res.data.questionnaireStartTimeVal;
                     vm.repeat = res.data.repeatAnswer;
 
                     //紀錄頁面跳轉選項
@@ -3622,9 +3823,11 @@
             resetTime: function (type) {
                 if (type === 'start') {
                     this.startTime = '';
+                    this.startTimeVal = 0;
                 }
                 if (type === 'end') {
                     this.deadline = '';
+                    this.deadlineVal = 0;
                 }
 
             }
