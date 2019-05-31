@@ -14,6 +14,7 @@
         res.data.forEach(function (item) {
             test.push({
                 id: item.id,
+                buildTime: item.buildTime,
                 questionnaireDesc: item.questionnaireDesc,
                 allQuestionnaireData: item.allQuestionnaireData,
                 name: item.questionnaireTitle,
@@ -123,7 +124,8 @@
                         test[i]['name'].match(Option.Search['keyword']) ||
                         test[i]['start'].match(Option.Search['keyword']) ||
                         test[i]['end'].match(Option.Search['keyword']) ||
-                        test[i]['repeat'].match(Option.Search['keyword'])) {
+                        test[i]['repeat'].match(Option.Search['keyword']) ||
+                        test[i]['buildTime'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
 
@@ -160,7 +162,8 @@
                         test[i]['name'].match(Option.Search['keyword']) ||
                         test[i]['start'].match(Option.Search['keyword']) ||
                         test[i]['end'].match(Option.Search['keyword']) ||
-                        test[i]['repeat'].match(Option.Search['keyword'])) {
+                        test[i]['repeat'].match(Option.Search['keyword']) ||
+                        test[i]['buildTime'].match(Option.Search['keyword'])) {
                         checkA = true;
                     }
 
@@ -199,10 +202,6 @@
     TableListClear = function () {
 
         $('#keyword').val('');
-        $('#keyword2').val('');
-        $('#keyword3').val('');
-        $('#keyword4').val('');
-
         TableListRun('列表元件');
     };
 
@@ -217,6 +216,18 @@
     };
 
     /* 問卷操作功能 */
+
+    //新增問卷
+    //AddQuestionnire.aspx?surveyId=0
+    addQuestionnaire = function () {
+        alertBox({
+            Mode: 'prompt',
+            OnOK: function (Value) {
+                window.sessionStorage.setItem('questionName', Value);
+                window.location.href = 'AddQuestionnire.aspx?surveyId=0';
+            }
+        });
+    };
 
     //編輯問卷
     editQuestionnaire = function (dom) {
@@ -256,6 +267,7 @@
                                 res2.data.forEach(function (item) {
                                     test.push({
                                         id: item.id,
+                                        buildTime:item.buildTime,
                                         questionnaireDesc: item.questionnaireDesc,
                                         allQuestionnaireData: item.allQuestionnaireData,
                                         name: item.questionnaireTitle,
@@ -317,6 +329,7 @@
                                 //更新資料庫
                                 var copy = {
                                     id: test[j].id,
+                                    buildTime: test[j].buildTime,
                                     questionnaireTitle: test[j].name + ' - 副本',
                                     questionnaireDesc: test[j].questionnaireDesc,
                                     questionnaireDeadline: test[j].end,
@@ -328,6 +341,7 @@
                                 //更新列表
                                 var newListData = {
                                     id: test[j].id,
+                                    buildTime: test[j].buildTime,
                                     name: test[j].name + ' - 副本',
                                     repeat: test[j].repeatAnswer ? '<span style="color:#009149"><i class="fa fa-check"></i>可重複填答</span></span>' : '<span style="color:#f00"><i class="fa fa-times"></i>不行重複填答</span></span>',
                                     questionnaireDesc: test[j].questionnaireDesc,

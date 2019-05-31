@@ -18,14 +18,6 @@
         }
     });
 
-    //尚未添加任何問題的提示語
-    window.setTimeout(function () {
-        if ($('.showQuestions_wrap').children().length === 0) {
-            console.log($('.showQuestions_wrap'));
-            $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
-        }
-    }, 100);
-
     /* 問卷編輯區塊 */
 
     editQuestion = function (event, status, dom) {
@@ -160,13 +152,19 @@
                                 if (options[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>',
+                                        OnOK: function () {
+                                            $('.showEditOptions_radio .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 } else if (options[i].optionWeight !== '' && !re.test(options[i].optionWeight)) {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>',
+                                        OnOK: function () {
+                                            $('.showEditOptions_radio .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 }
@@ -454,13 +452,19 @@
                                 if (newOption[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>',
+                                        OnOK: function () {
+                                            $('#edit_editOptions_wrap_radio .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 } else if (newOption[i].optionWeight !== '' && !re.test(newOption[i].optionWeight)) {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>',
+                                        OnOK: function () {
+                                            $('#edit_editOptions_wrap_radio .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 }
@@ -680,13 +684,19 @@
                                 if (options[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>',
+                                        OnOK: function () {
+                                            $('.showEditOptions_checkbox .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 } else if (options[i].optionWeight !== '' && !re.test(options[i].optionWeight)) {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>',
+                                        OnOK: function () {
+                                            $('.showEditOptions_checkbox .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 }
@@ -957,13 +967,19 @@
                                 if (newOption[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>',
+                                        OnOK: function () {
+                                            $('#edit_editOptions_wrap_checkbox .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 } else if (newOption[i].optionWeight !== '' && !re.test(newOption[i].optionWeight)) {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>',
+                                        OnOK: function () {
+                                            $('#edit_editOptions_wrap_checkbox .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 }
@@ -1179,13 +1195,19 @@
                                 if (options[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>',
+                                        OnOK: function () {
+                                            $('.showEditOptions_pulldown .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 } else if (options[i].optionWeight !== '' && !re.test(options[i].optionWeight)) {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>',
+                                        OnOK: function () {
+                                            $('.showEditOptions_pulldown .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 }
@@ -1454,13 +1476,19 @@
                                 if (newOption[i].optionWeight === '') {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">未設定權重!</p>'
+                                        Html: '<p style="color:#FF6A00">未設定權重!</p>',
+                                        OnOK: function () {
+                                            $('#edit_editOptions_wrap_pulldown .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 } else if (newOption[i].optionWeight !== '' && !re.test(newOption[i].optionWeight)) {
                                     alertBox({
                                         Mode: 'A',
-                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>'
+                                        Html: '<p style="color:#FF6A00">權重設定必須為數字!</p>',
+                                        OnOK: function () {
+                                            $('#edit_editOptions_wrap_pulldown .editOptions').eq(i).addClass('warn');
+                                        }
                                     });
                                     return false;
                                 }
@@ -1806,6 +1834,7 @@
                     Mode: 'C',
                     Title: '<i class="fa fa-pencil-square-o"></i>&nbsp;編輯頁面說明',
                     Html: $('#editPageDesc'),
+                    OutsideStyle: 'max-width:800px',
                     OnRun: function () {
                         $('#LoadingBox').show();
                         //彈窗的物件build起來再呼叫CKEditor
@@ -2141,9 +2170,20 @@
                 return false;
             }
 
+            var TimeNow = new Date();
+            var year = TimeNow.getFullYear();
+            var month = ('0' + (TimeNow.getMonth() + 1)).substr(-2);
+            var date = ('0' + TimeNow.getDate()).substr(-2);
+            var hour = ('0' + TimeNow.getHours()).substr(-2);
+            var minute = ('0' + TimeNow.getMinutes()).substr(-2);
+
+            //顯示現在時間
+            var now = '' + year + '年' + month + '月' + date + '日' + ' ' + hour + ':' + minute;
+
             //儲存編輯後問卷資料
             var questionnaire = {
                 id: surveyId,
+                buildTime: now,
                 questionnaireTitle: vm.questionnaireTitle || '未設定標題',
                 questionnaireDesc: vm.questionnaireDesc,
                 questionnaireDeadline: vm.deadline, //若無重新設定則存原本的值
@@ -2155,7 +2195,10 @@
             };
 
             axios.patch(getQuestionnaire + surveyId + '', questionnaire).then(function (res) {
-                window.location.href = 'QuestionnaireList.aspx?user=admin';
+                alertBox({
+                    Mode: 'PR'
+                });
+                alertProgress(100);
             });
 
         } else { //新增問卷
@@ -2208,10 +2251,35 @@
                 return false;
             }
 
+            var TimeNow = new Date();
+            var year = TimeNow.getFullYear();
+            var month = ('0' + (TimeNow.getMonth() + 1)).substr(-2);
+            var date = ('0' + TimeNow.getDate()).substr(-2);
+            var hour = ('0' + TimeNow.getHours()).substr(-2);
+            var minute = ('0' + TimeNow.getMinutes()).substr(-2);
+
+            //顯示現在時間
+            var now = '' + year + '年' + month + '月' + date + '日' + ' ' + hour + ':' + minute;
+
+            //儲存編輯後問卷資料
+            var questionnaire = {
+                id: surveyId,
+                buildTime: now,
+                questionnaireTitle: vm.questionnaireTitle || '未設定標題',
+                questionnaireDesc: vm.questionnaireDesc,
+                questionnaireDeadline: vm.deadline, //若無重新設定則存原本的值
+                questionnaireStartTime: vm.startTime,//若無重新設定則存原本的值
+                questionnaireDeadlineVal: vm.deadlineVal,//若無重新設定則存原本的值
+                questionnaireStartTimeVal: vm.startTimeVal,//若無重新設定則存原本的值
+                allQuestionnaireData: vm.allQuestionnaireData,
+                repeatAnswer: vm.repeat,
+            };
+
 
             //儲存新建問卷
             var questionnaire = {
                 id: _uuid(),
+                buildTime: now,
                 questionnaireTitle: vm.questionnaireTitle || '未設定標題',
                 questionnaireDesc: vm.questionnaireDesc,
                 questionnaireDeadline: vm.deadline,
@@ -2224,7 +2292,10 @@
 
 
             axios.post(postQuestionnaire, questionnaire).then(function (res) {
-                window.location.href = 'QuestionnaireList.aspx?user=admin';
+                alertBox({
+                    Mode: 'PR'
+                });
+                alertProgress(100);
             });
         }
 
@@ -2416,30 +2487,35 @@
                 if (status === 'add' && type === 'radio') {
                     $(evt.target).siblings('.showEditOptions_radio').append($('.editOptions_wrap#editOptions_wrap_radio').html());
                     $('input.radio_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+                    $('.radio_option_weight_input').eq(optionNumCount).val(0);
                 }
 
 
                 if (status === 'add' && type === 'checkbox') {
                     $(evt.target).siblings('.showEditOptions_checkbox').append($('.editOptions_wrap#editOptions_wrap_checkbox').html());
                     $('input.checkbox_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+                    $('.checkbox_option_weight_input').eq(optionNumCount).val(0);
                 }
 
 
                 if (status === 'add' && type === 'pulldown') {
                     $(evt.target).siblings('.showEditOptions_pulldown').append($('.editOptions_wrap#editOptions_wrap_pulldown').html());
                     $('input.pulldown_optionNum').eq(optionNumCount).val((orderNum !== undefined ? orderNum + '、' : ''));
+                    $('.pulldown_option_weight_input').eq(optionNumCount).val(0);
                 }
 
 
                 if (status === 'edit' && type === 'radio') {
                     $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_radio').append(editRadioTemplate);
                     $('.editOptions_wrap#edit_editOptions_wrap_radio input.edit_radio_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
+                    $('#edit_editOptions_wrap_radio .edit_radio_option_weight_input').eq(editOptionCount - 1).val(0);
                 }
 
 
                 if (status === 'edit' && type === 'checkbox') {
                     $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_checkbox').append(editCheckboxTemplate);
                     $('input.edit_checkbox_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
+                    $('#edit_editOptions_wrap_checkbox .edit_checkbox_option_weight_input').eq(editOptionCount - 1).val(0);
                 }
 
 
@@ -2447,6 +2523,7 @@
                     var orderNum = optionNum !== null ? optionNum[editOptionCount - 1] : '(' + editOptionCount + ')';
                     $(evt.target).siblings('.editOptions_wrap#edit_editOptions_wrap_pulldown').append(editPulldownTemplate);
                     $('input.edit_pulldown_optionNum').eq(editOptionCount - 1).val((editOrderNum !== undefined ? editOrderNum + '、' : ''));
+                    $('#edit_editOptions_wrap_pulldown .edit_pulldown_option_weight_input').eq(editOptionCount - 1).val(0);
                 }
 
             }
@@ -2568,7 +2645,6 @@
         }, 100);
 
     };
-
 
 
 
@@ -2757,7 +2833,7 @@
                     var options = [];
                     vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].options.forEach(function (option) {
                         options.push({
-                            Text: option.val,
+                            Text: option.optionNum + '、' + option.val,
                             Val: option.id,
                         });
                     });
@@ -2783,10 +2859,8 @@
                         });
                     }
 
-                    console.log(currentQuestionNum);
                     //顯示當前問題下下一個題目
                     questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
-                    console.log(questions);
 
                     DropListSetting({
                         ID: 'selected_option',
@@ -2833,7 +2907,7 @@
                     var options = [];
                     vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].options.forEach(function (option) {
                         options.push({
-                            Text: option.val,
+                            Text: option.optionNum + '、' + option.val,
                             Val: option.id,
                         });
                     });
@@ -2861,7 +2935,6 @@
 
                     //顯示當前問題下下一個題目
                     questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
-                    console.log(questions);
 
                     DropListSetting({
                         ID: 'selected_option',
@@ -2914,7 +2987,7 @@
                     var options = [];
                     vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].options.forEach(function (option) {
                         options.push({
-                            Text: option.val,
+                            Text: option.optionNum + '、' + option.val,
                             Val: option.id,
                         });
                     });
@@ -2942,7 +3015,6 @@
 
                     //顯示當前問題下下一個題目
                     questions = questions.length === 1 ? [] : questions.slice(currentQuestionNum + 1);
-                    console.log(questions);
 
                     DropListSetting({
                         ID: 'selected_option',
@@ -3740,13 +3812,7 @@
         data: function () {
             //資料統一寫在vue實例裡面，外層用vm呼叫
             return {
-                allQuestionnaireData: [{
-                    page: 1,
-                    questionDataPerPage: {
-                        pageDesc: '',
-                        pageQuestionData: []
-                    }
-                }], //每頁問題資料
+                allQuestionnaireData: [], //每頁問題資料
                 nowPage: 1,
                 currentPage: '第 1 頁',
                 showJumpPage: false,
@@ -3782,12 +3848,28 @@
             var surveyId = $.getUrlVar('surveyId');
 
             if (surveyId === '0' || surveyId == undefined) {// 新增問卷
+                //帶入預設
+                this.allQuestionnaireData.push({
+                    page: 1,
+                    questionDataPerPage: {
+                        pageDesc: '',
+                        pageQuestionData: []
+                    }
+                });
+                //取得問卷名稱
+                this.questionnaireTitle = window.sessionStorage.getItem('questionName');
+
                 $('.tableDisplayNone').show();
                 $('.questionDisplayNone').show();
+                window.setTimeout(function () {
+                    $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                }, 100);
                 $('#LoadingBox').hide();
                 return;
             }
-            this.getData(surveyId);
+            this.getData(surveyId);          
+
+
         },
         methods: {
             getData: function (id) {
@@ -3816,6 +3898,14 @@
 
                     $('.tableDisplayNone').show();
                     $('.questionDisplayNone').show();
+
+                    //尚未添加任何問題的提示語
+                    if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                        window.setTimeout(function () {
+                            $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                        }, 100);
+                    }
+
                     $('#LoadingBox').hide();
 
                 });

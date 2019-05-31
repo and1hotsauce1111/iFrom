@@ -436,6 +436,10 @@
     box-shadow: 0 0 0 3px #f00 inset;
 }
 
+.warn {
+    box-shadow: 0 0 0 1px #f00 inset;
+}
+
 /* 顯示跳題設定 */
 .show_logic_setting {
     position: absolute;
