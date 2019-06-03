@@ -744,9 +744,6 @@
                     <span>添加問卷題目及選項後，可依據填答的選項跳轉至某道題目(從下下題開始選擇)。</span>
                     <br />
                     <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
-                    <span style="display:inline-block">文本題型無須設定填答選項。</span>              
-                    <br />
-                    <i class="fa fa-exclamation-circle" style="padding-right: 10px"></i>
                     <span style="display:inline-block">確定刪除跳題設定後將不可回復。</span>
                 </div>
             </div>
@@ -849,7 +846,8 @@
 
             <div v-for="(page,i) in allQuestionnaireData">
 
-                <template v-if="page.page === nowPage">                         
+                <template v-if="page.page === nowPage">
+                    
                         <div class="ContentBoxHeader" style="display:flex;justify-content:space-between;align-items:center">
                             <div>問卷內容: [{{ page.page }} / {{ allQuestionnaireData.length }} 頁]</div>
                             <div class="page_move">
@@ -857,7 +855,7 @@
                                 <button title="上一頁" id="tableListPageLeft" onclick="prevPage()" type="button" class="button btn_white" style="padding: 5px 9px"><i class="fa fa-chevron-left"></i></button>
                                 <button class="button btn_white" onclick="jumpPage(event)">{{ currentPage }}&emsp;<i class="fa fa-caret-down"></i></button>    
                                 <button title="下一頁" id="tableListPageRight" onclick="nextPage()" type="button" class="button btn_white" style="padding: 5px 9px"><i class="fa fa-chevron-right"></i></button>
-                                <span v-if="page.page > 1" title="刪除頁面" class="del_page" onclick="deletePage(event,$(this),'top')" :data-page="page.page"><i class="fa fa-trash-o" style="font-size:27px"></i></span>
+                                <span v-if="allQuestionnaireData.length > 1" title="刪除頁面" class="del_page" onclick="deletePage(event,$(this),'top')" :data-page="page.page"><i class="fa fa-trash-o" style="font-size:27px"></i></span>
                                 <div class="show_jump_page">
                                     <ul>
                                         <li v-for="num in data[0].Option" :key="num.Val" onclick="jumpToPage(event,$(this))" :data-jump="num.Val">{{ num.Text }}</li>

@@ -1928,7 +1928,7 @@
                 if (type === 'side') {
 
                     var delPage = parseInt($('.del_page').attr("data-page"));
-
+                    
                     //刪除跳題邏輯
                     vm.allQuestionnaireData[delPage - 1].questionDataPerPage.pageQuestionData.forEach(function (question) {
                         //找被刪頁面的題目是否有跳至的問題
@@ -1994,7 +1994,17 @@
                     //跳轉至上頁
                     if (vm.nowPage === 1) {
                         $('#LoadingBox').hide();
-                        $('#show_question').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列新增頁面</h4>');
+                        if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                            window.setTimeout(function () {
+                                if ($('.showQuestions_wrap').children().length === 0) {
+                                    $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                                }
+                            }, 100);
+                        }
+                        //刪除第一頁的提示
+                        //if (vm.allQuestionnaireData.length === 0) {
+                        //    $('#show_question').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加頁面</h4>');
+                        //}
                         return false;
                     } else {
                         vm.nowPage--;
@@ -2016,6 +2026,7 @@
 
                 if (type === 'top') {
                     var delPage = parseInt($(dom).attr("data-page"));
+                    console.log(delPage);
                     //刪除跳題邏輯
                     vm.allQuestionnaireData[delPage - 1].questionDataPerPage.pageQuestionData.forEach(function (question) {
                         //找被刪頁面的題目是否有跳至的問題
@@ -2081,7 +2092,17 @@
                     //跳轉至上頁
                     if (vm.nowPage === 1) {
                         $('#LoadingBox').hide();
-                        $('#show_question').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列新增頁面</h4>');
+                        if (vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData.length === 0) {
+                            window.setTimeout(function () {
+                                if ($('.showQuestions_wrap').children().length === 0) {
+                                    $('.showQuestions_wrap').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加問題</h4>');
+                                }
+                            }, 100);
+                        }
+                        //刪除第一頁的提示
+                        //if (vm.allQuestionnaireData.length === 0) {
+                        //    $('#show_question').html('<h4 class="page_desc" style="text-align:center">請點選上方工具列添加頁面</h4>');
+                        //}
                         return false;
                     } else {
                         vm.nowPage--;
@@ -3473,10 +3494,15 @@
                 var delId = $(dom).attr('data-delId');
                 var delVal = $(dom).attr('data-val');
                 var item = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index];
+                var target = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].showLogicCount;
+
                 //判斷是多選或單選跳題
 
                 if (delId == '任意選項' || delId == '文本跳題') {
                     item.showLogicCount = [];
+                    //未設定任何跳題選項
+                    $('#show_logic_content').append('<h4 style="color:#FD6A4F;margin:0">尚未添加跳題設定</h4>')
+
                 } else {
                     if (delId === '多選跳題') {
                         //刪完一筆後index有變化!!
@@ -3485,6 +3511,10 @@
                                 item.showLogicCount.splice(index, 1);
                             }
                         });
+                        //未設定任何跳題選項
+                        if (target.length === 0) {
+                            $('#show_logic_content').append('<h4 style="color:#FD6A4F;margin:0">尚未添加跳題設定</h4>')
+                        }
                     } else {
                         item.options.forEach(function (option) {
                             if (option.id == delId) {
@@ -3498,6 +3528,10 @@
                                 item.showLogicCount.splice(index, 1);
                             }
                         });
+                        //未設定任何跳題選項
+                        if (target.length === 0) {
+                            $('#show_logic_content').append('<h4 style="color:#FD6A4F;margin:0">尚未添加跳題設定</h4>')
+                        }
                     }
 
                 }

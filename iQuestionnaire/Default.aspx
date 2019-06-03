@@ -16,48 +16,55 @@
 
 <asp:Content ID="Bady1" ContentPlaceHolderID="ContentPlaceHolder2" runat="Server">
 
+    <%--<div class="ContentBoxHtml" style="max-width: 600px; height: 400px">
 
+        <div id="api練習">
+        </div>
 
-        <div id="ContentBoxInset">
-            <!--登入-->
-            <div class="ContentBoxHtml" id="login" style="max-width: 600px">
+        <button onclick="createData()">Create</button>
 
-                <div class="ContentBoxHeaderText">登入</div>
+    </div>--%>
 
-                <div style="max-width: 400px; margin: auto; padding: 20px">
-                    <br />
+    <div id="ContentBoxInset">
+        <!--登入-->
+        <div class="ContentBoxHtml" id="login" style="max-width: 600px">
 
-                    <div onclick="$('#LoginAccount').focus()">
-                        <i class="fa fa-user fa-fw"></i>帳號
-                    </div>
-                    <div>
-                        <input id="LoginAccount" type="text" placeholder="輸入..." /><br />
-                        <div class="inputLine"></div>
-                    </div>
-                    <br />
-                    <br />
+            <div class="ContentBoxHeaderText">登入</div>
 
-                    <div onclick="$('#LoginPassword').focus()">
-                        <i class="fa fa-lock fa-fw"></i>密碼
-                    </div>
-                    <div>
-                        <input id="LoginPassword" type="password" placeholder="輸入..." /><br />
-                        <div class="inputLine"></div>
-                    </div>
-                    <br />
-                    <br />
-                    <br />
+            <div style="max-width: 400px; margin: auto; padding: 20px">
+                <br />
 
-                    <button onclick="document.location.href = 'QuestionnaireList.aspx?user=admin'" type="button" class="button btn_miku" style="width: 100%; height: 40px">管理者</button><br />
-                    <br />
-                    <button onclick="document.location.href = 'MyAnnounce.aspx?user=user'" type="button" class="button btn_miku" style="width: 100%; height: 40px">使用者</button><br />
-                    <br />
-
-
+                <div onclick="$('#LoginAccount').focus()">
+                    <i class="fa fa-user fa-fw"></i>帳號
                 </div>
+                <div>
+                    <input id="LoginAccount" type="text" placeholder="輸入..." /><br />
+                    <div class="inputLine"></div>
+                </div>
+                <br />
+                <br />
+
+                <div onclick="$('#LoginPassword').focus()">
+                    <i class="fa fa-lock fa-fw"></i>密碼
+                </div>
+                <div>
+                    <input id="LoginPassword" type="password" placeholder="輸入..." /><br />
+                    <div class="inputLine"></div>
+                </div>
+                <br />
+                <br />
+                <br />
+
+                <button onclick="document.location.href = 'QuestionnaireList.aspx?user=admin'" type="button" class="button btn_miku" style="width: 100%; height: 40px">管理者</button><br />
+                <br />
+                <button onclick="document.location.href = 'MyAnnounce.aspx?user=user'" type="button" class="button btn_miku" style="width: 100%; height: 40px">使用者</button><br />
+                <br />
+
 
             </div>
+
         </div>
+    </div>
 
 
 </asp:Content>

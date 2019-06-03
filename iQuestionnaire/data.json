@@ -1,27 +1,8 @@
 {
   "questionnaire": [
     {
-      "id": "652a3d78-9cf7-487d-b560-69379207c285",
-      "questionnaireTitle": "未設定標題",
-      "questionnaireDesc": "",
-      "questionnaireDeadline": "2019-05-31 00:00",
-      "questionnaireStartTime": "2019-05-30 00:00",
-      "questionnaireDeadlineVal": 1559232000000,
-      "questionnaireStartTimeVal": 1559145600000,
-      "allQuestionnaireData": [
-        {
-          "page": 1,
-          "questionDataPerPage": {
-            "pageDesc": "",
-            "pageQuestionData": []
-          }
-        }
-      ],
-      "repeatAnswer": ""
-    },
-    {
-      "id": "96770a08-e408-4045-b0a9-22aa80837457",
-      "questionnaireTitle": "未設定標題",
+      "id": "7a7aaa5c-0841-4e51-8920-94bc7485d177",
+      "questionnaireTitle": "a",
       "questionnaireDesc": "",
       "questionnaireDeadline": "",
       "questionnaireStartTime": "",
@@ -34,15 +15,107 @@
             "pageDesc": "",
             "pageQuestionData": [
               {
-                "type": "pageDesc",
-                "id": "b46657f7-aaa1-4602-a31b-0816f8ad8ebc",
-                "val": "<p>fddasfdsa</p>\n\n<p>fdsafdsa</p>\n\n<p>fdsfasd</p>\n\n<p>fsdfsadfdsfdasf</p>\n"
+                "type": "checkbox",
+                "id": "b0221aeb-1a0f-45a2-ba6e-4dd2b253e7a5",
+                "questionNum": 1,
+                "title": "a",
+                "options": [
+                  {
+                    "id": "751e2846-6605-4365-843e-eb2c6da1f281",
+                    "val": "1",
+                    "jumpLogic": null,
+                    "optionNum": "甲",
+                    "optionWeight": "0"
+                  },
+                  {
+                    "id": "5b919531-8330-4703-ae2e-01a7c32992a5",
+                    "val": "2",
+                    "jumpLogic": null,
+                    "optionNum": "乙",
+                    "optionWeight": "0"
+                  },
+                  {
+                    "id": "1fa030cf-1798-4049-b63c-83dbb8718531",
+                    "val": "3",
+                    "jumpLogic": null,
+                    "optionNum": "丙",
+                    "optionWeight": "0"
+                  }
+                ],
+                "required": "false",
+                "showLogicCount": [],
+                "isSelect": []
+              },
+              {
+                "type": "checkbox",
+                "id": "8fa60cf4-47f2-40a3-9d3b-fe0a0daf3ecf",
+                "questionNum": 2,
+                "title": "c",
+                "options": [
+                  {
+                    "id": "43e5e36c-0a54-46a2-8612-ca7e2eb0115c",
+                    "val": "1",
+                    "jumpLogic": null,
+                    "optionNum": "甲",
+                    "optionWeight": "0"
+                  },
+                  {
+                    "id": "ac9dd704-5273-4a2c-832a-312994d12c3c",
+                    "val": "2",
+                    "jumpLogic": null,
+                    "optionNum": "乙",
+                    "optionWeight": "0"
+                  },
+                  {
+                    "id": "e94cc5d3-7966-473b-8917-26c7266f900d",
+                    "val": "3",
+                    "jumpLogic": null,
+                    "optionNum": "丙",
+                    "optionWeight": "0"
+                  }
+                ],
+                "required": "false",
+                "showLogicCount": [],
+                "isSelect": []
+              },
+              {
+                "type": "checkbox",
+                "id": "ec6e328a-037f-4c84-a8aa-ae3295d24290",
+                "questionNum": 3,
+                "title": "d",
+                "options": [
+                  {
+                    "id": "2bda42ca-139d-4b9b-927f-5f7ef0eb3092",
+                    "val": "1",
+                    "jumpLogic": null,
+                    "optionNum": "甲",
+                    "optionWeight": "0"
+                  },
+                  {
+                    "id": "6b64161a-7e6c-48ca-aa61-30ab428e97a9",
+                    "val": "2",
+                    "jumpLogic": null,
+                    "optionNum": "乙",
+                    "optionWeight": "0"
+                  },
+                  {
+                    "id": "63835dde-66fd-4870-83c6-8c504bb6c341",
+                    "val": "3",
+                    "jumpLogic": null,
+                    "optionNum": "丙",
+                    "optionWeight": "0"
+                  }
+                ],
+                "required": "false",
+                "showLogicCount": [],
+                "isSelect": []
               }
             ]
           }
         }
       ],
-      "repeatAnswer": ""
+      "repeatAnswer": "",
+      "buildTime": "2019年06月03日 09:59"
     }
   ]
 }

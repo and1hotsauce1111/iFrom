@@ -200,6 +200,17 @@
     flex: 0 0 43%;
 }
 
+/* 邏輯跳題面板 */
+.more_option {
+    display:inline-block;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+    .more_option i {
+        cursor: pointer;
+        padding-right:5px;
+    }
 /* 題次input樣式 */
 .radio_optionNum_input,
 .checkbox_optionNum_input,

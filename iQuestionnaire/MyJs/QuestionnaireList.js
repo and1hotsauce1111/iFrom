@@ -222,6 +222,7 @@
     addQuestionnaire = function () {
         alertBox({
             Mode: 'prompt',
+            Title:'請輸入問卷名稱',
             OnOK: function (Value) {
                 window.sessionStorage.setItem('questionName', Value);
                 window.location.href = 'AddQuestionnire.aspx?surveyId=0';
