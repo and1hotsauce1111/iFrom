@@ -1,0 +1,52 @@
+﻿using System;
+using System.Web;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Collections;
+using PublicFunction;
+using Newtonsoft.Json;
+
+namespace versionTools
+{
+    public class versionGet: System.Web.UI.MasterPage
+    {
+        public string version = "?v=" + DateTime.Now.ToFileTimeUtc();
+        //public string versionFixed = "?v=201811121517";
+        public string versionFixed = "?v=" + DateTime.Now.ToFileTimeUtc();
+
+        //取得登入資訊
+        public Hashtable ht
+        {
+            get
+            {
+                return LoginTools.getSession();
+            }
+        }
+    }
+    public class versionGet2 : System.Web.UI.Page
+    {
+        public string version = "?v=" + DateTime.Now.ToFileTimeUtc();
+        //public string versionFixed = "?v=201811121517";
+        public string versionFixed = "?v=" + DateTime.Now.ToFileTimeUtc();
+
+        //登入狀態出現異常時的轉址位置
+        public string checkErrorPath404 = "~/index.aspx?c=404";  //逾時
+        public string checkErrorPath500 = "~/index.aspx?c=500";  //權限不符
+
+        //取得登入資訊
+        public Hashtable ht
+        {
+            get
+            {
+                return LoginTools.getSession();
+            }
+        }
+
+    }
+}
+
+

@@ -18,7 +18,7 @@
     <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/nprogress.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/autosize.min.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/IncludeJs/linq.min.js")%>"></script>
-    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/vue.js")%>"></script>
+    <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/vue.min.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/lodash.min.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/v-dropdown.js")%>"></script>
     <script type="text/javascript" src="<%=this.ResolveUrl("~/Scripts/v-pager.js")%>"></script>

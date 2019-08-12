@@ -1,0 +1,21 @@
+{
+  "name": "iQuestionnaire_20190418",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "chromedriver": "^74.0.0",
+    "mocha": "^6.1.4",
+    "nightwatch": "^1.1.11",
+    "selenium-standalone": "^6.16.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

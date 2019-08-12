@@ -426,6 +426,7 @@
 
                     vm.allQuestionnaireData.forEach(function (page) {
                         page.questionDataPerPage.pageQuestionData.forEach(function (item) {
+                            
                             if (item.type !== 'textarea') {
                                 answers.answer.push({
                                     questionId: item.id,
@@ -449,7 +450,8 @@
                         .then(function (res) {
                             if (res.data != undefined) {
                                 axios.patch(postAnswer + surveyId, answers).then(function (res) {
-                                    window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
+                                    console.log(res);
+                                    //window.location.href = 'AnswerQuestionnaireList.aspx?user=user';
                                 });
                             }
                         })

@@ -70,10 +70,11 @@
                             //存選項權重
                             $('input.radio_option_weight_input').not(':first').each(function () {
                                 optionWeight.push($(this).val());
+                                console.dir(typeof $(this).val());
                             });
 
                             options.forEach(function (option, index) {
-                                option.optionWeight = optionWeight[index];
+                                option.optionWeight = optionWeight[index];                               
                             });
 
 
@@ -739,7 +740,7 @@
                         });
 
                         $('input.checkbox_option_weight_input').not(':first').each(function () {
-                            optionWeight.push($(this).val());
+                            optionWeight.push($(this).val());                            
                         });
 
                         options.forEach(function (option, index) {
@@ -1849,14 +1850,15 @@
                         data = vm.allQuestionnaireData[vm.nowPage - 1].questionDataPerPage.pageQuestionData[index].val;
 
                         //插入題目
-                        $('#editPageDescVal').val(data);
+                        //$('#editPageDescVal').val(data);
+                        CKEDITOR.instances.editor1.setData(data);
 
                         $('#LoadingBox').hide();
 
                     },
                     OnOK: function () {
 
-                        var newTitle = $('#editPageDescVal').val();
+                        var newTitle = CKEDITOR.instances.editor1.getData();
 
                         var index = $(dom).attr('data-index');
 

@@ -1,0 +1,121 @@
+﻿using System;
+using System.Web;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Data;
+using System.Linq;
+using Newtonsoft.Json;
+using System.Runtime.Serialization.Json;
+using System.Web.SessionState;
+using System.Web.Script.Serialization;
+using System.Collections;
+using System.Runtime.Serialization;
+using Newtonsoft.Json.Serialization;
+using System.Data.SqlClient;
+using System.Configuration;
+using ExtensionMethods;
+using NPOI;
+using NPOI.HPSF;
+using NPOI.HSSF;
+using NPOI.POIFS;
+using NPOI.Util;
+using System.Text;
+using System.Security.Permissions;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
+
+[assembly: SecurityPermissionAttribute(SecurityAction.RequestMinimum, UnmanagedCode = true)]
+[assembly: PermissionSetAttribute(SecurityAction.RequestMinimum, Name = "FullTrust")]
+
+namespace PublicFunction2
+{
+    public static class IdentityTools
+    {
+        //登入
+        [DllImport("advapi32.dll", SetLastError = true)]
+        public static extern bool LogonUser(
+           string lpszUsername,
+           string lpszDomain,
+           string lpszPassword,
+           int dwLogonType,
+           int dwLogonProvider,
+           ref IntPtr phToken);
+        //登出
+        [DllImport("kernel32.dll")]
+        public extern static bool CloseHandle(IntPtr hToken);
+
+        public static FileClass[] FilesLoad()
+        {
+            string UserName = "user";
+            string MachineName = "192.168.1.38";
+            string Pw = "1234";
+            string IPath = @"\\" + MachineName + @"\共備檔案夾";
+            const int LOGON32_PROVIDER_DEFAULT = 0;
+            const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
+
+            IntPtr tokenHandle = new IntPtr(0);
+            tokenHandle = IntPtr.Zero;
+
+            //將登入的Token放在tokenHandle
+            bool returnValue = LogonUser(UserName, MachineName, Pw, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref tokenHandle);
+
+            //讓程式模擬登入的使用者
+            WindowsIdentity w = new WindowsIdentity(tokenHandle);
+            w.Impersonate();
+            if (false == returnValue)
+            {
+                //登入失敗的處理 回傳空的陣列
+                return new List<FileClass>().ToArray();
+            }
+
+            //取得該目錄下的所有檔案名稱
+            string[] FileCollection;
+            string strPath = IPath;
+            FileInfo theFileInfo;
+            List<FileClass> dataList = new List<FileClass>();
+            if (Directory.Exists(strPath))
+            {
+                //若存在則開始擷取檔案
+                FileCollection = Directory.GetFiles(strPath, "*.*");
+                //迴圈塞入名稱跟副檔名
+                for (int i = 0; i < FileCollection.Length; i++)
+                {
+                    theFileInfo = new FileInfo(FileCollection[i]);
+
+                    FileClass data = new FileClass();
+
+                    //data.MatchUid = MatchUid;                                                          //對應資料
+                    data.FilePath = HttpContext.Current.Server.MapPath(strPath);                         //完整路徑
+                    data.FileName = theFileInfo.Name.ToString();                                         //檔案名稱(包含附檔名)
+                    data.FileSize = theFileInfo.Length.ToString();                                       //檔案大小
+                    data.FileExtension = theFileInfo.Extension.ToString().ToLower();                     //副檔名(轉小寫)
+                    data.FileLastWriteTimeUtc = theFileInfo.LastWriteTimeUtc.ToFileTimeUtc().ToString(); //最後一次存取的時間
+
+                    dataList.Add(data);
+                }
+            }
+
+            return dataList.ToArray();
+
+
+        }
+
+
+        //檔案容器格式
+        public class FileClass
+        {
+            public string MatchUid { get; set; }
+            public string FilePath { get; set; }
+            public string FileName { get; set; }
+            public string FileSize { get; set; }
+            public string FileExtension { get; set; }
+            public string FileLastWriteTimeUtc { get; set; }
+        }
+
+
+    }
+}
+
