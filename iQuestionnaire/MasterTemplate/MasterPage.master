@@ -143,8 +143,7 @@
     </asp:ContentPlaceHolder>
 
     <!-- favicon.ico 語法-->
-    <link class="faviconLink" rel="shortcut icon" href="<%=ResolveClientUrl("~/Favicon/Jhenggao.ico")%>" />
-    <link class="faviconLink" rel="bookmark" href="<%=ResolveClientUrl("~/Favicon/Jhenggao.ico")%>" />
+    
 
 </head>
 <body>

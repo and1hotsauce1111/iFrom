@@ -51,7 +51,6 @@
                             <i class="fa fa-bars HeaderBoxMenuBtn" onclick="LeftMenuViewToggle()"></i>
                         </td>
                         <td>
-                            <img class="HeaderBoxLogo" src="<%=ResolveClientUrl("~/Images/Logo.png")%>" />
                         </td>
                         <td>
                             <div class="HeaderBoxUnitsName">
@@ -121,9 +120,7 @@
                     相關宣告資訊
                 </div>
                 <hr />--%>
-                <div class="CopyrightDeclareText">
-                    Copyright&nbsp;<i class="fa fa-copyright"></i>&nbsp;2018&nbsp;Jhenggao.&nbsp;All&nbsp;Rights&nbsp;Reserved
-                </div>
+               
             </div>
         </div>
 
