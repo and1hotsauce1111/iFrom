@@ -2,7 +2,7 @@
 簡易問卷系統
 
 # 使用技術
-Webform + Vue
+ASP.net Webform + Vue
 
 # 功能
 - [x] 編輯問卷 / 填寫問卷
